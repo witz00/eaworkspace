@@ -1,0 +1,44 @@
+- main [ref=e3]:
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - heading "натан поликарпов продуктовый (ui/ux) дизайнер" [level=1] [ref=e7]:
+        - text: натан поликарпов
+        - text: продуктовый (ui/ux)
+        - text: дизайнер
+      - link "написать в телеграм" [ref=e8] [cursor=pointer]:
+        - /url: https://t.me/polnat
+    - generic [ref=e9]:
+      - paragraph [ref=e11] [cursor=pointer]:
+        - text: Мне 19 лет,
+        - text: я студент.обожаю
+        - text: Проектировать
+        - text: приложения, веб-
+        - text: интерфейсы, рисовать красивые картинки.
+        - text: Опыт работы 4 года
+      - generic [ref=e12] [cursor=pointer]:
+        - paragraph [ref=e15]: живу тут
+        - generic: МОСКВА
+      - generic [ref=e16] [cursor=pointer]:
+        - paragraph: занял 3 место в конкурсе на web telegram app от crypto bot
+      - button [ref=e17] [cursor=pointer]
+      - generic [ref=e22] [cursor=pointer]:
+        - generic [ref=e23]: учусь вот тут
+        - paragraph [ref=e24]:
+          - text: The Russian Presidential Academy of National Economy
+          - text: and Public Administration
+        - generic [ref=e25]: на экономиста
+      - button [ref=e26] [cursor=pointer]
+      - button [ref=e28] [cursor=pointer]
+      - button "концепты смотреть" [ref=e33] [cursor=pointer]:
+        - button "концепты смотреть" [ref=e35]:
+          - generic [ref=e36]: концепты
+          - generic [ref=e37]: смотреть
+      - paragraph [ref=e42] [cursor=pointer]:
+        - text: редизайнил страницы крафта
+        - text: и раздачи для genshindrop.com
+      - button [ref=e43] [cursor=pointer]
+      - button "рекламные креативы смотреть" [ref=e45] [cursor=pointer]:
+        - generic [ref=e49]:
+          - button "рекламные креативы" [ref=e50]
+          - button "смотреть"
+      - button [ref=e51] [cursor=pointer]

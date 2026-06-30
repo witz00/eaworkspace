@@ -1,0 +1,21 @@
+- generic [ref=e2]:
+  - list [ref=e4]:
+    - listitem [ref=e5] [cursor=pointer]:
+      - generic [ref=e8]: Знакомство
+    - listitem [ref=e9] [cursor=pointer]:
+      - generic [ref=e12]: Опыт
+    - listitem [ref=e13] [cursor=pointer]:
+      - generic [ref=e16]: Проекты
+    - listitem [ref=e17] [cursor=pointer]:
+      - generic [ref=e20]: Коммуникация
+    - listitem:
+      - generic:
+        - generic: Достижения
+        - generic: Скоро
+  - generic [ref=e24]:
+    - generic [ref=e25]: Знакомство
+    - paragraph [ref=e26]: Привет! 👋 Я Эмиль — UX/UI дизайнер. Проектирую и разрабатываю простые и удобные интерфейсы для веб-приложений и мобильных устройств.
+    - generic [ref=e27]:
+      - paragraph [ref=e28]: Проживаю в городе Ульяновск. Специализируюсь в данном направлении уже около двух лет практического опыта.
+      - link "Написать мне" [ref=e29] [cursor=pointer]:
+        - /url: https://t.me/witz00

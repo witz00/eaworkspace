@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Эмиль Ахтямкин — UX/UI Дизайнер</title>
+  <script>
+    var t = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    var bg = t === 'light' ? '#F5F5F5' : '#111111';
+    document.documentElement.style.background = bg;
+    document.write('<div id="preloader" style="position:fixed;inset:0;background:' + bg + ';z-index:9999;transition:opacity 0.4s ease;"></div>');
+  </script>
+</head>
+<body>
+
+  <!-- Mobile nav overlay -->
+  <div class="m-overlay" id="mOverlay">
+    <div class="m-overlay-panel" id="mOverlayPanel"></div>
+  </div>
+
+  <!-- Mobile bottom bar: визитка + бургер -->
+  <div class="m-bottom-bar">
+    <div class="m-bottom-inner">
+      <div class="avatar-wrap">
+        <img src="/assets/avatar.png" alt="Эмиль Ахтямкин" />
+      </div>
+      <div style="flex:1">
+        <span class="profile-name">Эмиль Ахтямкин</span>
+        <span class="profile-title">UX/UI Дизайнер</span>
+      </div>
+      <button class="m-burger" id="mBurger">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <!-- LEFT SIDEBAR -->
+    <div class="card card-left">
+      <ul class="nav-list" id="navList">
+        <li class="nav-btn active" data-index="0">
+          <div class="dot" style="background: var(--dot-active);"></div>
+          <div class="nav-labels">
+            <span class="nav-primary">Знакомство</span>
+          </div>
+        </li>
+        <li class="nav-btn" data-index="1">
+          <div class="dot" style="background: var(--dot-exp);"></div>
+          <div class="nav-labels">
+            <span class="nav-primary">Опыт</span>
+          </div>
+        </li>
+        <li class="nav-btn" data-index="2">
+          <div class="dot" style="background: var(--dot-proj);"></div>
+          <div class="nav-labels">
+            <span class="nav-primary">Проекты</span>
+          </div>
+        </li>
+        <li class="nav-btn" data-index="3">
+          <div class="dot" style="background: var(--dot-comm);"></div>
+          <div class="nav-labels">
+            <span class="nav-primary">Коммуникация</span>
+          </div>
+        </li>
+        <li class="nav-btn nav-btn--disabled" data-index="4">
+          <div class="dot" style="background: var(--dot-ach);"></div>
+          <div class="nav-labels">
+            <span class="nav-primary">Достижения</span>
+            <span class="nav-secondary">Скоро</span>
+          </div>
+        </li>
+      </ul>
+
+      <button class="theme-toggle" id="themeToggle" aria-label="Сменить тему">
+        <img src="/assets/mode.svg" alt="" class="theme-toggle-icon" />
+      </button>
+    </div>
+
+    <!-- RIGHT CONTENT -->
+    <div class="card card-right">
+      <div id="contentSlot"></div>
+    </div>
+
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+- generic [ref=e36]:
+  - generic [ref=e51]:
+    - button "Открыть полностью" [ref=e54] [cursor=pointer]
+    - generic [ref=e57]:
+      - generic [ref=e58]:
+        - generic [ref=e59]: Ozon Bank
+        - generic [ref=e60]: Instruction for QES
+      - paragraph [ref=e61]: At the business account opening flow, the conversion rate dropped sharply because users had to sign the agreement with a qualified e-signature.
+    - generic [ref=e62]:
+      - generic [ref=e63]:
+        - button "Проекты" [ref=e64] [cursor=pointer]
+        - button "Меню" [ref=e65] [cursor=pointer]
+      - generic [ref=e66]:
+        - generic [ref=e67]: Используй
+        - generic [ref=e68]:
+          - generic [ref=e69] [cursor=pointer]: ←
+          - generic [ref=e70] [cursor=pointer]: →
+        - generic [ref=e71]: для навигации
+  - generic [ref=e44]:
+    - generic [ref=e45]: Используй
+    - generic [ref=e46]:
+      - generic [ref=e47] [cursor=pointer]: ↑
+      - generic [ref=e48] [cursor=pointer]: ↓
+    - generic [ref=e49]: для навигации

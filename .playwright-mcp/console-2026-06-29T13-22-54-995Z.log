@@ -1,0 +1,7 @@
+[  429735ms] TypeError: Cannot read properties of null (reading 'addEventListener')
+    at _bindEvents (http://localhost:5174/src/sections/projects.js?t=1782739804625:91:42)
+    at _render (http://localhost:5174/src/sections/projects.js?t=1782739804625:63:3)
+    at renderProjects (http://localhost:5174/src/sections/projects.js?t=1782739804625:22:3)
+    at http://localhost:5174/src/main.js?t=1782739804625:41:3
+    at Array.map (<anonymous>)
+    at http://localhost:5174/src/main.js?t=1782739804625:38:24

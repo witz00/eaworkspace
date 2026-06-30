@@ -1,0 +1,15 @@
+{
+  "name": "portfolio-v2",
+  "version": "1.0.0",
+  "description": "Портфолио Эмиля Ахтямкина",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "author": "Emil Akhtiyamkin",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^8.0.16"
+  }
+}

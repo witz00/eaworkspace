@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__playwright__browser_navigate",
+      "PowerShell(cd \"C:\\\\Claude-Projects\\\\portfolio v2\" && npm run dev 2>&1 &)"
+    ]
+  }
+}

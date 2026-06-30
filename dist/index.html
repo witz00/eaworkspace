@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Эмиль Ахтямкин — UX/UI Дизайнер</title>
+  <script type="module" crossorigin src="/assets/index-DJoZPZgP.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CmM9howq.css">
+</head>
+<body>
+
+  <div class="layout">
+
+    <!-- LEFT SIDEBAR -->
+    <div class="card card-left">
+      <div class="profile">
+        <div class="avatar-wrap">
+          <img src="/assets/avatar.png" alt="Эмиль Ахтямкин" />
+        </div>
+        <div>
+          <span class="profile-name">Эмиль Ахтямкин</span>
+          <span class="profile-title">UX/UI Дизайнер</span>
+        </div>
+      </div>
+
+      <ul class="nav-list" id="navList">
+        <li class="nav-btn active" data-index="0">
+          <div class="dot" style="background: var(--dot-active);"></div>
+          <div class="nav-labels">
+            <span class="nav-primary">Знакомство</span>
+            <span class="nav-secondary">Обо мне</span>
+          </div>
+        </li>
+        <li class="nav-btn" data-index="1">
+          <div class="dot" style="background: var(--dot-exp);"></div>
+          <div class="nav-labels">
+            <span class="nav-primary">Опыт</span>
+            <span class="nav-secondary">Работа & Учеба</span>
+          </div>
+        </li>
+        <li class="nav-btn" data-index="2">
+          <div class="dot" style="background: var(--dot-proj);"></div>
+          <div class="nav-labels">
+            <span class="nav-primary">Проекты</span>
+            <span class="nav-secondary">Веб & Мобилки</span>
+          </div>
+        </li>
+        <li class="nav-btn" data-index="3">
+          <div class="dot" style="background: var(--dot-comm);"></div>
+          <div class="nav-labels">
+            <span class="nav-primary">Коммуникация</span>
+            <span class="nav-secondary">Соц.сети</span>
+          </div>
+        </li>
+        <li class="nav-btn" data-index="4">
+          <div class="dot" style="background: var(--dot-ach);"></div>
+          <div class="nav-labels">
+            <span class="nav-primary">Достижения</span>
+            <span class="nav-secondary">Скоро</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- RIGHT CONTENT -->
+    <div class="card card-right">
+      <div id="contentSlot"></div>
+
+      <div class="nav-hint">
+        <span class="hint-text">Используй</span>
+        <div class="hint-keys">
+          <div class="key-btn" id="keyUp">↑</div>
+          <div class="key-btn" id="keyDown">↓</div>
+        </div>
+        <span class="hint-text">для навигации</span>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

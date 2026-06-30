@@ -1,0 +1,36 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - list [ref=e5]:
+      - listitem [ref=e6] [cursor=pointer]:
+        - generic [ref=e9]: Знакомство
+      - listitem [ref=e10] [cursor=pointer]:
+        - generic [ref=e13]: Опыт
+      - listitem [ref=e14] [cursor=pointer]:
+        - generic [ref=e17]: Проекты
+      - listitem [ref=e18] [cursor=pointer]:
+        - generic [ref=e21]: Коммуникация
+      - listitem:
+        - generic:
+          - generic: Достижения
+          - generic: Скоро
+    - button "Переключить тему" [ref=e22] [cursor=pointer]
+  - generic [ref=e32]:
+    - generic [ref=e34]:
+      - generic [ref=e36] [cursor=pointer]:
+        - generic [ref=e37]: Ozon Bank
+        - generic [ref=e38]: Instruction for QES
+      - generic [ref=e40] [cursor=pointer]:
+        - generic [ref=e41]: Кейс 2
+        - generic [ref=e42]: В разработке
+      - generic [ref=e44] [cursor=pointer]:
+        - generic [ref=e45]: Кейс 3
+        - generic [ref=e46]: В разработке
+      - generic [ref=e48] [cursor=pointer]:
+        - generic [ref=e49]: Кейс 4
+        - generic [ref=e50]: В разработке
+    - generic [ref=e52]:
+      - generic [ref=e53]:
+        - generic [ref=e54]: Ozon Bank — Instruction for QES
+        - button "Закрыть" [ref=e55] [cursor=pointer]:
+          - img "Закрыть" [ref=e56]
+      - paragraph [ref=e58]: At the business account opening flow, the conversion rate dropped sharply because users had to sign the agreement with a qualified e-signature.
