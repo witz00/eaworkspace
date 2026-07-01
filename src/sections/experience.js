@@ -62,4 +62,12 @@ export function renderExperience(container) {
       </div>
     </div>
   `
+
+  container.querySelectorAll('.exp-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.exp-item')
+      const isOpen = item.classList.toggle('open')
+      btn.setAttribute('aria-expanded', String(isOpen))
+    })
+  })
 }
