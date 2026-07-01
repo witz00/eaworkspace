@@ -45,9 +45,6 @@ export function renderExperience(container) {
                 </div>
               </div>
               <span class="exp-period">${item.period}</span>
-              <button class="exp-toggle" type="button" aria-expanded="false" aria-label="Показать подробности">
-                <img src="/assets/arrow-left.svg" alt="" class="exp-toggle-icon" />
-              </button>
             </div>
             <div class="exp-details">
               <div class="exp-details-inner">
@@ -63,11 +60,9 @@ export function renderExperience(container) {
     </div>
   `
 
-  container.querySelectorAll('.exp-toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.closest('.exp-item')
-      const isOpen = item.classList.toggle('open')
-      btn.setAttribute('aria-expanded', String(isOpen))
+  container.querySelectorAll('.exp-row').forEach(row => {
+    row.addEventListener('click', () => {
+      row.closest('.exp-item').classList.toggle('open')
     })
   })
 }

@@ -257,9 +257,9 @@ body {
 }
 
 .theme-toggle-label {
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 400;
-  color: var(--white);
+  color: var(--muted);
 }
 
 .theme-switch {

@@ -1,7 +1,7 @@
 const cases = [
   {
     title: 'В разработке',
-    company: 'Кейс 1',
+    company: 'TripTap: Cервис для покупки авиабилетов',
     description: '',
     wip: true,
   },
@@ -38,7 +38,7 @@ export function renderProjects(container) {
         <div class="proj-crumb">
           <button class="proj-crumb-link" type="button">Проекты</button>
           <span class="proj-crumb-sep">/</span>
-          <button class="proj-crumb-link" type="button">${c.company}</button>
+          <span class="proj-crumb-current">${c.company}</span>
         </div>
         <div class="proj-case-body">
           <p>${c.title}</p>
