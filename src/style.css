@@ -256,8 +256,6 @@ body {
   align-self: flex-start;
 }
 
-.theme-toggle:hover  { background: var(--border); }
-
 .theme-toggle-label {
   font-size: 16px;
   font-weight: 400;
