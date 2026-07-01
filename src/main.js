@@ -60,7 +60,18 @@ document.addEventListener('keydown', e => {
 
 // ── Theme toggle ──
 const themeToggle = document.getElementById('themeToggle')
+const themeToggleLabel = document.getElementById('themeToggleLabel')
+const themeSwitch = document.getElementById('themeSwitch')
+
+function updateThemeToggleUI(theme) {
+  const isDark = theme !== 'light'
+  themeToggleLabel.textContent = isDark ? 'Тёмная тема' : 'Светлая тема'
+  themeSwitch.classList.toggle('on', isDark)
+}
+
 if (themeToggle) {
+  updateThemeToggleUI(document.documentElement.getAttribute('data-theme') || 'dark')
+
   themeToggle.addEventListener('click', () => {
     const prevTheme = document.documentElement.getAttribute('data-theme') || 'dark'
     const next = prevTheme === 'dark' ? 'light' : 'dark'
@@ -69,6 +80,7 @@ if (themeToggle) {
     document.head.appendChild(style)
     document.documentElement.setAttribute('data-theme', next)
     localStorage.setItem('theme', next)
+    updateThemeToggleUI(next)
     requestAnimationFrame(() => style.remove())
   })
 }
