@@ -1,4 +1,0 @@
-[  284764ms] TypeError: Cannot read properties of null (reading 'addEventListener')
-    at http://localhost:5174/src/main.js?t=1782743426363:24:39
-[  296736ms] TypeError: Cannot read properties of null (reading 'addEventListener')
-    at http://localhost:5174/src/main.js?t=1782743426363:24:39
