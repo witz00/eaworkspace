@@ -683,13 +683,23 @@ body {
 .exp-list {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 8px;
+}
+
+.exp-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.exp-item + .exp-item {
+  margin-top: 32px;
 }
 
 .exp-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
 }
 
 .exp-left {
@@ -746,6 +756,69 @@ body {
   white-space: nowrap;
 }
 
+.exp-toggle {
+  background: var(--btn-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.5s;
+}
+
+.exp-toggle:hover { background: var(--border); }
+
+.exp-toggle-icon {
+  width: 20px;
+  height: 20px;
+  filter: var(--icon-filter);
+  transform: rotate(-90deg);
+  transition: transform 0.3s;
+}
+
+.exp-item.open .exp-toggle-icon {
+  transform: rotate(90deg);
+}
+
+.exp-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.exp-item.open .exp-details {
+  grid-template-rows: 1fr;
+}
+
+.exp-details-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.exp-duties {
+  padding-top: 20px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--body-text);
+}
+
+.exp-achievements {
+  margin-top: 12px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exp-achievements li {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--body-text);
+}
 
 /* ── Mobile burger & bottom bar (always hidden on desktop) ── */
 .m-topbar,
@@ -931,11 +1004,14 @@ body {
 
   /* ── Experience ── */
   .exp-list { gap: 24px; }
-  .exp-row  { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .exp-item + .exp-item { margin-top: 24px; }
+  .exp-row  { flex-direction: column; align-items: flex-start; gap: 8px; position: relative; }
   .exp-left { gap: 14px; }
   .exp-logo { width: 48px; height: 48px; }
   .exp-company { font-size: 18px; }
   .exp-role    { font-size: 15px; }
+  .exp-toggle  { position: absolute; top: 0; right: 0; }
+  .exp-duties, .exp-achievements li { font-size: 15px; }
   .exp-period  { font-size: 14px; white-space: normal; }
 
   /* ── Projects ── */
