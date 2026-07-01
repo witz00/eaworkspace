@@ -1,5 +1,3 @@
-import { sfx } from '../sounds.js'
-
 const cases = [
   {
     title: 'В разработке',
@@ -16,53 +14,42 @@ const cases = [
 ]
 
 export function renderProjects(container) {
-  container.innerHTML = `
-    <div class="content-area proj-grid-area">
-      <span class="section-label">Проекты</span>
-      <div class="proj-grid">
-        ${cases.map((_, i) => `<div class="proj-grid-card" data-index="${i}"></div>`).join('')}
-      </div>
-    </div>
-  `
-
-  const overlay = document.createElement('div')
-  overlay.className = 'proj-modal-overlay'
-  overlay.style.display = 'none'
-  overlay.innerHTML = `
-    <div class="proj-modal">
-      <div class="proj-modal-header">
-        <div class="proj-modal-titles">
-          <span id="projModalTitle"></span>
-          <span id="projModalSubtitle"></span>
+  function renderGrid() {
+    container.innerHTML = `
+      <div class="content-area proj-grid-area">
+        <span class="section-label">Проекты</span>
+        <div class="proj-grid">
+          ${cases.map((_, i) => `<div class="proj-grid-card" data-index="${i}"></div>`).join('')}
         </div>
-        <button class="proj-modal-close" id="projModalClose">
-          <img src="/assets/close.svg" alt="Закрыть" class="theme-toggle-icon" />
-        </button>
       </div>
-      <div class="proj-modal-body" id="projModalBody"></div>
-    </div>
-  `
-  document.body.appendChild(overlay)
+    `
 
-  const modalTitle    = overlay.querySelector('#projModalTitle')
-  const modalSubtitle = overlay.querySelector('#projModalSubtitle')
-  const modalBody     = overlay.querySelector('#projModalBody')
-
-  overlay.querySelector('#projModalClose').addEventListener('click', () => {
-    overlay.style.display = 'none'
-  })
-  overlay.addEventListener('click', e => {
-    if (e.target === overlay) overlay.style.display = 'none'
-  })
-
-  container.querySelectorAll('.proj-grid-card').forEach((card, i) => {
-    card.addEventListener('click', () => {
-      const c = cases[i]
-      sfx.pop()
-      modalTitle.textContent = c.company
-      modalSubtitle.textContent = c.title
-      modalBody.innerHTML = c.description ? `<p>${c.description}</p>` : ''
-      overlay.style.display = 'flex'
+    container.querySelectorAll('.proj-grid-card').forEach(card => {
+      card.addEventListener('click', () => {
+        renderCase(+card.dataset.index)
+      })
     })
-  })
+  }
+
+  function renderCase(i) {
+    const c = cases[i]
+    container.innerHTML = `
+      <div class="content-area proj-grid-area">
+        <div class="proj-crumb">
+          <button class="proj-crumb-link" type="button">Проекты</button>
+          <span class="proj-crumb-sep">/</span>
+          <button class="proj-crumb-link" type="button">${c.company}</button>
+        </div>
+        <div class="proj-case-body">
+          <p>${c.title}</p>
+        </div>
+      </div>
+    `
+
+    container.querySelectorAll('.proj-crumb-link').forEach(link => {
+      link.addEventListener('click', renderGrid)
+    })
+  }
+
+  renderGrid()
 }
