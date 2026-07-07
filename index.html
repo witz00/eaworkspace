@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0D0D0D" id="theme-color-meta">
   <title>eaworkspace</title>
   <link rel="icon" href="favicon.webp" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +13,7 @@
   <script>
     if (localStorage.getItem('theme') === 'light') {
       document.documentElement.classList.add('light-theme');
+      document.getElementById('theme-color-meta').setAttribute('content', '#FAFAF8');
     }
   </script>
 </head>

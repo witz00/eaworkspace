@@ -5,12 +5,17 @@ if (projectsCount) {
 
 const themeToggles = document.querySelectorAll('#theme-toggle, #theme-toggle-footer');
 
+const themeColorMeta = document.getElementById('theme-color-meta');
+
 function applyTheme(isLight) {
   document.documentElement.classList.toggle('light-theme', isLight);
   themeToggles.forEach(t => {
     t.classList.toggle('on', isLight);
     t.setAttribute('aria-pressed', String(isLight));
   });
+  if (themeColorMeta) {
+    themeColorMeta.setAttribute('content', isLight ? '#FAFAF8' : '#0D0D0D');
+  }
 }
 
 applyTheme(localStorage.getItem('theme') === 'light');
