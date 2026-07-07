@@ -1,5 +1,6 @@
 html {
   scroll-behavior: smooth;
+  background: var(--bg);
 }
 
 @media (pointer: fine) {
@@ -115,7 +116,7 @@ body::before {
   top: 0;
   left: 0;
   right: 0;
-  height: calc(var(--space-4) * 2 + 32px);
+  height: calc(var(--space-4) * 2 + 32px + env(safe-area-inset-top));
   background: rgba(var(--bg-rgb), 1);
   z-index: 99;
   pointer-events: none;
