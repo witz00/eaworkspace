@@ -3,19 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0D0D0D" id="theme-color-meta">
+  <meta name="theme-color" content="#000000" id="theme-color-meta">
   <title>eaworkspace</title>
   <link rel="icon" href="favicon.webp" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script>
     if (localStorage.getItem('theme') === 'light') {
       document.documentElement.classList.add('light-theme');
-      document.getElementById('theme-color-meta').setAttribute('content', '#FAFAF8');
-    }
-  </script>
+      document.getElementById('theme-color-meta').setAttribute('content', '#FFFFFF');
+    }  </script>
 </head>
 <body>
   <div class="nav-bar">
@@ -24,15 +23,18 @@
       <span></span><span></span>
     </button>
     <div class="nav-links">
-      <a class="nav-item touch-link" href="mailto:e.akhtyamkin@gmail.com">ПОЧТА<svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 1088 1088" width="8" height="8" fill="currentColor"><g transform="translate(0, 960) scale(1, -1)"><path d="M962.406-74.747l-962.406 962.406 51.008 51.008 962.406-962.406zM1024-85.333h-697.744v72.18h625.564v625.564h72.18z"/></g></svg></a>
-      <a class="nav-item touch-link" href="#">РЕЗЮМЕ<svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 1088 1088" width="8" height="8" fill="currentColor"><g transform="translate(0, 960) scale(1, -1)"><path d="M962.406-74.747l-962.406 962.406 51.008 51.008 962.406-962.406zM1024-85.333h-697.744v72.18h625.564v625.564h72.18z"/></g></svg></a>
-      <a class="nav-item touch-link" href="https://t.me/witz00" target="_blank" rel="noopener">НАПИСАТЬ МНЕ<svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 1088 1088" width="8" height="8" fill="currentColor"><g transform="translate(0, 960) scale(1, -1)"><path d="M962.406-74.747l-962.406 962.406 51.008 51.008 962.406-962.406zM1024-85.333h-697.744v72.18h625.564v625.564h72.18z"/></g></svg></a>
+      <div class="nav-links-center">
+        <a class="nav-item touch-link" href="mailto:e.akhtyamkin@gmail.com">ПОЧТА</a>
+        <span class="nav-sep" aria-hidden="true">/</span>
+        <a class="nav-item touch-link" href="index.html#projects">МОИ ПРОЕКТЫ</a>
+        <span class="nav-sep" aria-hidden="true">/</span>
+        <a class="nav-item touch-link" href="#">РЕЗЮМЕ</a>
+      </div>
       <button class="theme-switch" id="theme-toggle" aria-label="Переключить светлую тему" aria-pressed="false" type="button">
         <span class="theme-switch-thumb"></span>
       </button>
     </div>
-  </div>
-  <div class="container">
+  </div>  <div class="container">
     <div class="case-block">
       <h1 class="case-title">Dental Care</h1>
       <div class="case-hero"></div>
@@ -53,29 +55,40 @@
     </div>
     <div class="case-block">
       <div class="case-section">
-        <h2 class="case-section-title">Обзор</h2>
-        <p class="case-section-text">Концепт мобильного приложения для стоматологической клиники, спроектированный с нуля с упором на интуитивно понятный MVP-опыт, отвечающий современным стандартам доступности.</p>
-      </div>
-      <div class="case-image"></div>
-    </div>
-    <div class="case-block">
-      <div class="case-section">
-        <h2 class="case-section-title">Задача</h2>
-        <p class="case-section-text">Запись к стоматологу часто оказывается запутанной и долгой. Цель — спроектировать понятную информационную архитектуру, которая сокращает путь до целевого действия.</p>
-      </div>
-      <div class="case-image-row">
-        <div class="case-image"></div>
-        <div class="case-image"></div>
+        <h2 class="case-section-title">Аудитория</h2>
+        <p class="case-section-text">Основной сегмент — городские жители 25–45 лет, откладывающие визит к стоматологу из-за неудобной записи по телефону. Вторичный сегмент — родители, записывающие детей и нуждающиеся в быстром выборе времени без лишних звонков.</p>
       </div>
     </div>
     <div class="case-block">
       <div class="case-section">
-        <h2 class="case-section-title">Результат</h2>
-        <p class="case-section-text">Сформировал две прото-персоны и адаптировал интерфейс под их потребности, разработал дизайн-систему для визуальной согласованности и подготовил быстрый, доступный MVP.</p>
+        <h2 class="case-section-title">Конкуренты</h2>
+        <p class="case-section-text">Разобрал ДокДок, ПроДокторов и YClients. Общие проблемы: запись скрыта за фильтрами вместо календаря, обязательная регистрация до брони и перегруженная карточка врача, из-за которой теряется главное действие — выбор слота.</p>
+      </div>
+    </div>
+    <div class="case-block">
+      <div class="case-section">
+        <h2 class="case-section-title">Гипотезы</h2>
+        <ol class="case-list">
+          <li class="case-list-item"><span class="case-list-index">H1</span><span class="case-list-text">Если сократить запись до 3 шагов, конверсия в бронирование вырастет.</span></li>
+          <li class="case-list-item"><span class="case-list-index">H2</span><span class="case-list-text">Если показывать свободные слоты сразу на календаре, а не через отдельные фильтры, время до записи сократится.</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="case-block">
+      <div class="case-section">
+        <h2 class="case-section-title">Путь пользователя</h2>
+        <ol class="case-list">
+          <li class="case-list-item"><span class="case-list-index">01</span><span class="case-list-text">Открывает приложение и выбирает услугу</span></li>
+          <li class="case-list-item"><span class="case-list-index">02</span><span class="case-list-text">Видит свободные слоты на календаре без фильтров</span></li>
+          <li class="case-list-item"><span class="case-list-index">03</span><span class="case-list-text">Подтверждает запись без обязательной регистрации</span></li>
+          <li class="case-list-item"><span class="case-list-index">04</span><span class="case-list-text">Получает напоминание перед визитом</span></li>
+        </ol>
       </div>
     </div>
   </div>
-  <div class="cursor-ring" id="cursor-ring"></div>
+  <div class="site-copyright">© 2026 Emil Akhtyamkin</div>
+  <div class="site-clock" id="site-clock"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
   <script src="script.js"></script>
 </body>
 </html>

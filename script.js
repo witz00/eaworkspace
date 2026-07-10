@@ -3,6 +3,45 @@ if (projectsCount) {
   projectsCount.textContent = '(' + document.querySelectorAll('.project-item').length + ')';
 }
 
+// Live ticking clock showing the visitor's own local time and UTC offset
+const siteClock = document.getElementById('site-clock');
+if (siteClock) {
+  function updateSiteClock() {
+    const time = new Intl.DateTimeFormat('ru-RU', {
+      timeZone: 'Europe/Moscow',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    }).format(new Date());
+    siteClock.textContent = time;
+  }
+
+  updateSiteClock();
+  setInterval(updateSiteClock, 1000);
+}
+
+// Snap only when close (30-40px) to the page-overlay boundary, otherwise scroll stays free
+let isProgrammaticScroll = false;
+let programmaticScrollTimeout;
+const pageOverlay = document.querySelector('.page-overlay');
+if (pageOverlay && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const SNAP_THRESHOLD = 40;
+  let snapScrollTimeout;
+
+  window.addEventListener('scroll', () => {
+    if (isProgrammaticScroll) return;
+    clearTimeout(snapScrollTimeout);
+    snapScrollTimeout = setTimeout(() => {
+      if (isProgrammaticScroll) return;
+      const overlayTop = pageOverlay.getBoundingClientRect().top;
+      if (overlayTop !== 0 && Math.abs(overlayTop) < SNAP_THRESHOLD) {
+        window.scrollBy({ top: overlayTop, behavior: 'smooth' });
+      }
+    }, 120);
+  }, { passive: true });
+}
+
 const themeToggles = document.querySelectorAll('#theme-toggle, #theme-toggle-footer');
 
 const themeColorMeta = document.getElementById('theme-color-meta');
@@ -14,7 +53,7 @@ function applyTheme(isLight) {
     t.setAttribute('aria-pressed', String(isLight));
   });
   if (themeColorMeta) {
-    themeColorMeta.setAttribute('content', isLight ? '#FAFAF8' : '#0D0D0D');
+    themeColorMeta.setAttribute('content', isLight ? '#FFFFFF' : '#000000');
   }
 }
 
@@ -64,56 +103,21 @@ if (navBurger && navLinks) {
   });
 }
 
-// Custom eased smooth scroll (softer than the native scroll-behavior easing)
-function easeInOutCubic(t) {
-  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-}
+// Custom cursor: a single dot that follows the pointer precisely
+const cursorDot = document.getElementById('cursor-dot');
 
-function smoothScrollTo(targetY, duration = 900) {
-  const startY = window.scrollY;
-  const distance = targetY - startY;
-  const startTime = performance.now();
-
-  function step(now) {
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    window.scrollTo(0, startY + distance * easeInOutCubic(progress));
-    if (progress < 1) requestAnimationFrame(step);
-  }
-
-  requestAnimationFrame(step);
-}
-
-// Custom cursor: a single ring that eases toward the pointer with an invert (negative) blend
-const cursorRing = document.getElementById('cursor-ring');
-
-if (cursorRing && window.matchMedia('(pointer: fine)').matches) {
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let ringX = mouseX;
-  let ringY = mouseY;
-
+if (cursorDot && window.matchMedia('(pointer: fine)').matches) {
   window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+    cursorDot.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
   });
-
-  function animateRing() {
-    ringX += (mouseX - ringX) * 0.2;
-    ringY += (mouseY - ringY) * 0.2;
-    cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
 
   document.querySelectorAll('a, button').forEach(el => {
     el.addEventListener('mouseenter', () => {
-      cursorRing.classList.add('hover');
+      cursorDot.classList.add('hover');
       playHoverSound();
     });
-    el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+    el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover'));
   });
-
 }
 
 // Click / hover sounds (real audio files, kept quiet and non-blocking)
@@ -136,16 +140,12 @@ document.addEventListener('click', (e) => {
   if (e.target.closest('a, button')) playClickSound();
 });
 
-document.querySelectorAll('a[href*="#"]').forEach(link => {
-  link.addEventListener('click', (e) => {
-    const url = new URL(link.href, window.location.href);
-    const hash = url.hash;
-    if (!hash) return;
-    const isSamePage = url.pathname === window.location.pathname;
-    const target = document.querySelector(hash);
-    if (isSamePage && target) {
-      e.preventDefault();
-      smoothScrollTo(target.getBoundingClientRect().top + window.scrollY);
-    }
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', () => {
+    isProgrammaticScroll = true;
+    clearTimeout(programmaticScrollTimeout);
+    programmaticScrollTimeout = setTimeout(() => {
+      isProgrammaticScroll = false;
+    }, 900);
   });
 });

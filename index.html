@@ -3,19 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0D0D0D" id="theme-color-meta">
+  <meta name="theme-color" content="#000000" id="theme-color-meta">
   <title>eaworkspace</title>
   <link rel="icon" href="favicon.webp" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script>
     if (localStorage.getItem('theme') === 'light') {
       document.documentElement.classList.add('light-theme');
-      document.getElementById('theme-color-meta').setAttribute('content', '#FAFAF8');
-    }
-  </script>
+      document.getElementById('theme-color-meta').setAttribute('content', '#FFFFFF');
+    }  </script>
 </head>
 <body id="home">
   <div class="nav-bar">
@@ -24,43 +23,59 @@
       <span></span><span></span>
     </button>
     <div class="nav-links">
-      <a class="nav-item touch-link" href="mailto:e.akhtyamkin@gmail.com">ПОЧТА<svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 1088 1088" width="8" height="8" fill="currentColor"><g transform="translate(0, 960) scale(1, -1)"><path d="M962.406-74.747l-962.406 962.406 51.008 51.008 962.406-962.406zM1024-85.333h-697.744v72.18h625.564v625.564h72.18z"/></g></svg></a>
-      <a class="nav-item touch-link" href="#">РЕЗЮМЕ<svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 1088 1088" width="8" height="8" fill="currentColor"><g transform="translate(0, 960) scale(1, -1)"><path d="M962.406-74.747l-962.406 962.406 51.008 51.008 962.406-962.406zM1024-85.333h-697.744v72.18h625.564v625.564h72.18z"/></g></svg></a>
-      <a class="nav-item touch-link" href="https://t.me/witz00" target="_blank" rel="noopener">НАПИСАТЬ МНЕ<svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 1088 1088" width="8" height="8" fill="currentColor"><g transform="translate(0, 960) scale(1, -1)"><path d="M962.406-74.747l-962.406 962.406 51.008 51.008 962.406-962.406zM1024-85.333h-697.744v72.18h625.564v625.564h72.18z"/></g></svg></a>
+      <div class="nav-links-center">
+        <a class="nav-item touch-link" href="mailto:e.akhtyamkin@gmail.com">ПОЧТА</a>
+        <span class="nav-sep" aria-hidden="true">/</span>
+        <a class="nav-item touch-link" href="#projects">МОИ ПРОЕКТЫ</a>
+        <span class="nav-sep" aria-hidden="true">/</span>
+        <a class="nav-item touch-link" href="#">РЕЗЮМЕ</a>
+      </div>
       <button class="theme-switch" id="theme-toggle" aria-label="Переключить светлую тему" aria-pressed="false" type="button">
         <span class="theme-switch-thumb"></span>
       </button>
     </div>
-  </div>
-  <div class="container">
+  </div>  <div class="container">
     <div class="bottom">
       <div class="about-text">
-        <span class="nav-item">ЭМИЛЬ АХТЯМКИН</span>
-        <p class="about-description">Продуктовый дизайнер, специализируюсь на проектировании mobile &amp; web-приложений на основе исследований.</p>
-      </div>
-    </div>
-    <div class="project-list" id="projects">
-      <div class="project-item">
-        <a class="project-preview" href="dental-care.html">
-          <video id="preview-dental-care" class="project-preview-video" src="https://mishanaer.com/content/smart-home.mp4" autoplay loop muted playsinline></video>
-        </a>
-        <div class="project-info">
-          <span class="project-title">Dental Care</span>
-          <span class="project-meta">Мобильное приложение, 2024</span>
+        <div class="about-description-wrap">
+        <p class="about-description">
+          <span class="ghost-text" aria-hidden="true">
+            <span class="ghost-line">Привет, я Эмиль.</span>
+            <span class="ghost-line">Продуктовый</span>
+            <span class="ghost-line">дизайнер с опытом</span>
+            <span class="ghost-line">2+ года, проектирую</span>
+            <span class="ghost-line">мобильные и</span>
+            <span class="ghost-line">веб-интерфейсы.</span>
+          </span>
+          <span class="type-line type-line-1">Привет, я Эмиль.</span>
+          <span class="type-line type-line-2">Продуктовый</span>
+          <span class="type-line type-line-3">дизайнер с опытом</span>
+          <span class="type-line type-line-4">2+ года, проектирую</span>
+          <span class="type-line type-line-5">мобильные и</span>
+          <span class="type-line type-line-6">веб-интерфейсы.<span class="typing-caret"></span></span>
+        </p>
         </div>
       </div>
-      <div class="project-item">
-        <a class="project-preview" href="triptap.html">
-          <img id="preview-triptap" class="project-preview-video" src="triptap-preview.jpg" alt="TripTap preview">
-        </a>
-        <div class="project-info">
-          <span class="project-title">TripTap</span>
-          <span class="project-meta">Мобильное приложение, 2026</span>
+      <a class="hero-cta" href="https://t.me/witz00" target="_blank" rel="noopener">НАПИСАТЬ МНЕ</a>
+    </div>
+    <section class="page-overlay" id="projects">
+      <div class="proj-grid">
+        <div class="proj-item">
+          <a class="proj-card" href="dental-care.html" aria-label="Открыть кейс Dental Care"></a>
+          <p class="proj-pitch"><span class="proj-title">DentaCare</span> — приложение для клиники стоматологии</p>
+          <span class="proj-meta">Мобильное приложение, 2024</span>
+        </div>
+        <div class="proj-item">
+          <a class="proj-card" href="triptap.html" aria-label="Открыть кейс TripTap"></a>
+          <p class="proj-pitch"><span class="proj-title">TripTap</span> — приложение для бронирования авиабилетов</p>
+          <span class="proj-meta">Мобильное приложение, 2025</span>
         </div>
       </div>
-    </div>
+    </section>
   </div>
-  <div class="cursor-ring" id="cursor-ring"></div>
+  <div class="site-copyright">© 2026 Emil Akhtyamkin</div>
+  <div class="site-clock" id="site-clock"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
   <script src="script.js"></script>
 </body>
 </html>

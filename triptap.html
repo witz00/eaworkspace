@@ -3,19 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0D0D0D" id="theme-color-meta">
+  <meta name="theme-color" content="#000000" id="theme-color-meta">
   <title>eaworkspace</title>
   <link rel="icon" href="favicon.webp" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script>
     if (localStorage.getItem('theme') === 'light') {
       document.documentElement.classList.add('light-theme');
-      document.getElementById('theme-color-meta').setAttribute('content', '#FAFAF8');
-    }
-  </script>
+      document.getElementById('theme-color-meta').setAttribute('content', '#FFFFFF');
+    }  </script>
 </head>
 <body>
   <div class="nav-bar">
@@ -24,15 +23,18 @@
       <span></span><span></span>
     </button>
     <div class="nav-links">
-      <a class="nav-item touch-link" href="mailto:e.akhtyamkin@gmail.com">ПОЧТА<svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 1088 1088" width="8" height="8" fill="currentColor"><g transform="translate(0, 960) scale(1, -1)"><path d="M962.406-74.747l-962.406 962.406 51.008 51.008 962.406-962.406zM1024-85.333h-697.744v72.18h625.564v625.564h72.18z"/></g></svg></a>
-      <a class="nav-item touch-link" href="#">РЕЗЮМЕ<svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 1088 1088" width="8" height="8" fill="currentColor"><g transform="translate(0, 960) scale(1, -1)"><path d="M962.406-74.747l-962.406 962.406 51.008 51.008 962.406-962.406zM1024-85.333h-697.744v72.18h625.564v625.564h72.18z"/></g></svg></a>
-      <a class="nav-item touch-link" href="https://t.me/witz00" target="_blank" rel="noopener">НАПИСАТЬ МНЕ<svg class="nav-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 1088 1088" width="8" height="8" fill="currentColor"><g transform="translate(0, 960) scale(1, -1)"><path d="M962.406-74.747l-962.406 962.406 51.008 51.008 962.406-962.406zM1024-85.333h-697.744v72.18h625.564v625.564h72.18z"/></g></svg></a>
+      <div class="nav-links-center">
+        <a class="nav-item touch-link" href="mailto:e.akhtyamkin@gmail.com">ПОЧТА</a>
+        <span class="nav-sep" aria-hidden="true">/</span>
+        <a class="nav-item touch-link" href="index.html#projects">МОИ ПРОЕКТЫ</a>
+        <span class="nav-sep" aria-hidden="true">/</span>
+        <a class="nav-item touch-link" href="#">РЕЗЮМЕ</a>
+      </div>
       <button class="theme-switch" id="theme-toggle" aria-label="Переключить светлую тему" aria-pressed="false" type="button">
         <span class="theme-switch-thumb"></span>
       </button>
     </div>
-  </div>
-  <div class="container">
+  </div>  <div class="container">
     <div class="case-block">
       <h1 class="case-title">TripTap</h1>
       <div class="case-hero"></div>
@@ -53,29 +55,40 @@
     </div>
     <div class="case-block">
       <div class="case-section">
-        <h2 class="case-section-title">Обзор</h2>
-        <p class="case-section-text">Полноценный концепт приложения для бронирования авиабилетов на 50+ экранов с проверенным, основанным на исследованиях пользовательским сценарием.</p>
-      </div>
-      <div class="case-image"></div>
-    </div>
-    <div class="case-block">
-      <div class="case-section">
-        <h2 class="case-section-title">Задача</h2>
-        <p class="case-section-text">Конкурентный анализ и глубинные интервью с целевой аудиторией выявили узкие места в существующих сценариях бронирования, требующие более понятного и быстрого пути.</p>
-      </div>
-      <div class="case-image-row">
-        <div class="case-image"></div>
-        <div class="case-image"></div>
+        <h2 class="case-section-title">Аудитория</h2>
+        <p class="case-section-text">Активные путешественники 22–38 лет, часто летающие внутри страны и за рубеж, для которых скорость оформления важнее визуальных деталей. Ценят прозрачность цены и минимум лишних шагов перед оплатой.</p>
       </div>
     </div>
     <div class="case-block">
       <div class="case-section">
-        <h2 class="case-section-title">Результат</h2>
-        <p class="case-section-text">Подготовил интерактивный Lo-Fi прототип, проработал визуальную концепцию и спроектировал MVP с единой дизайн-системой для быстрой сборки экранов.</p>
+        <h2 class="case-section-title">Конкуренты</h2>
+        <p class="case-section-text">Разобрал Aviasales, Skyscanner и S7. Общие проблемы: перегруженные фильтры на старте поиска, долгий чекаут в несколько экранов и непрозрачное отображение багажа и тарифа до последнего шага оплаты.</p>
+      </div>
+    </div>
+    <div class="case-block">
+      <div class="case-section">
+        <h2 class="case-section-title">Гипотезы</h2>
+        <ol class="case-list">
+          <li class="case-list-item"><span class="case-list-index">H1</span><span class="case-list-text">Если объединить выбор тарифа и багажа на одном экране, доля отказов на чекауте снизится.</span></li>
+          <li class="case-list-item"><span class="case-list-index">H2</span><span class="case-list-text">Если показывать динамику цены на билет, доверие к моменту покупки вырастет.</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="case-block">
+      <div class="case-section">
+        <h2 class="case-section-title">Путь пользователя</h2>
+        <ol class="case-list">
+          <li class="case-list-item"><span class="case-list-index">01</span><span class="case-list-text">Ищет направление и даты вылета</span></li>
+          <li class="case-list-item"><span class="case-list-index">02</span><span class="case-list-text">Сравнивает тарифы с сразу видимым составом багажа</span></li>
+          <li class="case-list-item"><span class="case-list-index">03</span><span class="case-list-text">Выбирает тариф и оформляет пассажиров</span></li>
+          <li class="case-list-item"><span class="case-list-index">04</span><span class="case-list-text">Оплачивает и получает билет в кошельке приложения</span></li>
+        </ol>
       </div>
     </div>
   </div>
-  <div class="cursor-ring" id="cursor-ring"></div>
+  <div class="site-copyright">© 2026 Emil Akhtyamkin</div>
+  <div class="site-clock" id="site-clock"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
   <script src="script.js"></script>
 </body>
 </html>
