@@ -390,18 +390,49 @@ body {
 .type-line-1 { animation-name: type-line-1; }
 .type-line-2 { animation-name: type-line-2; }
 .type-line-3 { animation-name: type-line-3; }
-.type-line-4 { animation-name: type-line-4; }
-.type-line-5 { animation-name: type-line-5; }
-.type-line-6 { animation-name: type-line-6; }
+.type-line-m1 { animation-name: type-line-m1; }
+.type-line-m2 { animation-name: type-line-m2; }
+.type-line-m3 { animation-name: type-line-m3; }
+.type-line-m4 { animation-name: type-line-m4; }
+.type-line-m5 { animation-name: type-line-m5; }
+.type-line-m6 { animation-name: type-line-m6; }
 
+/* Desktop: 3 lines (16 / 38 / 39 chars) */
 @keyframes type-line-1 {
+  0%   { clip-path: inset(0 100% 0 0); animation-timing-function: steps(16, end); }
+  10%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  83%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(16, end); }
+  90%  { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 100% 0 0); }
+}
+
+@keyframes type-line-2 {
+  0%   { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
+  10%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(38, end); }
+  27%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  66%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(38, end); }
+  83%  { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 100% 0 0); }
+}
+
+@keyframes type-line-3 {
+  0%   { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
+  27%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(39, end); }
+  38%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  60%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(39, end); }
+  66%  { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 100% 0 0); }
+}
+
+/* Mobile: 6 shorter lines (16 / 11 / 17 / 19 / 11 / 16 chars) */
+@keyframes type-line-m1 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(16, end); }
   6.76%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
   96.98% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(16, end); }
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
-@keyframes type-line-2 {
+@keyframes type-line-m2 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
   6.76%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(11, end); }
   11.4%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
@@ -410,7 +441,7 @@ body {
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
-@keyframes type-line-3 {
+@keyframes type-line-m3 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
   11.4%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(17, end); }
   18.58% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
@@ -419,7 +450,7 @@ body {
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
-@keyframes type-line-4 {
+@keyframes type-line-m4 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
   18.58% { clip-path: inset(0 100% 0 0); animation-timing-function: steps(19, end); }
   26.6%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
@@ -428,7 +459,7 @@ body {
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
-@keyframes type-line-5 {
+@keyframes type-line-m5 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
   26.6%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(11, end); }
   31.24% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
@@ -437,13 +468,30 @@ body {
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
-@keyframes type-line-6 {
+@keyframes type-line-m6 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
   31.24% { clip-path: inset(0 100% 0 0); animation-timing-function: steps(16, end); }
   38%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
   83%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(16, end); }
   86.02% { clip-path: inset(0 100% 0 0); }
   100%   { clip-path: inset(0 100% 0 0); }
+}
+
+.type-line--mobile,
+.ghost-text--mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .type-line--desktop,
+  .ghost-text--desktop {
+    display: none;
+  }
+
+  .type-line--mobile,
+  .ghost-text--mobile {
+    display: block;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -580,7 +628,15 @@ html.light-theme .hero-cta {
   margin-left: 2px;
   vertical-align: -0.1em;
   background: var(--text);
+  animation: caret-blink 0.9s steps(1, end) infinite;
+}
+
+.typing-caret--desktop {
   animation: caret-blink 0.9s steps(1, end) infinite, caret-visible 8s steps(1, end) infinite;
+}
+
+.typing-caret--mobile {
+  animation: caret-blink 0.9s steps(1, end) infinite, caret-visible-mobile 8s steps(1, end) infinite;
 }
 
 @keyframes caret-blink {
@@ -589,6 +645,11 @@ html.light-theme .hero-cta {
 }
 
 @keyframes caret-visible {
+  0%, 37%, 61%, 100% { visibility: hidden; }
+  38%, 60% { visibility: visible; }
+}
+
+@keyframes caret-visible-mobile {
   0%, 37%, 84%, 100% { visibility: hidden; }
   38%, 83% { visibility: visible; }
 }
