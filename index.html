@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#000000" id="theme-color-meta">
-  <title>eaworkspace</title>
+  <title>Emil A. — Product Designer</title>
   <link rel="icon" href="favicon.webp" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=11">
   <script>
     if (localStorage.getItem('theme') === 'light') {
       document.documentElement.classList.add('light-theme');
@@ -28,7 +28,7 @@
         <span class="nav-sep" aria-hidden="true">/</span>
         <a class="nav-item touch-link" href="#projects">МОИ ПРОЕКТЫ</a>
         <span class="nav-sep" aria-hidden="true">/</span>
-        <a class="nav-item touch-link" href="#">РЕЗЮМЕ</a>
+        <a class="nav-item touch-link" href="https://drive.google.com/file/d/1V42wGXplnsbLmSjrF9bqFQjtB52T-D4P/view?usp=sharing" target="_blank" rel="noopener">РЕЗЮМЕ</a>
       </div>
       <button class="theme-switch" id="theme-toggle" aria-label="Переключить светлую тему" aria-pressed="false" type="button">
         <span class="theme-switch-thumb"></span>
@@ -41,28 +41,28 @@
         <p class="about-description">
           <span class="ghost-text ghost-text--desktop" aria-hidden="true">
             <span class="ghost-line">Привет, я Эмиль.</span>
-            <span class="ghost-line">Продуктовый дизайнер с опытом 2+ года,</span>
-            <span class="ghost-line">проектирую мобильные и веб-интерфейсы.</span>
+            <span class="ghost-line">Продуктовый дизайнер из Ульяновска,</span>
+            <span class="ghost-line">спроектировал 2 мобильных приложения.<span class="typing-caret-spacer"></span></span>
           </span>
           <span class="ghost-text ghost-text--mobile" aria-hidden="true">
             <span class="ghost-line">Привет, я Эмиль.</span>
             <span class="ghost-line">Продуктовый</span>
-            <span class="ghost-line">дизайнер с опытом</span>
-            <span class="ghost-line">2+ года, проектирую</span>
-            <span class="ghost-line">мобильные и</span>
-            <span class="ghost-line">веб-интерфейсы.</span>
+            <span class="ghost-line">дизайнер из</span>
+            <span class="ghost-line">Ульяновска,</span>
+            <span class="ghost-line">спроектировал 2</span>
+            <span class="ghost-line">мобильных приложения.<span class="typing-caret-spacer"></span></span>
           </span>
 
           <span class="type-line type-line--desktop type-line-1">Привет, я Эмиль.</span>
-          <span class="type-line type-line--desktop type-line-2">Продуктовый дизайнер с опытом 2+ года,</span>
-          <span class="type-line type-line--desktop type-line-3">проектирую мобильные и веб-интерфейсы.<span class="typing-caret typing-caret--desktop"></span></span>
+          <span class="type-line type-line--desktop type-line-2">Продуктовый дизайнер из Ульяновска,</span>
+          <span class="type-line type-line--desktop type-line-3">спроектировал 2 мобильных приложения.<span class="typing-caret typing-caret--desktop"></span></span>
 
           <span class="type-line type-line--mobile type-line-m1">Привет, я Эмиль.</span>
           <span class="type-line type-line--mobile type-line-m2">Продуктовый</span>
-          <span class="type-line type-line--mobile type-line-m3">дизайнер с опытом</span>
-          <span class="type-line type-line--mobile type-line-m4">2+ года, проектирую</span>
-          <span class="type-line type-line--mobile type-line-m5">мобильные и</span>
-          <span class="type-line type-line--mobile type-line-m6">веб-интерфейсы.<span class="typing-caret typing-caret--mobile"></span></span>
+          <span class="type-line type-line--mobile type-line-m3">дизайнер из</span>
+          <span class="type-line type-line--mobile type-line-m4">Ульяновска,</span>
+          <span class="type-line type-line--mobile type-line-m5">спроектировал 2</span>
+          <span class="type-line type-line--mobile type-line-m6">мобильных приложения.<span class="typing-caret typing-caret--mobile"></span></span>
         </p>
         </div>
       </div>
@@ -71,14 +71,12 @@
     <section class="page-overlay" id="projects">
       <div class="proj-grid">
         <div class="proj-item">
-          <a class="proj-card" href="dental-care.html" aria-label="Открыть кейс Dental Care"></a>
-          <p class="proj-pitch"><span class="proj-title">DentaCare</span> — приложение для клиники стоматологии</p>
-          <span class="proj-meta">Мобильное приложение, 2024</span>
+          <a class="proj-card proj-card--dentacare" href="dental-care.html" aria-label="Открыть кейс DentaCare"></a>
+          <p class="proj-pitch"><span class="proj-title">DentaCare</span> ― приложение для клиники стоматологии</p>
         </div>
         <div class="proj-item">
-          <a class="proj-card" href="triptap.html" aria-label="Открыть кейс TripTap"></a>
-          <p class="proj-pitch"><span class="proj-title">TripTap</span> — приложение для бронирования авиабилетов</p>
-          <span class="proj-meta">Мобильное приложение, 2025</span>
+          <a class="proj-card proj-card--triptap" href="triptap.html" aria-label="Открыть кейс TripTap"></a>
+          <p class="proj-pitch"><span class="proj-title">TripTap</span> ― приложение для бронирования авиабилетов</p>
         </div>
       </div>
     </section>
@@ -86,6 +84,13 @@
   <div class="site-copyright">© 2026 Emil Akhtyamkin</div>
   <div class="site-clock" id="site-clock"></div>
   <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="mobile-stub" style="display:none">
+    <div class="mobile-stub-inner">
+      <svg class="mobile-stub-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 1088 1088" width="92" height="92" fill="currentColor"><g transform="translate(0, 960) scale(1, -1)"><path d="M313.090 142.53l-149.522 155.005 149.522 155.005 48.889-47.213-104.212-107.792 104.212-107.792zM710.457 142.122l-48.074 48.074 107.384 107.384-107.384 107.384 48.074 48.074 155.412-155.412zM456.586 147.514l-56.818 37.245 172.177 262.796 56.818-37.245zM0 938.667h1024v-1024h-1024zM956.035 870.702h-888.071v-888.071h888.071zM1024 607.906h-1024v330.761h1024zM67.965 675.871h888.071v194.832h-888.071zM251.469 739.304h-86.088v67.965h86.088zM428.177 739.304h-90.619v67.965h90.619zM600.354 739.304h-86.088v67.965h86.088z"/></g></svg>
+      <p class="mobile-stub-text">Sorry, no mobile version.</p>
+      <p class="mobile-stub-subtext">Адаптив пока в разработке — загляните с компьютера</p>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>

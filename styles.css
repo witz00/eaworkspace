@@ -27,13 +27,6 @@ html {
   font-variant-numeric: tabular-nums;
 }
 
-@media (max-width: 900px) {
-  .site-copyright,
-  .site-clock {
-    display: none;
-  }
-}
-
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -397,101 +390,90 @@ body {
 .type-line-m5 { animation-name: type-line-m5; }
 .type-line-m6 { animation-name: type-line-m6; }
 
-/* Desktop: 3 lines (16 / 38 / 39 chars) */
+/* Desktop: 3 lines (16 / 35 / 37 chars) */
 @keyframes type-line-1 {
-  0%   { clip-path: inset(0 100% 0 0); animation-timing-function: steps(16, end); }
-  10%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  83%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(16, end); }
-  90%  { clip-path: inset(0 100% 0 0); }
-  100% { clip-path: inset(0 100% 0 0); }
+  0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(16, end); }
+  8%     { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  89.2%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(16, end); }
+  94.8%  { clip-path: inset(0 100% 0 0); }
+  100%   { clip-path: inset(0 100% 0 0); }
 }
 
 @keyframes type-line-2 {
-  0%   { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  10%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(38, end); }
-  27%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  66%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(38, end); }
-  83%  { clip-path: inset(0 100% 0 0); }
-  100% { clip-path: inset(0 100% 0 0); }
+  0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
+  8%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(35, end); }
+  25.5%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  76.95% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(35, end); }
+  89.2%  { clip-path: inset(0 100% 0 0); }
+  100%   { clip-path: inset(0 100% 0 0); }
 }
 
 @keyframes type-line-3 {
-  0%   { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  27%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(39, end); }
-  38%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  60%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(39, end); }
-  66%  { clip-path: inset(0 100% 0 0); }
-  100% { clip-path: inset(0 100% 0 0); }
+  0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
+  25.5%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(37, end); }
+  44%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  64%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(37, end); }
+  76.95% { clip-path: inset(0 100% 0 0); }
+  100%   { clip-path: inset(0 100% 0 0); }
 }
 
-/* Mobile: 6 shorter lines (16 / 11 / 17 / 19 / 11 / 16 chars) */
+/* Mobile: 6 shorter lines (16 / 11 / 11 / 11 / 15 / 21 chars) */
 @keyframes type-line-m1 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(16, end); }
-  6.76%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  96.98% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(16, end); }
+  8%     { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  86.65% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(16, end); }
+  92.25% { clip-path: inset(0 100% 0 0); }
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
 @keyframes type-line-m2 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  6.76%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(11, end); }
-  11.4%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  94.9%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(11, end); }
-  96.98% { clip-path: inset(0 100% 0 0); }
+  8%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(11, end); }
+  13.5%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  82.8%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(11, end); }
+  86.65% { clip-path: inset(0 100% 0 0); }
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
 @keyframes type-line-m3 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  11.4%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(17, end); }
-  18.58% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  91.69% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(17, end); }
-  94.9%  { clip-path: inset(0 100% 0 0); }
+  13.5%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(11, end); }
+  19%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  78.95% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(11, end); }
+  82.8%  { clip-path: inset(0 100% 0 0); }
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
 @keyframes type-line-m4 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  18.58% { clip-path: inset(0 100% 0 0); animation-timing-function: steps(19, end); }
-  26.6%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  88.1%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(19, end); }
-  91.69% { clip-path: inset(0 100% 0 0); }
+  19%    { clip-path: inset(0 100% 0 0); animation-timing-function: steps(11, end); }
+  24.5%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  75.1%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(11, end); }
+  78.95% { clip-path: inset(0 100% 0 0); }
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
 @keyframes type-line-m5 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  26.6%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(11, end); }
-  31.24% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  86.02% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(11, end); }
-  88.1%  { clip-path: inset(0 100% 0 0); }
+  24.5%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(15, end); }
+  32%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  69.85% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(15, end); }
+  75.1%  { clip-path: inset(0 100% 0 0); }
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
 @keyframes type-line-m6 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  31.24% { clip-path: inset(0 100% 0 0); animation-timing-function: steps(16, end); }
-  38%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  83%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(16, end); }
-  86.02% { clip-path: inset(0 100% 0 0); }
+  32%    { clip-path: inset(0 100% 0 0); animation-timing-function: steps(21, end); }
+  42.5%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  62.5%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(21, end); }
+  69.85% { clip-path: inset(0 100% 0 0); }
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
 .type-line--mobile,
 .ghost-text--mobile {
   display: none;
-}
-
-@media (max-width: 768px) {
-  .type-line--desktop,
-  .ghost-text--desktop {
-    display: none;
-  }
-
-  .type-line--mobile,
-  .ghost-text--mobile {
-    display: block;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -546,6 +528,12 @@ html.light-theme .hero-cta {
   color: #FFFFFF;
 }
 
+html.light-theme .hero-cta:hover {
+  background: transparent;
+  border-color: #000000;
+  color: #000000;
+}
+
 .page-overlay {
   position: sticky;
   top: 0;
@@ -567,12 +555,6 @@ html.light-theme .hero-cta {
   box-sizing: border-box;
 }
 
-@media (min-width: 1920px) {
-  .proj-grid {
-    max-width: 1600px;
-  }
-}
-
 .proj-item {
   display: flex;
   flex-direction: column;
@@ -580,7 +562,7 @@ html.light-theme .hero-cta {
 
 .proj-card {
   display: block;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 1 / 1;
   box-sizing: border-box;
   background: #1a1a1a;
   text-decoration: none;
@@ -589,6 +571,66 @@ html.light-theme .hero-cta {
 
 .proj-card:hover {
   background: #262626;
+}
+
+.proj-card--triptap,
+.proj-card--dentacare {
+  position: relative;
+  overflow: hidden;
+}
+
+.proj-card--triptap::before,
+.proj-card--triptap::after,
+.proj-card--dentacare::before,
+.proj-card--dentacare::after {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.4s ease, filter 0.2s ease;
+}
+
+.proj-card--triptap:hover::before,
+.proj-card--triptap:hover::after,
+.proj-card--dentacare:hover::before,
+.proj-card--dentacare:hover::after {
+  filter: blur(3px);
+}
+
+.proj-card--triptap::before {
+  background-image: url("images/triptap-preview_dark.jpg?v=4");
+  opacity: 1;
+}
+
+.proj-card--triptap::after {
+  background-image: url("images/triptap-preview_light.jpg?v=4");
+  opacity: 0;
+}
+
+.proj-card--dentacare::before {
+  background-image: url("images/dentacare-preview_dark.jpg?v=1");
+  opacity: 1;
+}
+
+.proj-card--dentacare::after {
+  background-image: url("images/dentacare-preview_light.jpg?v=1");
+  opacity: 0;
+}
+
+html.light-theme .proj-card--triptap::before,
+html.light-theme .proj-card--dentacare::before {
+  opacity: 0;
+}
+
+html.light-theme .proj-card--triptap::after,
+html.light-theme .proj-card--dentacare::after {
+  opacity: 1;
+}
+
+.proj-card--triptap:hover,
+.proj-card--dentacare:hover {
+  background-color: transparent;
 }
 
 .proj-title {
@@ -629,6 +671,12 @@ html.light-theme .hero-cta {
   vertical-align: -0.1em;
   background: var(--text);
   animation: caret-blink 0.9s steps(1, end) infinite;
+}
+
+.typing-caret-spacer {
+  display: inline-block;
+  width: 2px;
+  margin-left: 2px;
 }
 
 .typing-caret--desktop {
@@ -873,179 +921,57 @@ html.light-theme .hero-cta {
   margin: 0;
 }
 
-/* Mobile / responsive (standard breakpoint) */
+.mobile-stub {
+  display: none;
+}
+
 @media (max-width: 768px) {
-  .about,
-  .projects,
-  .project-list,
-  .case-block {
-    padding: 20px;
+  body > *:not(.mobile-stub) {
+    display: none !important;
   }
 
-  .proj-grid {
-    grid-template-columns: 1fr;
-    padding: 0 20px;
-  }
-
-  .case-block {
-    margin-top: 80px;
-  }
-
-  .container {
-    padding-top: 32px;
-    padding-bottom: 48px;
-  }
-
-  #home .container {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .nav-bar {
-    max-width: 480px;
-    margin: 0 auto;
-    box-sizing: border-box;
-    flex-direction: row;
+  .mobile-stub {
+    display: flex !important;
     align-items: center;
-    height: auto;
-    padding: 20px;
-    padding-top: calc(env(safe-area-inset-top, 47px) + 20px);
-    border-radius: 12px;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh;
+    padding: 24px;
+    box-sizing: border-box;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Golos Text", sans-serif;
   }
 
-  .nav-burger {
-    display: block;
-  }
-
-  .nav-links {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 50vh;
+  .mobile-stub-inner {
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 32px;
-    padding: 20px;
-    background: rgba(var(--bg-rgb), 1);
-    z-index: 99;
-  }
-
-  .nav-links-center {
-    position: static;
-    transform: none;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .nav-sep {
-    display: none;
-  }
-
-  .nav-links.open {
-    display: flex;
-  }
-
-  .nav-links.open .nav-item {
-    font-size: 15px;
-  }
-
-  .nav-item {
-    font-size: 11px;
-  }
-
-  .nav-logo {
-    font-size: 18px;
-  }
-
-  .about-title {
-    font-size: 36px;
-  }
-
-  .about-description-wrap {
+    gap: 20px;
     width: 100%;
-    max-width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .mobile-stub-icon {
+    display: block;
+    margin: 0 auto;
+    color: var(--text);
+  }
+
+  .mobile-stub-text {
     margin: 0;
-    overflow-x: hidden;
-    overflow-y: visible;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--text);
   }
 
-  .about-description {
-    font-size: 31px;
-    width: 100%;
-    text-align: left;
-  }
-
-  .type-line {
+  .mobile-stub-subtext {
     margin: 0;
-  }
-
-  .about-text {
-    align-items: flex-start;
-  }
-
-  .bottom {
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding-top: 145.6px;
-    padding-left: 20px;
-    padding-right: 20px;
-    box-sizing: border-box;
-    text-align: left;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .hero-cta {
-    display: flex;
-    width: 100%;
-    margin-top: 40px;
-  }
-
-  .projects {
-    margin-top: 48px;
-  }
-
-  .project-list {
-    flex-direction: column;
-    gap: 80px;
-    margin-top: 48px;
-  }
-
-  .project-item,
-  .project-preview {
-    width: 100%;
-  }
-
-  .project-item {
-    height: auto;
-  }
-
-  .case-hero,
-  .case-image {
-    height: 260px;
-  }
-
-  .case-meta {
-    flex-wrap: wrap;
-    row-gap: 32px;
-  }
-
-  .case-meta-col {
-    width: 40%;
-  }
-
-  .case-section-title {
-    font-size: 24px;
-  }
-
-  .case-image-row {
-    flex-direction: column;
-  }
-
-  .case-image-row .case-image {
-    width: 100%;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.4;
   }
 }

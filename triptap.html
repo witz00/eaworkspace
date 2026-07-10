@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#000000" id="theme-color-meta">
-  <title>eaworkspace</title>
+  <title>TripTap — Emil A.</title>
   <link rel="icon" href="favicon.webp" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=11">
   <script>
     if (localStorage.getItem('theme') === 'light') {
       document.documentElement.classList.add('light-theme');
@@ -89,6 +89,13 @@
   <div class="site-copyright">© 2026 Emil Akhtyamkin</div>
   <div class="site-clock" id="site-clock"></div>
   <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="mobile-stub" style="display:none">
+    <div class="mobile-stub-inner">
+      <svg class="mobile-stub-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 1088 1088" width="92" height="92" fill="currentColor"><g transform="translate(0, 960) scale(1, -1)"><path d="M313.090 142.53l-149.522 155.005 149.522 155.005 48.889-47.213-104.212-107.792 104.212-107.792zM710.457 142.122l-48.074 48.074 107.384 107.384-107.384 107.384 48.074 48.074 155.412-155.412zM456.586 147.514l-56.818 37.245 172.177 262.796 56.818-37.245zM0 938.667h1024v-1024h-1024zM956.035 870.702h-888.071v-888.071h888.071zM1024 607.906h-1024v330.761h1024zM67.965 675.871h888.071v194.832h-888.071zM251.469 739.304h-86.088v67.965h86.088zM428.177 739.304h-90.619v67.965h90.619zM600.354 739.304h-86.088v67.965h86.088z"/></g></svg>
+      <p class="mobile-stub-text">Sorry, no mobile version.</p>
+      <p class="mobile-stub-subtext">Адаптив пока в разработке — загляните с компьютера 🙂</p>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
