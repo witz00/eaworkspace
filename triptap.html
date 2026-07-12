@@ -9,14 +9,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=11">
+  <link rel="stylesheet" href="styles.css?v=26">
   <script>
     if (localStorage.getItem('theme') === 'light') {
       document.documentElement.classList.add('light-theme');
       document.getElementById('theme-color-meta').setAttribute('content', '#FFFFFF');
     }  </script>
 </head>
-<body>
+<body id="home">
   <div class="nav-bar">
     <a class="nav-item nav-logo" href="index.html">eaworkspace</a>
     <button class="nav-burger" id="nav-burger" aria-label="Меню" aria-expanded="false" type="button">
@@ -35,23 +35,26 @@
       </button>
     </div>
   </div>  <div class="container">
-    <div class="case-block">
-      <h1 class="case-title">TripTap</h1>
-      <div class="case-hero"></div>
-      <div class="case-meta">
-        <div class="case-meta-col">
-          <span class="case-meta-label">Платформа</span>
-          <span class="case-meta-value">Мобильное приложение</span>
-        </div>
-        <div class="case-meta-col">
-          <span class="case-meta-label">Сроки</span>
-          <span class="case-meta-value">Март 2025 — настоящее время</span>
-        </div>
-        <div class="case-meta-col">
-          <span class="case-meta-label">Инструменты</span>
-          <span class="case-meta-value">Figma</span>
-        </div>
+    <div class="case-hero-stack">
+      <div class="case-hero-screen">
+        <p class="case-hero-title">TRIPTAP — ПРИЛОЖЕНИЕ ДЛЯ<br>БРОНИРОВАНИЯ АВИАБИЛЕТОВ</p>
       </div>
+      <section class="case-overlay">
+        <div class="case-meta">
+          <div class="case-meta-col">
+            <span class="case-meta-label">Платформа</span>
+            <span class="case-meta-value">Мобильное приложение</span>
+          </div>
+          <div class="case-meta-col">
+            <span class="case-meta-label">Сроки</span>
+            <span class="case-meta-value">Март 2025 — настоящее время</span>
+          </div>
+          <div class="case-meta-col">
+            <span class="case-meta-label">Инструменты</span>
+            <span class="case-meta-value">Figma</span>
+          </div>
+        </div>
+      </section>
     </div>
     <div class="case-block">
       <div class="case-section">
@@ -95,6 +98,10 @@
       <p class="mobile-stub-text">Sorry, no mobile version.</p>
       <p class="mobile-stub-subtext">Адаптив пока в разработке — загляните с компьютера 🙂</p>
     </div>
+  </div>
+  <div class="page-curtain" id="page-curtain">
+    <div class="curtain-half"></div>
+    <div class="curtain-half"></div>
   </div>
   <script src="script.js"></script>
 </body>

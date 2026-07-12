@@ -140,6 +140,46 @@ document.addEventListener('click', (e) => {
   if (e.target.closest('a, button')) playClickSound();
 });
 
+// Curtain transition on full-page navigations: logo back to home, project cards into a case
+const pageCurtain = document.getElementById('page-curtain');
+if (pageCurtain) {
+  const CURTAIN_DURATION = 1100; // one half's rise/exit transition
+  const CURTAIN_STAGGER = 300;   // delay before the second half follows the first
+  const CURTAIN_HOLD = 500;      // both halves held together, fully covering, before exiting
+  const CURTAIN_RISE_TOTAL = CURTAIN_DURATION + CURTAIN_STAGGER;
+
+  // Entrance: page loads already covered (continuing where the previous page left off),
+  // then both halves exit upward, staggered, same as the rise.
+  pageCurtain.classList.add('curtain-in');
+  requestAnimationFrame(() => {
+    pageCurtain.classList.add('curtain-animate');
+    requestAnimationFrame(() => {
+      pageCurtain.classList.remove('curtain-in');
+      pageCurtain.classList.add('curtain-out');
+    });
+  });
+
+  document.querySelectorAll('.nav-logo, .proj-card').forEach(curtainLink => {
+    if (curtainLink.tagName !== 'A') return;
+    curtainLink.addEventListener('click', (e) => {
+      const href = curtainLink.getAttribute('href');
+      if (!href || href === '#') return;
+      e.preventDefault();
+      // Snap back below the viewport (no transition) so the rise always starts from the bottom
+      pageCurtain.classList.remove('curtain-animate', 'curtain-in', 'curtain-out');
+      void pageCurtain.offsetWidth;
+      pageCurtain.classList.add('curtain-animate');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => pageCurtain.classList.add('curtain-in'));
+      });
+      // Navigate once both halves have arrived and held together for CURTAIN_HOLD
+      setTimeout(() => {
+        window.location.href = href;
+      }, CURTAIN_RISE_TOTAL + CURTAIN_HOLD);
+    });
+  });
+}
+
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', () => {
     isProgrammaticScroll = true;

@@ -9,14 +9,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=11">
+  <link rel="stylesheet" href="styles.css?v=26">
   <script>
     if (localStorage.getItem('theme') === 'light') {
       document.documentElement.classList.add('light-theme');
       document.getElementById('theme-color-meta').setAttribute('content', '#FFFFFF');
     }  </script>
 </head>
-<body>
+<body id="home">
   <div class="nav-bar">
     <a class="nav-item nav-logo" href="index.html">eaworkspace</a>
     <button class="nav-burger" id="nav-burger" aria-label="Меню" aria-expanded="false" type="button">
@@ -35,23 +35,26 @@
       </button>
     </div>
   </div>  <div class="container">
-    <div class="case-block">
-      <h1 class="case-title">DentaCare</h1>
-      <div class="case-hero"></div>
-      <div class="case-meta">
-        <div class="case-meta-col">
-          <span class="case-meta-label">Платформа</span>
-          <span class="case-meta-value">Мобильное приложение</span>
-        </div>
-        <div class="case-meta-col">
-          <span class="case-meta-label">Сроки</span>
-          <span class="case-meta-value">Март 2024 — Июль 2024</span>
-        </div>
-        <div class="case-meta-col">
-          <span class="case-meta-label">Инструменты</span>
-          <span class="case-meta-value">Figma</span>
-        </div>
+    <div class="case-hero-stack">
+      <div class="case-hero-screen">
+        <p class="case-hero-title">DENTACARE — ПРИЛОЖЕНИЕ ДЛЯ<br>КЛИНИКИ СТОМАТОЛОГИИ</p>
       </div>
+      <section class="case-overlay">
+        <div class="case-meta">
+          <div class="case-meta-col">
+            <span class="case-meta-label">Платформа</span>
+            <span class="case-meta-value">Мобильное приложение</span>
+          </div>
+          <div class="case-meta-col">
+            <span class="case-meta-label">Сроки</span>
+            <span class="case-meta-value">Март 2024 — Июль 2024</span>
+          </div>
+          <div class="case-meta-col">
+            <span class="case-meta-label">Инструменты</span>
+            <span class="case-meta-value">Figma</span>
+          </div>
+        </div>
+      </section>
     </div>
     <div class="case-block">
       <div class="case-section">
@@ -93,8 +96,12 @@
     <div class="mobile-stub-inner">
       <svg class="mobile-stub-icon" xmlns="http://www.w3.org/2000/svg" viewBox="-32 -32 1088 1088" width="92" height="92" fill="currentColor"><g transform="translate(0, 960) scale(1, -1)"><path d="M313.090 142.53l-149.522 155.005 149.522 155.005 48.889-47.213-104.212-107.792 104.212-107.792zM710.457 142.122l-48.074 48.074 107.384 107.384-107.384 107.384 48.074 48.074 155.412-155.412zM456.586 147.514l-56.818 37.245 172.177 262.796 56.818-37.245zM0 938.667h1024v-1024h-1024zM956.035 870.702h-888.071v-888.071h888.071zM1024 607.906h-1024v330.761h1024zM67.965 675.871h888.071v194.832h-888.071zM251.469 739.304h-86.088v67.965h86.088zM428.177 739.304h-90.619v67.965h90.619zM600.354 739.304h-86.088v67.965h86.088z"/></g></svg>
       <p class="mobile-stub-text">Sorry, no mobile version.</p>
-      <p class="mobile-stub-subtext">Адаптив пока в разработке — загляните с компьютера</p>
+      <p class="mobile-stub-subtext">Адаптив пока в разработке — загляните с компьютера 🙂</p>
     </div>
+  </div>
+  <div class="page-curtain" id="page-curtain">
+    <div class="curtain-half"></div>
+    <div class="curtain-half"></div>
   </div>
   <script src="script.js"></script>
 </body>
