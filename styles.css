@@ -46,38 +46,41 @@ html {
   background-color: var(--muted);
 }
 
-@media (pointer: fine) {
-  body {
-    cursor: none;
-  }
-
-  a,
-  button {
-    cursor: none;
-  }
-}
-
-.cursor-dot {
+.cursor-label {
   position: fixed;
   top: 0;
   left: 0;
   pointer-events: none;
   z-index: 9999;
-  border-radius: 50%;
-  background: var(--text);
-  transform: translate(-50%, -50%);
-  width: 6px;
-  height: 6px;
-  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+  transform: translate(0, 0);
 }
 
-.cursor-dot.hover {
-  width: 14px;
-  height: 14px;
+.cursor-label-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: "Golos Text", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: translateY(-100%) scale(0.6);
+  transform-origin: bottom left;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.cursor-label.visible .cursor-label-inner {
+  opacity: 1;
+  transform: translateY(-100%) scale(1);
 }
 
 @media (pointer: coarse) {
-  .cursor-dot {
+  .cursor-label {
     display: none;
   }
 }
@@ -384,56 +387,44 @@ body {
 
 .type-line-1 { animation-name: type-line-1; }
 .type-line-2 { animation-name: type-line-2; }
-.type-line-3 { animation-name: type-line-3; }
 .type-line-m1 { animation-name: type-line-m1; }
 .type-line-m2 { animation-name: type-line-m2; }
 .type-line-m3 { animation-name: type-line-m3; }
 .type-line-m4 { animation-name: type-line-m4; }
-.type-line-m5 { animation-name: type-line-m5; }
-.type-line-m6 { animation-name: type-line-m6; }
 
-/* Desktop: 3 lines (16 / 35 / 37 chars) */
+/* Desktop: 2 lines (16 / 34 chars) */
 @keyframes type-line-1 {
-  0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(16, end); }
-  8%     { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  89.2%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(16, end); }
-  94.8%  { clip-path: inset(0 100% 0 0); }
-  100%   { clip-path: inset(0 100% 0 0); }
+  0%   { clip-path: inset(0 100% 0 0); animation-timing-function: steps(16, end); }
+  8%   { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  90%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(16, end); }
+  95%  { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 100% 0 0); }
 }
 
 @keyframes type-line-2 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  8%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(35, end); }
+  8%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(34, end); }
   25.5%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  76.95% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(35, end); }
-  89.2%  { clip-path: inset(0 100% 0 0); }
+  80%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(34, end); }
+  85%    { clip-path: inset(0 100% 0 0); }
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
-@keyframes type-line-3 {
-  0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  25.5%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(37, end); }
-  44%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  64%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(37, end); }
-  76.95% { clip-path: inset(0 100% 0 0); }
-  100%   { clip-path: inset(0 100% 0 0); }
-}
-
-/* Mobile: 6 shorter lines (16 / 11 / 11 / 11 / 15 / 21 chars) */
+/* Mobile: 4 shorter lines (16 / 11 / 11 / 10 chars) */
 @keyframes type-line-m1 {
-  0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(16, end); }
-  8%     { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  86.65% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(16, end); }
-  92.25% { clip-path: inset(0 100% 0 0); }
-  100%   { clip-path: inset(0 100% 0 0); }
+  0%   { clip-path: inset(0 100% 0 0); animation-timing-function: steps(16, end); }
+  8%   { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  90%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(16, end); }
+  95%  { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 100% 0 0); }
 }
 
 @keyframes type-line-m2 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
   8%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(11, end); }
   13.5%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  82.8%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(11, end); }
-  86.65% { clip-path: inset(0 100% 0 0); }
+  85%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(11, end); }
+  90%    { clip-path: inset(0 100% 0 0); }
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
@@ -441,35 +432,17 @@ body {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
   13.5%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(11, end); }
   19%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  78.95% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(11, end); }
-  82.8%  { clip-path: inset(0 100% 0 0); }
+  80%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(11, end); }
+  85%    { clip-path: inset(0 100% 0 0); }
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
 @keyframes type-line-m4 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  19%    { clip-path: inset(0 100% 0 0); animation-timing-function: steps(11, end); }
+  19%    { clip-path: inset(0 100% 0 0); animation-timing-function: steps(10, end); }
   24.5%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  75.1%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(11, end); }
-  78.95% { clip-path: inset(0 100% 0 0); }
-  100%   { clip-path: inset(0 100% 0 0); }
-}
-
-@keyframes type-line-m5 {
-  0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  24.5%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(15, end); }
-  32%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  69.85% { clip-path: inset(0 0% 0 0); animation-timing-function: steps(15, end); }
-  75.1%  { clip-path: inset(0 100% 0 0); }
-  100%   { clip-path: inset(0 100% 0 0); }
-}
-
-@keyframes type-line-m6 {
-  0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  32%    { clip-path: inset(0 100% 0 0); animation-timing-function: steps(21, end); }
-  42.5%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  62.5%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(21, end); }
-  69.85% { clip-path: inset(0 100% 0 0); }
+  75%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(10, end); }
+  80%    { clip-path: inset(0 100% 0 0); }
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
@@ -601,22 +574,22 @@ html.light-theme .hero-cta:hover {
 }
 
 .proj-card--triptap::before {
-  background-image: url("images/triptap-preview_dark.jpg?v=4");
+  background-image: url("images/triptap-preview_dark.jpg?v=5");
   opacity: 1;
 }
 
 .proj-card--triptap::after {
-  background-image: url("images/triptap-preview_light.jpg?v=4");
+  background-image: url("images/triptap-preview_light.jpg?v=5");
   opacity: 0;
 }
 
 .proj-card--dentacare::before {
-  background-image: url("images/dentacare-preview_dark.jpg?v=1");
+  background-image: url("images/dentacare-preview_dark.jpg?v=2");
   opacity: 1;
 }
 
 .proj-card--dentacare::after {
-  background-image: url("images/dentacare-preview_light.jpg?v=1");
+  background-image: url("images/dentacare-preview_light.jpg?v=2");
   opacity: 0;
 }
 
@@ -695,13 +668,13 @@ html.light-theme .proj-card--dentacare::after {
 }
 
 @keyframes caret-visible {
-  0%, 37%, 61%, 100% { visibility: hidden; }
-  38%, 60% { visibility: visible; }
+  0%, 25%, 85%, 100% { visibility: hidden; }
+  26%, 84% { visibility: visible; }
 }
 
 @keyframes caret-visible-mobile {
-  0%, 37%, 84%, 100% { visibility: hidden; }
-  38%, 83% { visibility: visible; }
+  0%, 24%, 80%, 100% { visibility: hidden; }
+  25%, 79% { visibility: visible; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -815,6 +788,12 @@ html.light-theme .proj-card--dentacare::after {
   background: var(--bg);
 }
 
+.case-hero-screen--compact {
+  position: static;
+  min-height: 0;
+  padding-top: 200px;
+}
+
 .case-overlay {
   position: sticky;
   top: 0;
@@ -874,6 +853,7 @@ html.light-theme .proj-card--dentacare::after {
   height: 100%;
   background: var(--curtain);
   transform: translateY(100vh);
+  will-change: transform;
 }
 
 .page-curtain.curtain-animate .curtain-half {
@@ -907,8 +887,6 @@ html.light-theme .proj-card--dentacare::after {
   width: 100%;
   max-width: 1152px;
   margin: 160px auto 0;
-  padding: 24px;
-  border: 2px solid red;
 }
 
 .case-block:first-child {
@@ -924,6 +902,8 @@ html.light-theme .proj-card--dentacare::after {
 .case-meta {
   display: flex;
   width: 100%;
+  max-width: 1152px;
+  margin: 0 auto;
   justify-content: space-between;
 }
 
@@ -950,25 +930,24 @@ html.light-theme .proj-card--dentacare::after {
 .case-section {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
   width: 100%;
 }
 
 .case-section-title {
   font-family: "Golos Text", sans-serif;
-  font-weight: 600;
-  font-size: 30px;
+  font-weight: 500;
+  font-size: 2rem;
   color: var(--text);
   margin: 0;
 }
 
 .case-section-text {
   font-family: "Golos Text", sans-serif;
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: 460;
+  font-size: 1.5rem;
   line-height: 110%;
   color: var(--muted);
-  max-width: 720px;
   margin: 0;
 }
 

@@ -3,24 +3,6 @@ if (projectsCount) {
   projectsCount.textContent = '(' + document.querySelectorAll('.project-item').length + ')';
 }
 
-// Live ticking clock showing the visitor's own local time and UTC offset
-const siteClock = document.getElementById('site-clock');
-if (siteClock) {
-  function updateSiteClock() {
-    const time = new Intl.DateTimeFormat('ru-RU', {
-      timeZone: 'Europe/Moscow',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false,
-    }).format(new Date());
-    siteClock.textContent = time;
-  }
-
-  updateSiteClock();
-  setInterval(updateSiteClock, 1000);
-}
-
 // Snap only when close (30-40px) to the page-overlay boundary, otherwise scroll stays free
 let isProgrammaticScroll = false;
 let programmaticScrollTimeout;
@@ -103,22 +85,23 @@ if (navBurger && navLinks) {
   });
 }
 
-// Custom cursor: a single dot that follows the pointer precisely
-const cursorDot = document.getElementById('cursor-dot');
+// "ПЕРЕЙТИ" label that follows the pointer when hovering a project card
+const cursorLabel = document.getElementById('cursor-label');
 
-if (cursorDot && window.matchMedia('(pointer: fine)').matches) {
+if (cursorLabel && window.matchMedia('(pointer: fine)').matches) {
   window.addEventListener('mousemove', (e) => {
-    cursorDot.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+    cursorLabel.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
   });
 
-  document.querySelectorAll('a, button').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursorDot.classList.add('hover');
-      playHoverSound();
-    });
-    el.addEventListener('mouseleave', () => cursorDot.classList.remove('hover'));
+  document.querySelectorAll('.proj-card').forEach(card => {
+    card.addEventListener('mouseenter', () => cursorLabel.classList.add('visible'));
+    card.addEventListener('mouseleave', () => cursorLabel.classList.remove('visible'));
   });
 }
+
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => playHoverSound());
+});
 
 // Click / hover sounds (real audio files, kept quiet and non-blocking)
 const clickAudio = new Audio('sounds/click.wav');
@@ -151,12 +134,12 @@ if (pageCurtain) {
   // Entrance: page loads already covered (continuing where the previous page left off),
   // then both halves exit upward, staggered, same as the rise.
   pageCurtain.classList.add('curtain-in');
+  void pageCurtain.offsetWidth; // force the covered, transition-less state to commit before enabling transitions
+  pageCurtain.classList.add('curtain-animate');
+  void pageCurtain.offsetWidth; // force the layer promotion (will-change) to settle before the transform change starts
   requestAnimationFrame(() => {
-    pageCurtain.classList.add('curtain-animate');
-    requestAnimationFrame(() => {
-      pageCurtain.classList.remove('curtain-in');
-      pageCurtain.classList.add('curtain-out');
-    });
+    pageCurtain.classList.remove('curtain-in');
+    pageCurtain.classList.add('curtain-out');
   });
 
   document.querySelectorAll('.nav-logo, .proj-card').forEach(curtainLink => {
