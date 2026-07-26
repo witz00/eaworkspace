@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.webp" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=44">
   <script>
     if (localStorage.getItem('theme') === 'light') {
@@ -28,29 +28,65 @@
         <span class="nav-sep" aria-hidden="true">/</span>
         <a class="nav-item touch-link" href="index.html#projects">МОИ ПРОЕКТЫ</a>
         <span class="nav-sep" aria-hidden="true">/</span>
-        <a class="nav-item touch-link" href="#">РЕЗЮМЕ</a>
+        <a class="nav-item touch-link" href="https://drive.google.com/file/d/1V42wGXplnsbLmSjrF9bqFQjtB52T-D4P/view?usp=sharing" target="_blank" rel="noopener">РЕЗЮМЕ</a>
       </div>
       <button class="theme-switch" id="theme-toggle" aria-label="Переключить светлую тему" aria-pressed="false" type="button">
         <span class="theme-switch-thumb"></span>
       </button>
     </div>
   </div>  <div class="container">
-    <div class="case-hero-stack">
-      <div class="case-hero-screen case-hero-screen--compact">
-        <p class="case-hero-title">DENTACARE</p>
-      </div>
-    </div>
     <div class="case-block case-about">
-      <div class="case-section">
-        <h2 class="case-section-title">О проекте</h2>
-        <p class="case-section-text">Это мобильное приложение для iOS клиники стоматологии, где вы можете найти специалиста по вашей проблеме в один клик, находясь дома. Календарь сразу показывает свободные слоты на приём, без лишних фильтров и обязательной регистрации.</p>
+      <div class="case-about-content">
+        <div class="case-about-text">
+          <h2 class="case-section-title">DentaCare: от идеи до реализации</h2>
+          <p class="case-section-text">Разработал концепт мобильного приложения стоматологической клиники. Основной задачей было спроектировать интуитивно понятный интерфейс с нуля. Продумал структуру каталога врачей, карточку записи и систему напоминаний так, чтобы пользователь тратил на запись минимум действий и не терялся в интерфейсе.</p>
+        </div>
+        <div class="case-image case-image--fixed">
+          <img class="case-image-static-img" src="images/dc-example_light.jpg" alt="DentaCare — пример интерфейса">
+        </div>
       </div>
     </div>
     <div class="case-block case-audience">
       <div class="case-section">
         <h2 class="case-section-title">Аудитория</h2>
-        <p class="case-section-text">Основной сегмент — городские жители 25–45 лет, откладывающие визит к стоматологу из-за неудобной записи по телефону. Вторичный сегмент — родители, записывающие детей и нуждающиеся в быстром выборе времени без лишних звонков.</p>
+        <p class="case-section-text">В основном это сегмент 25-45 лет, те кто откладывает визит к стоматологу, потому что записываться по телефону неудобно. Еще одна группа: родители, которым нужно быстро найти время для ребёнка без лишних звонков и ожидания.</p>
       </div>
+      <table class="case-persona-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Алексей</th>
+            <th>Екатерина</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Возраст</td>
+            <td>34 года</td>
+            <td>41 год</td>
+          </tr>
+          <tr>
+            <td>Город</td>
+            <td>Москва</td>
+            <td>Казань</td>
+          </tr>
+          <tr>
+            <td>Семья и работа</td>
+            <td>Женат, двое детей. Имеет свой бизнес, часто ездит в командировки</td>
+            <td>Замужем, двое детей. Работает учителем</td>
+          </tr>
+          <tr>
+            <td>Проблема</td>
+            <td>Кариес и пародонтоз</td>
+            <td>Повышенная чувствительность зубов</td>
+          </tr>
+          <tr>
+            <td>Поведение</td>
+            <td>Часто откладывает визит к врачу из-за нехватки времени</td>
+            <td>Стремится заботиться о здоровье, но не всегда находит время для регулярных походов к стоматологу. Также нужно записывать детей на приём, поэтому важна быстрая запись без лишних звонков</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="case-block case-competitors">
       <div class="case-section">
@@ -67,6 +103,21 @@
         </ol>
       </div>
     </div>
+    <div class="case-block case-features">
+      <div class="case-section">
+        <h2 class="case-section-title">Функции</h2>
+        <ol class="case-list">
+          <li class="case-list-item"><span class="case-list-index">01</span><span class="case-list-text">Карточка записи сразу показывает время приёма, если он уже забронирован.</span></li>
+          <li class="case-list-item"><span class="case-list-index">02</span><span class="case-list-text">В каталоге врачей видны цена и стаж специалиста — это упрощает выбор.</span></li>
+          <li class="case-list-item"><span class="case-list-index">03</span><span class="case-list-text">История посещений визуализирована в виде календаря-диаграммы с количеством визитов по месяцам.</span></li>
+          <li class="case-list-item"><span class="case-list-index">04</span><span class="case-list-text">Напоминания о приёме и о гигиене зубов, чтобы не забывать про регулярные визиты.</span></li>
+        </ol>
+      </div>
+      <div class="case-image-row">
+        <div class="case-image"></div>
+        <div class="case-image"></div>
+      </div>
+    </div>
     <div class="case-block case-user-journey">
       <div class="case-section">
         <h2 class="case-section-title">Путь пользователя</h2>
@@ -77,6 +128,7 @@
           <li class="case-list-item"><span class="case-list-index">04</span><span class="case-list-text">Получает напоминание перед визитом</span></li>
         </ol>
       </div>
+      <div class="case-image"></div>
     </div>
   </div>
   <div class="mobile-stub" style="display:none">

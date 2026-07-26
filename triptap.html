@@ -8,7 +8,7 @@
   <link rel="icon" href="favicon.webp" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=44">
   <script>
     if (localStorage.getItem('theme') === 'light') {
@@ -28,54 +28,66 @@
         <span class="nav-sep" aria-hidden="true">/</span>
         <a class="nav-item touch-link" href="index.html#projects">МОИ ПРОЕКТЫ</a>
         <span class="nav-sep" aria-hidden="true">/</span>
-        <a class="nav-item touch-link" href="#">РЕЗЮМЕ</a>
+        <a class="nav-item touch-link" href="https://drive.google.com/file/d/1V42wGXplnsbLmSjrF9bqFQjtB52T-D4P/view?usp=sharing" target="_blank" rel="noopener">РЕЗЮМЕ</a>
       </div>
       <button class="theme-switch" id="theme-toggle" aria-label="Переключить светлую тему" aria-pressed="false" type="button">
         <span class="theme-switch-thumb"></span>
       </button>
     </div>
   </div>  <div class="container">
-    <div class="case-hero-stack">
-      <div class="case-hero-screen">
-        <p class="case-hero-title">TRIPTAP — ПРИЛОЖЕНИЕ ДЛЯ<br>БРОНИРОВАНИЯ АВИАБИЛЕТОВ</p>
+    <div class="case-block case-about">
+      <div class="case-about-content">
+        <div class="case-about-text">
+          <h2 class="case-section-title">Понимание проблемы</h2>
+          <p class="case-section-text">Пассажирам приходится выполнять несколько действий на разных сервисах: искать рейсы, сравнивать варианты, оформлять билеты, выбирать места и отслеживать информацию о предстоящих перелётах.</p>
+        </div>
       </div>
     </div>
-    <div class="case-block case-about">
+    <div class="case-block case-idea">
       <div class="case-section">
-        <h2 class="case-section-title">О проекте</h2>
-        <p class="case-section-text">Это кроссплатформенное мобильное приложение для бронирования авиабилетов, где вы можете найти оптимальный тариф с багажом в один клик, не выходя из приложения.</p>
+        <h2 class="case-section-title">Идея</h2>
+        <p class="case-section-text">Я разработал концепцию мобильного приложения, которое объединяет весь процесс организации перелёта в одном месте. Пользователи могут искать и бронировать авиабилеты, выбирать места, хранить электронные билеты и получать актуальную информацию о предстоящих рейсах через простой и интуитивно понятный интерфейс.</p>
+      </div>
+      <div class="case-image">
+        <img class="case-image-static-img" src="images/triptap-idea.jpg" alt="TripTap — экраны поиска билетов, горячих предложений и календаря">
       </div>
     </div>
     <div class="case-block case-audience">
       <div class="case-section">
-        <h2 class="case-section-title">Аудитория</h2>
-        <p class="case-section-text">Активные путешественники 22–38 лет, часто летающие внутри страны и за рубеж, для которых скорость оформления важнее визуальных деталей. Ценят прозрачность цены и минимум лишних шагов перед оплатой.</p>
+        <h2 class="case-section-title">Анализ конкурентов</h2>
+        <p class="case-section-text">Сначала я провёл анализ конкурентов, чтобы понять, какие решения уже существуют на рынке и где остаются точки роста.</p>
+      </div>
+      <div class="case-image case-image--auto">
+        <img class="case-image-static-img" src="images/triptap-competitors.png" alt="Разбор экранов Aviasales, КупиБилет и Яндекс Путешествий по сценариям">
+      </div>
+      <div class="case-section">
+        <p class="case-section-text"><img class="brand-icon" src="images/brand-aviasales.png" alt="" width="20" height="20"><strong>Aviasales:</strong> Приложение обладает аккуратным интерфейсом и удобной навигацией. Однако сценарий бронирования слишком затянут, а главному экрану не хватает воздуха.</p>
+        <p class="case-section-text"><img class="brand-icon" src="images/brand-kupibilet.png" alt="" width="20" height="20"><strong>КупиБилет:</strong> Слабая визуальная иерархия карточек и избыточная текстовая нагрузка на компоненты.</p>
+        <p class="case-section-text"><img class="brand-icon" src="images/brand-yandex-travel.png" alt="" width="20" height="20"><strong>Яндекс Путешествия:</strong> В целом, интерфейс использует привычные паттерны и выглядит визуально привлекательно. Основным крючком удержания аудитории становится интеграция в экосистему Яндекс Плюса, позволяющая пользователям экономить за счёт кросс-сервисных баллов.</p>
       </div>
     </div>
     <div class="case-block case-competitors">
       <div class="case-section">
-        <h2 class="case-section-title">Конкуренты</h2>
-        <p class="case-section-text">Разобрал Aviasales, Skyscanner и S7. Общие проблемы: перегруженные фильтры на старте поиска, долгий чекаут в несколько экранов и непрозрачное отображение багажа и тарифа до последнего шага оплаты.</p>
+        <h2 class="case-section-title">Формулировка гипотез</h2>
+        <p class="case-section-text">1. Если мы объединим параметры фильтра в один шаг, то время первого поиска сократится условно на 20%, потому что пользователи реже будут отваливаться.</p>
       </div>
     </div>
-    <div class="case-block case-hypotheses">
+    <div class="case-block case-visual">
       <div class="case-section">
-        <h2 class="case-section-title">Гипотезы</h2>
-        <ol class="case-list">
-          <li class="case-list-item"><span class="case-list-index">H1</span><span class="case-list-text">Если объединить выбор тарифа и багажа на одном экране, доля отказов на чекауте снизится.</span></li>
-          <li class="case-list-item"><span class="case-list-index">H2</span><span class="case-list-text">Если показывать динамику цены на билет, доверие к моменту покупки вырастет.</span></li>
-        </ol>
+        <h2 class="case-section-title">Визуальная концепция</h2>
+        <p class="case-section-text">Проектирование началось со сбора визуальных и функциональных референсов. Я проанализировал лучшие практики для ключевых компонентов: карточек билетов, лид-форм, модулей поиска и экранов регистрации. На основе собранных рефов были составлены интерфейсные френки для каждого пользовательского сценария.</p>
+      </div>
+      <div class="case-image case-image--auto">
+        <img class="case-image-static-img" src="images/triptap-visual.png?v=2" alt="Референсы и френки: экраны входа, главной страницы и подтверждения оплаты, Style Kit, светлая и тёмная темы">
       </div>
     </div>
-    <div class="case-block case-user-journey">
+    <div class="case-block case-design-system">
       <div class="case-section">
-        <h2 class="case-section-title">Путь пользователя</h2>
-        <ol class="case-list">
-          <li class="case-list-item"><span class="case-list-index">01</span><span class="case-list-text">Ищет направление и даты вылета</span></li>
-          <li class="case-list-item"><span class="case-list-index">02</span><span class="case-list-text">Сравнивает тарифы с сразу видимым составом багажа</span></li>
-          <li class="case-list-item"><span class="case-list-index">03</span><span class="case-list-text">Выбирает тариф и оформляет пассажиров</span></li>
-          <li class="case-list-item"><span class="case-list-index">04</span><span class="case-list-text">Оплачивает и получает билет в кошельке приложения</span></li>
-        </ol>
+        <h2 class="case-section-title">Дизайн-система</h2>
+        <p class="case-section-text">После визуальной концепции я начал собирать компоненты для своего проекта. Всего было спроектировано порядка 150 шт. Начал с базовых элементов: иконок, кнопок, полей ввода и ячеек списка, а из них собрал составные: карточки билетов, модальные окна, календарь и таб-бар.</p>
+      </div>
+      <div class="case-image case-image--auto">
+        <img class="case-image-static-img" src="images/triptap-design-system.png?v=2" alt="Библиотека компонентов: элементы, статус-бар, кнопки, навигация, заголовки, карточки, поля, контролы и составные компоненты">
       </div>
     </div>
   </div>

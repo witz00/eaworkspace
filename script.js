@@ -24,6 +24,15 @@ if (pageOverlay && !window.matchMedia('(prefers-reduced-motion: reduce)').matche
   }, { passive: true });
 }
 
+const navBar = document.querySelector('.nav-bar');
+if (navBar) {
+  const updateNavBarScrolled = () => {
+    navBar.classList.toggle('nav-bar--scrolled', window.scrollY > 0);
+  };
+  updateNavBarScrolled();
+  window.addEventListener('scroll', updateNavBarScrolled, { passive: true });
+}
+
 const themeToggles = document.querySelectorAll('#theme-toggle, #theme-toggle-footer');
 
 const themeColorMeta = document.getElementById('theme-color-meta');
@@ -82,20 +91,6 @@ if (navBurger && navLinks) {
     if (window.innerWidth > 768) {
       closeMenu();
     }
-  });
-}
-
-// "ПЕРЕЙТИ" label that follows the pointer when hovering a project card
-const cursorLabel = document.getElementById('cursor-label');
-
-if (cursorLabel && window.matchMedia('(pointer: fine)').matches) {
-  window.addEventListener('mousemove', (e) => {
-    cursorLabel.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-  });
-
-  document.querySelectorAll('.proj-card').forEach(card => {
-    card.addEventListener('mouseenter', () => cursorLabel.classList.add('visible'));
-    card.addEventListener('mouseleave', () => cursorLabel.classList.remove('visible'));
   });
 }
 

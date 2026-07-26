@@ -11,7 +11,7 @@ html {
   position: fixed;
   bottom: 24px;
   z-index: 20;
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 500;
   font-size: 13px;
   color: var(--text);
@@ -46,58 +46,25 @@ html {
   background-color: var(--muted);
 }
 
-.cursor-label {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(0, 0);
-}
-
-.cursor-label-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 20px;
-  background: var(--text);
-  color: var(--bg);
-  font-family: "Golos Text", sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  transform: translateY(-100%) scale(0.6);
-  transform-origin: bottom left;
-  opacity: 0;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.cursor-label.visible .cursor-label-inner {
-  opacity: 1;
-  transform: translateY(-100%) scale(1);
-}
-
-@media (pointer: coarse) {
-  .cursor-label {
-    display: none;
-  }
-}
-
 :root {
-  /* Dark theme (default): pure black bg, pure white text, 21:1 AAA */
-  --bg: #000000;
-  --bg-rgb: 0, 0, 0;
-  --text: #FFFFFF;
-  --text-rgb: 255, 255, 255;
+  /* Dark theme (default): тональная шкала, а не инверсия светлой темы.
+     Почти-чёрный фон вместо #000 и почти-белый текст вместо #FFF убирают
+     галацию (ореол вокруг букв) на OLED-экранах при сохранении AAA. */
+  --bg: #0F0F0F;
+  --bg-rgb: 15, 15, 15;
+  /* text: AAA (17.1:1) on --bg */
+  --text: #F2F2F2;
+  --text-rgb: 242, 242, 242;
+  /* text-body: AA (6.8:1) — приглушённый тон основного текста */
+  --text-body: #9A9A9A;
   /* muted: AAA (7.6:1) on --bg, for secondary content that must stay readable */
-  --muted: #9B9B9B;
-  --muted-rgb: 155, 155, 155;
-  /* muted-soft: AA (4.6:1) on --bg, for de-emphasized marks (separators, rests) */
-  --muted-soft: #767676;
+  --muted: #A3A3A3;
+  --muted-rgb: 163, 163, 163;
+  /* muted-soft: AA (4.7:1) on --bg, for de-emphasized marks (separators, rests) */
+  --muted-soft: #7D7D7D;
   --accent: #34C759;
-  --curtain: #0D0D0D;
+  /* curtain: приподнятая поверхность — светлее фона, а не темнее */
+  --curtain: #1C1C1C;
 }
 
 html.light-theme {
@@ -106,6 +73,8 @@ html.light-theme {
   --bg-rgb: 255, 255, 255;
   --text: #000000;
   --text-rgb: 0, 0, 0;
+  /* text-body: AA (5.7:1) — парная ступень к тёмной теме */
+  --text-body: #666666;
   /* muted: AAA (7:1) on --bg */
   --muted: #595959;
   --muted-rgb: 89, 89, 89;
@@ -171,6 +140,37 @@ body {
   border-radius: 0px;
 }
 
+.nav-bar::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -16px;
+  left: 0;
+  right: 0;
+  bottom: -17.3px;
+  background: transparent;
+  transition: background-color .3s;
+}
+
+.nav-bar--scrolled::before {
+  background: var(--bg);
+}
+
+.nav-bar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -16px;
+  height: 1.3px;
+  background: transparent;
+  transition: background-color .3s;
+}
+
+.nav-bar--scrolled::after {
+  background: var(--curtain);
+}
+
 .nav-location {
   position: absolute;
   left: 194px;
@@ -186,7 +186,7 @@ body {
 }
 
 .nav-item {
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 500;
   line-height: 110%;
   font-size: 13px;
@@ -220,7 +220,7 @@ body {
 }
 
 .nav-sep {
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 500;
   font-size: 13px;
   line-height: 110%;
@@ -331,7 +331,7 @@ body {
 }
 
 .about-title {
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 54px;
   font-style: normal;
   font-weight: 600;
@@ -345,7 +345,7 @@ body {
 
 .about-description {
   position: relative;
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 40px;
   font-style: normal;
   font-weight: 500;
@@ -381,74 +381,39 @@ body {
   overflow: hidden;
   white-space: nowrap;
   clip-path: inset(0 100% 0 0);
-  animation: 8s steps(1, end) infinite;
+  animation: 10s steps(1, end) infinite;
   margin: 0 auto;
 }
 
 .type-line-1 { animation-name: type-line-1; }
 .type-line-2 { animation-name: type-line-2; }
-.type-line-m1 { animation-name: type-line-m1; }
-.type-line-m2 { animation-name: type-line-m2; }
-.type-line-m3 { animation-name: type-line-m3; }
-.type-line-m4 { animation-name: type-line-m4; }
+.type-line-3 { animation-name: type-line-3; }
 
-/* Desktop: 2 lines (16 / 34 chars) */
+/* Desktop: 3 lines (39 / 44 / 23 chars), typed in sequence */
 @keyframes type-line-1 {
-  0%   { clip-path: inset(0 100% 0 0); animation-timing-function: steps(16, end); }
-  8%   { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  90%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(16, end); }
-  95%  { clip-path: inset(0 100% 0 0); }
-  100% { clip-path: inset(0 100% 0 0); }
+  0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(39, end); }
+  19.1%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  92%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(39, end); }
+  94%    { clip-path: inset(0 100% 0 0); }
+  100%   { clip-path: inset(0 100% 0 0); }
 }
 
 @keyframes type-line-2 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  8%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(34, end); }
-  25.5%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  80%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(34, end); }
-  85%    { clip-path: inset(0 100% 0 0); }
+  19.1%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(44, end); }
+  40.7%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  90%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(44, end); }
+  92%    { clip-path: inset(0 100% 0 0); }
   100%   { clip-path: inset(0 100% 0 0); }
 }
 
-/* Mobile: 4 shorter lines (16 / 11 / 11 / 10 chars) */
-@keyframes type-line-m1 {
-  0%   { clip-path: inset(0 100% 0 0); animation-timing-function: steps(16, end); }
-  8%   { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  90%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(16, end); }
-  95%  { clip-path: inset(0 100% 0 0); }
-  100% { clip-path: inset(0 100% 0 0); }
-}
-
-@keyframes type-line-m2 {
+@keyframes type-line-3 {
   0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  8%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(11, end); }
-  13.5%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  85%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(11, end); }
+  40.7%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(23, end); }
+  52%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
+  88%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(23, end); }
   90%    { clip-path: inset(0 100% 0 0); }
   100%   { clip-path: inset(0 100% 0 0); }
-}
-
-@keyframes type-line-m3 {
-  0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  13.5%  { clip-path: inset(0 100% 0 0); animation-timing-function: steps(11, end); }
-  19%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  80%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(11, end); }
-  85%    { clip-path: inset(0 100% 0 0); }
-  100%   { clip-path: inset(0 100% 0 0); }
-}
-
-@keyframes type-line-m4 {
-  0%     { clip-path: inset(0 100% 0 0); animation-timing-function: steps(1, end); }
-  19%    { clip-path: inset(0 100% 0 0); animation-timing-function: steps(10, end); }
-  24.5%  { clip-path: inset(0 0% 0 0); animation-timing-function: steps(1, end); }
-  75%    { clip-path: inset(0 0% 0 0); animation-timing-function: steps(10, end); }
-  80%    { clip-path: inset(0 100% 0 0); }
-  100%   { clip-path: inset(0 100% 0 0); }
-}
-
-.type-line--mobile,
-.ghost-text--mobile {
-  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -483,7 +448,7 @@ body {
   box-sizing: border-box;
   background: #FFFFFF;
   border: 1px solid transparent;
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 500;
   font-size: 13px;
   letter-spacing: 0.05em;
@@ -613,7 +578,7 @@ html.light-theme .proj-card--dentacare::after {
 }
 
 .proj-pitch {
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 130%;
@@ -623,7 +588,7 @@ html.light-theme .proj-card--dentacare::after {
 }
 
 .proj-meta {
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 500;
   font-size: 13px;
   text-transform: uppercase;
@@ -655,11 +620,7 @@ html.light-theme .proj-card--dentacare::after {
 }
 
 .typing-caret--desktop {
-  animation: caret-blink 0.9s steps(1, end) infinite, caret-visible 8s steps(1, end) infinite;
-}
-
-.typing-caret--mobile {
-  animation: caret-blink 0.9s steps(1, end) infinite, caret-visible-mobile 8s steps(1, end) infinite;
+  animation: caret-blink 0.9s steps(1, end) infinite, caret-visible 10s steps(1, end) infinite;
 }
 
 @keyframes caret-blink {
@@ -668,13 +629,8 @@ html.light-theme .proj-card--dentacare::after {
 }
 
 @keyframes caret-visible {
-  0%, 25%, 85%, 100% { visibility: hidden; }
-  26%, 84% { visibility: visible; }
-}
-
-@keyframes caret-visible-mobile {
-  0%, 24%, 80%, 100% { visibility: hidden; }
-  25%, 79% { visibility: visible; }
+  0%, 40.7%, 88%, 100% { visibility: hidden; }
+  40.8%, 87.9% { visibility: visible; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -749,14 +705,14 @@ html.light-theme .proj-card--dentacare::after {
 }
 
 .project-title {
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 500;
   line-height: 110%;
   font-size: 16px;
 }
 
 .project-meta {
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 500;
   line-height: 110%;
   font-size: 13px;
@@ -765,7 +721,7 @@ html.light-theme .proj-card--dentacare::after {
 
 /* Case page template */
 .case-title {
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 30px;
   font-style: normal;
   font-weight: 600;
@@ -794,6 +750,44 @@ html.light-theme .proj-card--dentacare::after {
   padding-top: 200px;
 }
 
+.case-image--themed {
+  position: relative;
+  overflow: hidden;
+  background: var(--curtain);
+}
+
+.case-image-static-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.case-image-themed-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity .3s;
+}
+
+.case-image-themed-img--dark {
+  opacity: 1;
+}
+
+.case-image-themed-img--light {
+  opacity: 0;
+}
+
+html.light-theme .case-image-themed-img--dark {
+  opacity: 0;
+}
+
+html.light-theme .case-image-themed-img--light {
+  opacity: 1;
+}
+
 .case-overlay {
   position: sticky;
   top: 0;
@@ -811,7 +805,7 @@ html.light-theme .proj-card--dentacare::after {
 .case-overlay .case-section,
 .case-overlay .case-meta {
   width: 100%;
-  max-width: 1152px;
+  max-width: 768px;
   margin: 0 auto;
 }
 
@@ -826,7 +820,7 @@ html.light-theme .proj-card--dentacare::after {
 }
 
 .case-hero-title {
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 3.6rem;
   font-style: normal;
   font-weight: 500;
@@ -883,15 +877,36 @@ html.light-theme .proj-card--dentacare::after {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  gap: 32px;
+  gap: 48px;
   width: 100%;
-  max-width: 1152px;
-  margin: 160px auto 0;
+  max-width: 768px;
+  margin: 60px auto 0;
 }
 
-.case-block:first-child {
-  margin-top: 0;
+/* Отступ первого блока кейса: 96px + высота хедера (48px) */
+.case-block.case-about {
+  margin-top: 144px;
 }
+
+/* Воздух под последним блоком кейса — страница не обрывается на тексте */
+.case-block:last-child {
+  margin-bottom: 144px;
+}
+
+.case-about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+.case-about-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
 
 .case-hero {
   width: 100%;
@@ -902,7 +917,7 @@ html.light-theme .proj-card--dentacare::after {
 .case-meta {
   display: flex;
   width: 100%;
-  max-width: 1152px;
+  max-width: 768px;
   margin: 0 auto;
   justify-content: space-between;
 }
@@ -914,14 +929,14 @@ html.light-theme .proj-card--dentacare::after {
 }
 
 .case-meta-label {
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 500;
   font-size: 13px;
   color: var(--muted);
 }
 
 .case-meta-value {
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 500;
   font-size: 16px;
   color: var(--text);
@@ -930,32 +945,118 @@ html.light-theme .proj-card--dentacare::after {
 .case-section {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
   width: 100%;
 }
 
 .case-section-title {
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 500;
-  font-size: 2rem;
+  font-size: 28.8px;
+  line-height: 110%;
+  text-wrap: balance;
   color: var(--text);
   margin: 0;
 }
 
+.case-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.case-section-num {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  color: var(--text);
+  flex-shrink: 0;
+}
+
 .case-section-text {
-  font-family: "Golos Text", sans-serif;
-  font-weight: 460;
-  font-size: 1.5rem;
-  line-height: 110%;
-  color: var(--muted);
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 19.2px;
+  line-height: 140%;
+  text-wrap: pretty;
+  color: var(--text-body);
   margin: 0;
+  width: 100%;
+}
+
+/* Описание прижимается к своему заголовку, не трогая интервал между абзацами:
+   gap секции 16px остаётся как есть */
+.case-section-title + .case-section-text {
+  margin-top: 0;
+}
+
+/* Изображение отбивается от своего описания так же, как описание от заголовка:
+   gap блока 48px гасится до 16px, не затрагивая интервал между секциями */
+.case-section + .case-image {
+  margin-top: -32px;
+}
+
+/* Названия сервисов набраны цветом заголовков — работают как микрозаголовки */
+.case-section-text strong {
+  color: var(--text);
+}
+
+/* Логотип сервиса перед его названием в разборе конкурентов */
+.brand-icon {
+  display: inline-block;
+  /* Размер и сдвиг в em: иконка центрируется по высоте прописных
+     соседнего названия и остаётся выровненной при смене кегля */
+  width: 1.05em;
+  height: 1.05em;
+  margin-right: 0.4em;
+  vertical-align: -0.16em;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.case-persona-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--curtain);
+}
+
+.case-persona-table th,
+.case-persona-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 16px;
+  border: 1px solid var(--curtain);
+}
+
+.case-persona-table th {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.case-persona-table td:first-child {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--muted-soft);
+  width: 180px;
+}
+
+.case-persona-table td {
+  font-family: "Inter", sans-serif;
+  font-weight: 460;
+  font-size: 1rem;
+  line-height: 130%;
+  color: var(--muted);
 }
 
 .case-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-width: 720px;
+  max-width: 768px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -968,7 +1069,7 @@ html.light-theme .proj-card--dentacare::after {
 }
 
 .case-list-index {
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 13px;
   color: var(--muted-soft);
@@ -977,7 +1078,7 @@ html.light-theme .proj-card--dentacare::after {
 }
 
 .case-list-text {
-  font-family: "Golos Text", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 130%;
@@ -986,8 +1087,11 @@ html.light-theme .proj-card--dentacare::after {
 
 .case-image {
   width: 100%;
-  height: 640px;
-  background: #1a1a1a;
+  aspect-ratio: 16 / 9;
+  background: var(--curtain);
+  /* Хайрлайн задаёт границу светлого макета на тёмном фоне и наоборот */
+  box-shadow: inset 0 0 0 1px rgba(var(--text-rgb), 0.1);
+  overflow: hidden;
 }
 
 .case-image-row {
@@ -999,6 +1103,20 @@ html.light-theme .proj-card--dentacare::after {
 .case-image-row .case-image {
   width: 564px;
   margin: 0;
+}
+
+.case-image--fixed {
+  aspect-ratio: 1600 / 803;
+}
+
+/* Изображение сохраняет собственные пропорции вместо 16/9 */
+.case-image--auto {
+  aspect-ratio: auto;
+}
+
+.case-image--auto .case-image-static-img {
+  height: auto;
+  object-fit: contain;
 }
 
 .mobile-stub {
@@ -1020,7 +1138,7 @@ html.light-theme .proj-card--dentacare::after {
     box-sizing: border-box;
     background: var(--bg);
     color: var(--text);
-    font-family: "Golos Text", sans-serif;
+    font-family: "Inter", sans-serif;
   }
 
   .mobile-stub-inner {
