@@ -101,8 +101,8 @@ document.querySelectorAll('a, button').forEach(el => {
 // Click / hover sounds (real audio files, kept quiet and non-blocking)
 const clickAudio = new Audio('sounds/click.wav');
 const hoverAudio = new Audio('sounds/hover.wav');
-clickAudio.volume = 0.4;
-hoverAudio.volume = 0.25;
+clickAudio.volume = 0.1;
+hoverAudio.volume = 0.1;
 
 function playClickSound() {
   clickAudio.currentTime = 0;
