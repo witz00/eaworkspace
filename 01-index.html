@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000" id="theme-color-meta">
+  <title>Emil A. — Product Designer</title>
+  <link rel="icon" href="06-favicon.webp" type="image/webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="04-styles.css?v=44">
+  <script>
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.classList.add('light-theme');
+      document.getElementById('theme-color-meta').setAttribute('content', '#FFFFFF');
+    }  </script>
+</head>
+<body id="home">
+  <div class="nav-bar">
+    <a class="nav-item nav-logo" href="#">eaworkspace</a>
+    <button class="nav-burger" id="nav-burger" aria-label="Меню" aria-expanded="false" type="button">
+      <span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <div class="nav-links-center">
+        <a class="nav-item touch-link" href="#projects">Кейсы<svg class="nav-icon nav-icon--layers" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5 14 6 8 9.5 2 6z"/><path d="m2.6 9.4 5.4 3.1 5.4-3.1"/></svg></a>
+        <a class="nav-item touch-link" href="https://drive.google.com/file/d/1V42wGXplnsbLmSjrF9bqFQjtB52T-D4P/view?usp=sharing" target="_blank" rel="noopener">Резюме<svg class="nav-icon" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8m0 0L4.5 6.5M8 10l3.5-3.5"/><path d="M2.5 12.5v1h11v-1"/></svg></a>
+      </div>
+      <button class="theme-switch" id="theme-toggle" aria-label="Переключить светлую тему" aria-pressed="false" type="button">
+        <span class="theme-switch-thumb"></span>
+      </button>
+    </div>
+  </div>  <div class="container">
+    <section class="page-section page-section--hero" id="hero">
+      <div class="about-text">
+        <p class="about-description">
+          <span class="ghost-text" aria-hidden="true">Привет, я Эмиль Ахтямкин — продуктовый дизайнер. Проектирую мобильные приложения и веб-интерфейсы с опорой на исследования.</span>
+          <span class="hero-layer"><span class="hero-typed">Привет, я Эмиль Ахтямкин — продуктовый дизайнер. Проектирую мобильные приложения и веб-интерфейсы с опорой на исследования.</span></span>
+        </p>
+      </div>
+      <a class="hero-cta" href="https://t.me/witz00" target="_blank" rel="noopener">
+        <span class="hero-cta-label">Написать мне</span>
+      </a>
+    </section>
+    <section class="page-section page-section--projects" id="projects">
+      <h2 class="section-heading">Кейсы</h2>
+      <div class="proj-grid">
+        <div class="proj-item">
+          <a class="proj-card proj-card--dentacare" href="02-dental-care.html" aria-label="Открыть кейс DentaCare"></a>
+          <p class="proj-pitch"><span class="proj-title">DentaCare</span> ― приложение для записи к стоматологу</p>
+        </div>
+        <div class="proj-item">
+          <a class="proj-card proj-card--triptap" href="03-triptap.html" aria-label="Открыть кейс TripTap"></a>
+          <p class="proj-pitch"><span class="proj-title">TripTap</span> ― приложение для бронирования авиабилетов</p>
+        </div>
+      </div>
+    </section>
+    <section class="page-section" id="about">
+      <h2 class="section-heading">Обо мне</h2>
+      <div class="section-body">
+        <p class="section-text">Начинаю работу не с макета, а с вопроса, зачем человек открывает экран. Провожу интервью, разбираю сценарии, проверяю гипотезы на прототипах — и только потом рисую интерфейс.</p>
+        <p class="section-text">Довожу проект до передачи в разработку: собираю макеты состояний, описываю поведение компонентов и остаюсь на связи, пока экран не заработает так, как задумано.</p>
+      </div>
+    </section>
+    <section class="page-section" id="skills">
+      <h2 class="section-heading">Навыки</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <p class="skill-label">Исследование</p>
+          <ul class="skill-list">
+            <li>Пользовательские интервью</li>
+            <li>Сценарии и джобы</li>
+            <li>Проверка гипотез на прототипах</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <p class="skill-label">Проектирование</p>
+          <ul class="skill-list">
+            <li>Информационная архитектура</li>
+            <li>Пользовательские потоки</li>
+            <li>Прототипы и состояния экранов</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <p class="skill-label">Интерфейс</p>
+          <ul class="skill-list">
+            <li>Мобильные приложения</li>
+            <li>Веб-интерфейсы</li>
+            <li>Дизайн-система и компоненты</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <p class="skill-label">Инструменты</p>
+          <ul class="skill-list">
+            <li>Figma</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script src="05-script.js?v=9"></script>
+</body>
+</html>
