@@ -48,7 +48,7 @@ html {
   --curtain: #F2F2F2;
   /* Вертикальные поля секции. На стыке двух секций складываются,
      поэтому между блоками получается вдвое больше. */
-  --block-gap: 144px;
+  --block-gap: 96px;
 }
 
 /* Тёмная тема — инверсия. Почти-чёрный фон вместо #000 и почти-белый текст
@@ -179,12 +179,59 @@ body {
   cursor: pointer;
 }
 
+/* Контейнер пунктов. На десктопе он лишь занимает место в строке — сами
+   пункты отцентрованы абсолютом; на телефоне превращается в выпадающую
+   панель под шапкой. */
 .nav-links {
+  order: 1;
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  flex: 1;
+}
+
+/* Переключатель и бургер идут одной группой в правой части строки. */
+.nav-actions {
+  order: 2;
+  display: flex;
+  align-items: center;
   gap: 12px;
+}
+
+/* Бургер только для телефона. Две полосы вместо трёх: крестик собирается
+   из них же поворотом, третья была бы лишней. */
+.nav-burger {
+  display: none;
+  position: relative;
+  z-index: 101;
+  width: 24px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.nav-burger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--text);
+  transition: transform 0.25s ease, top 0.25s ease;
+}
+
+.nav-burger span:nth-child(1) { top: 6px; }
+.nav-burger span:nth-child(2) { top: 13px; }
+
+.nav-burger.open span:nth-child(1) {
+  top: 9px;
+  transform: rotate(45deg);
+}
+
+.nav-burger.open span:nth-child(2) {
+  top: 9px;
+  transform: rotate(-45deg);
 }
 
 /* Пункты отцентрованы по шапке независимо от ширины логотипа и переключателя.
@@ -359,8 +406,10 @@ html.theme-dark .theme-switch-knob {
 
 /* Приветствие занимает столько, сколько нужно тексту: верхний отступ уводит
    его из-под шапки, дальше работает общий ритм в 144px. */
+/* 96px чистого воздуха под шапкой: её полоса занимает первые 72px
+   (28 отступ + 16 строка + 28 фон), поэтому здесь 72 + 96. */
 .page-section--hero {
-  padding-top: 200px;
+  padding-top: 168px;
   text-align: center;
 }
 
@@ -373,7 +422,7 @@ html.theme-dark .theme-switch-knob {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin: 32px 0 0;
+  margin: 20px 0 0;
   font-family: "Inter", sans-serif;
   font-weight: 500;
   font-size: 14px;
@@ -414,54 +463,45 @@ html.theme-dark .theme-switch-knob {
   }
 }
 
-.hero-status-sep {
-  color: var(--muted-soft);
-  user-select: none;
-}
-
-/* Моноширинные цифры: время меняется, а строка не дёргается. */
-.hero-status-time {
-  font-variant-numeric: tabular-nums;
-}
-
 
 .hero-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: 32px;
-  padding: 15px 20px;
-  border-radius: 0;
+  margin-top: 20px;
+  /* Таблетка фиксированной высоты: центрирование держит flex, поэтому
+     вертикальных отступов нет — строка всегда стоит ровно посередине. */
+  height: 52px;
+  padding: 0 32px;
+  /* Обводка есть всегда, просто прозрачная: при наведении она лишь меняет
+     цвет, поэтому кнопка не прыгает на пиксель и текст не съезжает. */
+  border: 1px solid transparent;
+  border-radius: 1000px;
   box-sizing: border-box;
-  background: #000000;
+  background: var(--text);
   font-family: "Inter", sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1;
-  /* Капслок требует более широкого трекинга, иначе буквы слипаются. */
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #FFFFFF;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  color: var(--bg);
   text-decoration: none;
-  transition: background-color 0.25s ease, transform 0.25s ease;
+  transition: background-color 0.25s ease, border-color 0.25s ease,
+              color 0.25s ease, transform 0.25s ease;
 }
 
-.hero-cta:hover {
-  background: #1C1C1C;
+/* Наведение выворачивает кнопку: заливка уходит, остаётся контур. */
+@media (hover: hover) and (pointer: fine) {
+  .hero-cta:hover {
+    background: transparent;
+    border-color: var(--text);
+    color: var(--text);
+  }
 }
 
 /* Нажатие отзывается смещением на пиксель — кнопка ощущается физически. */
 .hero-cta:active {
   transform: translateY(1px);
-}
-
-html.theme-dark .hero-cta {
-  background: #FFFFFF;
-  color: #000000;
-}
-
-html.theme-dark .hero-cta:hover {
-  background: #E5E5E5;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -470,13 +510,13 @@ html.theme-dark .hero-cta:hover {
   }
 }
 
-/* Ступенью ниже приветствия (41px): заголовок раздела не спорит с именем,
-   но остаётся крупной вехой, а не служебной подписью. Выключка левая. */
+/* Кегль и начертание те же, что у приветствия: заголовок раздела —
+   ровня герою, а не служебная подпись. Выключка левая, по краю сетки. */
 .section-heading {
   width: 100%;
   margin: 0 0 32px;
   font-family: "Inter", sans-serif;
-  font-size: clamp(24px, 2.6vw, 32px);
+  font-size: clamp(26px, 3.2vw, 41px);
   font-weight: 500;
   line-height: 108%;
   letter-spacing: -0.02em;
@@ -515,113 +555,38 @@ html.theme-dark .hero-cta:hover {
   margin-bottom: 0;
 }
 
-/* ── Навыки как диаграмма процесса ──────────────────────────────
-   Три группы — не категории, а последовательность этапов работы:
-   исследую → проектирую → рисую интерфейс. Поэтому они соединены
-   линией с узлами, а нумерация здесь честная: порядок несёт смысл.
+/* ── Навыки: теги ───────────────────────────────────────────────
+   Каждый навык — отдельная плашка, ширина которой задана самим текстом
+   плюс постоянные поля: ровно auto layout из Figma. Плашки идут единым
+   потоком и переносятся по строкам сами, без деления на категории.
    ─────────────────────────────────────────────────────────────── */
-.skills-flow {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 32px;
-  width: 100%;
-  padding-top: 28px;
-}
-
-/* Линия процесса. Идёт от центра первого узла до центра последнего,
-   поэтому не торчит за крайние этапы. */
-.skills-flow::before {
-  content: "";
-  position: absolute;
-  top: 5px;
-  left: calc(100% / 6);
-  right: calc(100% / 6);
-  height: 1px;
-  background: var(--curtain);
-}
-
-.skill-stage {
-  position: relative;
-}
-
-/* Узел этапа: точка на линии над колонкой. */
-.skill-stage::before {
-  content: "";
-  position: absolute;
-  top: -28px;
-  left: 50%;
-  width: 11px;
-  height: 11px;
-  margin-left: -5.5px;
-  border-radius: 50%;
-  background: var(--bg);
-  box-shadow: inset 0 0 0 1px var(--muted-soft);
-  transition: background-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-/* Наведение заливает узел акцентом — видно, какой этап читаешь. */
-.skill-stage:hover::before {
-  background: var(--accent);
-  box-shadow: inset 0 0 0 1px var(--accent);
-}
-
-.skill-step {
-  margin: 0 0 8px;
-  font-family: "Inter", sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 130%;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--muted-soft);
-}
-
-.skill-stage-title {
-  margin: 0 0 16px;
-  font-family: "Inter", sans-serif;
-  font-weight: 500;
-  font-size: 22px;
-  line-height: 130%;
-  letter-spacing: -0.01em;
-  color: var(--text);
-}
-
-.skill-list {
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* Скругление во всю высоту — та же форма, что у кнопок сайта. Обводка
+   вместо заливки: тег называет навык, а не предлагает нажать. */
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 20px;
+  border: 1px solid var(--curtain);
+  border-radius: 1000px;
   font-family: "Inter", sans-serif;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 150%;
-  color: var(--text-body);
-}
-
-/* Инструменты вынесены из линии: это не этап процесса, а то, чем он делается.
-   Отделены чертой во всю ширину — так видно, что ряд закончился. */
-.skills-tools {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 8px 24px;
-  width: 100%;
-  margin-top: 48px;
-  padding-top: 24px;
-  border-top: 1px solid var(--curtain);
-}
-
-.skills-tools .skill-step {
-  margin: 0;
-}
-
-.skills-tools-list {
-  margin: 0;
-  font-family: "Inter", sans-serif;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 150%;
-  color: var(--text-body);
+  font-weight: 400;
+  /* Кегль тот же, что у перечня в «Опыте»: один размер для второстепенного
+     текста по всему сайту. */
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  color: var(--text);
+  white-space: nowrap;
 }
 
 /* ── Кейсы ──────────────────────────────────────────────────────
@@ -631,17 +596,19 @@ html.theme-dark .hero-cta:hover {
 .proj-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 80px;
+  gap: 64px;
   width: 100%;
   box-sizing: border-box;
 }
 
 /* Ссылкой остаётся вся карточка целиком, включая превью и подписи. */
+/* Превью — 480px, ровно половина контейнера: при 4:3 это целые 360 по высоте.
+   Доли fr давали 478.36×358.77, и картинка ложилась на дробный пиксель. */
 .proj-item {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
   align-items: center;
-  gap: 48px;
+  gap: 20px;
   box-sizing: border-box;
   text-decoration: none;
   color: inherit;
@@ -662,12 +629,15 @@ html.theme-dark .hero-cta:hover {
   color: var(--text);
 }
 
+/* Кегль и интерлиньяж как у текста «Обо мне»: основной текст на сайте
+   один, независимо от того, в каком разделе он стоит. */
 .proj-desc {
   margin-top: 8px;
   font-family: "Inter", sans-serif;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 22px;
   line-height: 140%;
+  letter-spacing: -0.01em;
   color: var(--text-body);
 }
 
@@ -677,16 +647,29 @@ html.theme-dark .hero-cta:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: 32px;
-  padding: 15px 20px;
+  margin-top: 20px;
+  height: 52px;
+  padding: 0 32px;
+  border: 1px solid transparent;
+  border-radius: 1000px;
+  box-sizing: border-box;
   background: var(--text);
   font-family: "Inter", sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
   color: var(--bg);
+  transition: background-color 0.25s ease, border-color 0.25s ease,
+              color 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .proj-more:hover {
+    background: transparent;
+    border-color: var(--text);
+    color: var(--text);
+  }
 }
 
 /* Превью лежит фоном на самой карточке. Отдельный слой под ним был нужен,
@@ -695,6 +678,7 @@ html.theme-dark .hero-cta:hover {
 .proj-card {
   display: block;
   aspect-ratio: 4 / 3;
+  border-radius: 12px;
   overflow: hidden;
   box-sizing: border-box;
   background-color: var(--bg);
@@ -861,17 +845,35 @@ html.theme-dark .case-image-themed-img--light {
   margin: 0 auto;
 }
 
+/* Та же таблетка, что «написать мне» и «подробнее», но вторичная: контур
+   вместо заливки. Возврат к списку не должен спорить с названием кейса. */
 .case-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  padding: 0 32px;
+  border: 1px solid var(--text);
+  border-radius: 1000px;
+  box-sizing: border-box;
+  background: transparent;
   font-family: "Inter", sans-serif;
-  font-weight: 500;
-  font-size: 13px;
-  color: var(--muted);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  color: var(--text);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-.case-back:hover {
-  color: var(--text);
+/* Наведение переворачивает пару: у основных кнопок заливка уходит,
+   здесь — появляется. */
+@media (hover: hover) and (pointer: fine) {
+  .case-back:hover {
+    background: var(--text);
+    color: var(--bg);
+  }
 }
 
 .case-lede {
@@ -1149,43 +1151,99 @@ html:not(.draft-mode) .is-draft {
   }
 
   .container {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
-  /* На узком экране строка статуса переносится — разделители лишние. */
+  /* На телефоне полоса шапки ниже — 58px, значит 58 + 96. */
+  .page-section--hero {
+    padding-top: 154px;
+  }
+
   .hero-status {
     gap: 6px 10px;
     font-size: 13px;
   }
 
-  .hero-status-sep {
-    display: none;
-  }
-
   .hero-cta {
-    margin-top: 32px;
+    margin-top: 20px;
   }
 
-  /* Шапка во всю ширину экрана минус поля. */
-  .nav-bar {
-    margin: 20px auto 0;
-    max-width: calc(100% - 32px);
+  /* Шапка закреплена вверху экрана на всех страницах, а не только на главной:
+     на телефоне навигация должна быть под рукой в любой точке прокрутки. */
+  .nav-bar,
+  #home .nav-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 16px auto 0;
+    max-width: calc(100% - 40px);
+    /* Строка выше десктопной: в неё встают переключатель 26px и бургер. */
+    height: 26px;
+  }
+
+  /* Полоса фона повторяет верхний отступ шапки, иначе низ выходит толще
+     верха. Итого высота полосы: 16 + 26 + 16 = 58px. */
+  .nav-bar::before {
+    top: -16px;
+    bottom: -16px;
   }
 
   .nav-logo {
-    font-size: 16px;
+    font-size: 20px;
   }
 
-  /* Иконок больше нет — пункты остаются подписями и просто уплотняются. */
+  /* Переключатель по центру строки: логотип слева, бургер справа, между ними
+     остаётся симметричная середина независимо от их ширины. */
+  .theme-switch {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .nav-actions {
+    margin-left: auto;
+  }
+
+  .nav-burger {
+    display: block;
+  }
+
+  /* Открытое меню — экран целиком, залитый фоном страницы. Слой лежит ниже
+     шапки по z-index, поэтому логотип, переключатель и крестик остаются
+     видимыми поверх него. Пока закрыто — убрано из потока целиком. */
+  .nav-links {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    flex: none;
+    display: none;
+    padding: 0;
+    box-sizing: border-box;
+    background: var(--bg);
+  }
+
+  .nav-links.open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Пункты стоят колонкой в центре экрана и набраны крупнее: на пустом
+     поле мелкий кегль выглядел бы потерянным. */
   .nav-links-center {
     position: static;
     transform: none;
-    gap: 12px;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
   }
 
   .nav-links-center .nav-item {
-    font-size: 14px;
+    font-size: 28px;
+    opacity: 1;
+    padding: 12px 0;
   }
 
   /* На телефоне карточка складывается в колонку: превью сверху, текст под ним. */
@@ -1203,73 +1261,25 @@ html:not(.draft-mode) .is-draft {
   }
 
   .proj-desc {
-    font-size: 16px;
+    font-size: 19px;
   }
 
   .proj-more {
     margin-top: 24px;
   }
 
-  /* Этапы идут колонкой; линия процесса становится вертикальной,
-     узлы выстраиваются вдоль левого края. */
-  .skills-flow {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    padding-top: 0;
-    padding-left: 24px;
+  /* Теги на телефоне ниже и теснее, а длинные фразы переносятся внутри
+     плашки — иначе «Не держусь за первый вариант» уезжает за край экрана. */
+  .skill-tags {
+    gap: 8px;
   }
 
-  .skills-flow::before {
-    top: 6px;
-    bottom: 6px;
-    left: 5px;
-    right: auto;
-    width: 1px;
+  .skill-tag {
     height: auto;
-  }
-
-  .skill-stage::before {
-    top: 6px;
-    left: -24px;
-    margin-left: 0;
-  }
-
-  .skill-list {
-    overflow-wrap: break-word;
-  }
-
-}
-
-/* ── Проявление текста «Обо мне» при прокрутке ──────────────────
-   Слова уходят от 0.3 к 1 по очереди: каждое получает свой участок
-   таймлайна, сдвинутый на --reveal-step относительно предыдущего.
-   Разбивку на слова делает скрипт; без него и без поддержки
-   scroll-driven анимаций текст просто виден целиком.
-   ─────────────────────────────────────────────────────────────── */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    #about .section-body {
-      view-timeline-name: --about-reveal;
-    }
-
-    .reveal-word {
-      /* Окно разгорания равно шагу между словами с небольшим перекрытием:
-         пока горит одно слово, следующее ещё не начало. При окне шире шага
-         вспыхивала бы сразу группа. */
-      opacity: 0.12;
-      animation: word-reveal linear both;
-      animation-range: cover calc(var(--i) * var(--reveal-step, 0.5%))
-                       cover calc(var(--i) * var(--reveal-step, 0.5%) + var(--reveal-span, 1%));
-    }
-
-    /* После шортката animation — иначе он сбросил бы таймлайн в auto. */
-    .reveal-word {
-      animation-timeline: --about-reveal;
-    }
-
-    @keyframes word-reveal {
-      to { opacity: 1; }
-    }
+    min-height: 38px;
+    padding: 8px 16px;
+    font-size: 14px;
+    white-space: normal;
   }
 }
 
@@ -1349,6 +1359,8 @@ html:not(.draft-mode) .is-draft {
   height: 44px;
   padding: 0;
   border: none;
+  /* Круг, а не таблетка: кнопка иконочная, боковым полям нечего обрамлять. */
+  border-radius: 50%;
   background: rgba(255, 255, 255, 0.12);
   color: #FFFFFF;
   cursor: pointer;
@@ -1390,5 +1402,172 @@ html:not(.draft-mode) .is-draft {
 @media (max-width: 768px) {
   .lightbox-hint {
     display: none;
+  }
+}
+
+/* ── Опыт: дорожка с логотипами ─────────────────────────────────
+   Строка записи: слева узел на общей вертикали и квадрат логотипа,
+   справа должность, строка-подпись и перечень. Логотип — плейсхолдер:
+   в разметке лежит пустой div, его достаточно заменить на <img>
+   с тем же классом, размеры и скругление возьмутся отсюда.
+   ─────────────────────────────────────────────────────────────── */
+.exp-list {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.exp-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 16px;
+  padding: 0 0 32px 32px;
+}
+
+.exp-item:last-child {
+  padding-bottom: 0;
+}
+
+/* Узел на вертикали. Текущая запись отмечена акцентом. */
+.exp-item::before {
+  content: "";
+  position: absolute;
+  /* Узел выровнен по верхней границе логотипа, а не по строке заголовка. */
+  top: 0;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--muted-soft);
+}
+
+/* Отрезок линии принадлежит записи: идёт от её узла до узла следующей.
+   Так вертикаль существует только между узлами. */
+.exp-item::after {
+  content: "";
+  position: absolute;
+  top: 13px;
+  bottom: 4px;
+  left: 4px;
+  width: 1px;
+  background: var(--curtain);
+}
+
+/* У последней записи отрезка нет: линия связывает узлы и на нижнем
+   заканчивается, а не уходит вдоль текста в пустоту. */
+.exp-item:last-child::after {
+  display: none;
+}
+
+.exp-item--now::before {
+  background: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+/* Белая подложка под логотип: у большинства знаков прозрачный фон, и на
+   тёмной теме они бы слипались с фоном. Поля внутри плюс contain — знак
+   уменьшается и не упирается в скругление. */
+.exp-logo {
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 3px;
+  border-radius: 10px;
+  background: #FFFFFF;
+  object-fit: contain;
+}
+
+/* Пустой плейсхолдер остаётся серым — белый квадрат на белом фоне не виден. */
+div.exp-logo {
+  background: var(--curtain);
+}
+
+.exp-body {
+  min-width: 0;
+  padding-top: 1px;
+}
+
+.exp-role {
+  margin: 0 0 2px;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 140%;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.exp-meta {
+  margin: 0 0 12px;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 140%;
+  color: var(--muted-soft);
+}
+
+.exp-text {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 150%;
+  color: var(--text-body);
+}
+
+/* Тире вместо маркера: список читается как перечисление, а не как меню. */
+.exp-points {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 150%;
+  color: var(--text-body);
+}
+
+.exp-points li {
+  padding-left: 16px;
+  text-indent: -16px;
+}
+
+/* Пункты идут плотнее строк внутри самого пункта: перечень читается как
+   список, а не как сплошной абзац. */
+.exp-points li + li {
+  margin-top: 4px;
+}
+
+.exp-points li::before {
+  content: "— ";
+  color: var(--muted-soft);
+}
+
+@media (max-width: 768px) {
+  .exp-item {
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: 12px;
+    padding-left: 24px;
+    padding-bottom: 28px;
+  }
+
+  .exp-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  .exp-role {
+    font-size: 16px;
+  }
+
+  .exp-meta,
+  .exp-text,
+  .exp-points {
+    font-size: 14px;
   }
 }

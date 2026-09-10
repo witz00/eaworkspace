@@ -32,35 +32,36 @@
 <body id="home">
   <div class="nav-bar">
     <a class="nav-item nav-logo" href="#">eakh</a>
-    <div class="nav-links">
-      <div class="nav-links-center">
-        <a class="nav-item touch-link" href="#projects">Кейсы</a>
-        <a class="nav-item touch-link" href="#about">Обо мне</a>
-        <a class="nav-item touch-link" href="#skills">Навыки</a>
-        <a class="nav-item touch-link" href="https://drive.google.com/file/d/1V42wGXplnsbLmSjrF9bqFQjtB52T-D4P/view?usp=sharing" target="_blank" rel="noopener">Резюме</a>
-      </div>
-      <button class="theme-switch" id="theme-toggle" role="switch" aria-label="Тёмная тема" aria-checked="false" type="button">
+      <div class="nav-actions">
+        <button class="theme-switch" id="theme-toggle" role="switch" aria-label="Тёмная тема" aria-checked="false" type="button">
         <span class="theme-switch-knob" aria-hidden="true"></span>
       </button>
-    </div>
-  </div>  <div class="container">
+        <button class="nav-burger" id="nav-burger" aria-label="Меню" aria-expanded="false" aria-controls="nav-links" type="button">
+          <span></span><span></span>
+        </button>
+      </div>
+      <nav class="nav-links" id="nav-links">
+        <div class="nav-links-center">
+          <a class="nav-item touch-link" href="#projects">Кейсы</a>
+          <a class="nav-item touch-link" href="#about">Обо мне</a>
+          <a class="nav-item touch-link" href="#skills">Навыки</a>
+          <a class="nav-item touch-link" href="https://drive.google.com/file/d/1CMZQ_u5sPO5xod8xt8lw0VNC90fhfG8S/view?usp=sharing" target="_blank" rel="noopener">Резюме</a>
+        </div>
+      </nav>
+    </div>  <div class="container">
     <section class="page-section page-section--hero" id="hero">
       <div class="about-text">
         <h1 class="about-description">
-          <span class="ghost-text" aria-hidden="true">Привет, я Эмиль Ахтямкин — продуктовый дизайнер. Проектирую приложения и сайты: от исследования до готовых макетов.</span>
-          <span class="hero-layer"><span class="hero-typed">Привет, я Эмиль Ахтямкин — продуктовый дизайнер. Проектирую приложения и сайты: от исследования до готовых макетов.</span></span>
+          <span class="ghost-text" aria-hidden="true">Привет, я Эмиль, продуктовый дизайнер. Создаю продукты на основе исследований.</span>
+          <span class="hero-layer"><span class="hero-typed">Привет, я Эмиль, продуктовый дизайнер. Создаю продукты на основе исследований.</span></span>
         </h1>
       </div>
       <p class="hero-status">
         <span class="hero-status-dot" aria-hidden="true"></span>
         <span>Открыт к предложениям</span>
-        <span class="hero-status-sep" aria-hidden="true">·</span>
-        <span>Ульяновск, UTC+4</span>
-        <span class="hero-status-sep" aria-hidden="true">·</span>
-        <time class="hero-status-time" id="local-time" datetime="">--:--</time>
       </p>
       <a class="hero-cta" href="https://t.me/witz00" target="_blank" rel="noopener">
-        <span class="hero-cta-label">Написать мне</span>
+        <span class="hero-cta-label">написать мне</span>
       </a>
     </section>
     <section class="page-section page-section--projects" id="projects">
@@ -71,7 +72,7 @@
           <span class="proj-info">
             <span class="proj-title">DentaCare</span>
             <span class="proj-desc">Разобрал конкурентов, собрал персоны и сократил путь до записи к врачу.</span>
-            <span class="proj-more">Подробнее</span>
+            <span class="proj-more">подробнее</span>
           </span>
         </a>
         <a class="proj-item" href="triptap.html">
@@ -79,7 +80,7 @@
           <span class="proj-info">
             <span class="proj-title">TripTap</span>
             <span class="proj-desc">Выстроил информационную архитектуру и собрал дизайн-систему для поиска билетов.</span>
-            <span class="proj-more">Подробнее</span>
+            <span class="proj-more">подробнее</span>
           </span>
         </a>
       </div>
@@ -87,47 +88,57 @@
     <section class="page-section" id="about">
       <h2 class="section-heading">Обо мне</h2>
       <div class="section-body">
-        <p class="section-text">Ищу первую работу продуктовым дизайнером. Коммерческих проектов пока нет — вместо них два собственных, которые я провёл целиком: от интервью и разбора конкурентов до прототипов и дизайн-системы.</p>
-        <p class="section-text">Начинаю не с макета, а с вопроса, зачем человек открывает экран. В DentaCare разбирал ДокДок, ПроДокторов и YClients, собирал персоны и считал, за сколько шагов человек добирается до записи. В TripTap выстраивал информационную архитектуру и собрал дизайн-систему.</p>
-        <p class="section-text">Считаю, что интерфейс удался, когда его не замечают: человек записался к врачу или купил билет, не задумываясь, куда нажать. Поэтому смотрю не на красоту экрана в отрыве, а на путь целиком.</p>
-        <p class="section-text">Хочу в команду, где дизайн проверяют на людях, а не на вкусе — и где рядом есть у кого учиться.</p>
+        <p class="section-text">Привет, я Эмиль, продуктовый дизайнер из Ульяновска. Сейчас ищу первую работу и хочу попасть в команду, где смогу работать над реальным продуктом и видеть, как мои решения влияют на пользователей и бизнес. В свободное время собираю кубик Рубика за 30 секунд и иногда занимаюсь вайбкодингом. Например, это портфолио я собрал сам в Claude Code.</p>
       </div>
     </section>
     <section class="page-section" id="skills">
       <h2 class="section-heading">Навыки</h2>
-      <div class="skills-flow">
-        <div class="skill-stage">
-          <p class="skill-step">Этап 01</p>
-          <h3 class="skill-stage-title">Исследование</h3>
-          <ul class="skill-list">
-            <li>Пользовательские интервью</li>
-            <li>Сценарии и джобы</li>
-            <li>Проверка гипотез на прототипах</li>
-          </ul>
-        </div>
-        <div class="skill-stage">
-          <p class="skill-step">Этап 02</p>
-          <h3 class="skill-stage-title">Проектирование</h3>
-          <ul class="skill-list">
-            <li>Информационная архитектура</li>
-            <li>Пользовательские потоки</li>
-            <li>Прототипы и состояния экранов</li>
-          </ul>
-        </div>
-        <div class="skill-stage">
-          <p class="skill-step">Этап 03</p>
-          <h3 class="skill-stage-title">Интерфейс</h3>
-          <ul class="skill-list">
-            <li>Мобильные приложения</li>
-            <li>Веб-интерфейсы</li>
-            <li>Дизайн-система и компоненты</li>
-          </ul>
-        </div>
-      </div>
-      <div class="skills-tools">
-        <p class="skill-step">Инструменты</p>
-        <p class="skills-tools-list">Figma</p>
-      </div>
+      <ul class="skill-tags">
+        <li class="skill-tag">User Flow</li>
+        <li class="skill-tag">Прототипирование</li>
+        <li class="skill-tag">Анализ паттернов</li>
+        <li class="skill-tag">Визуальная иерархия</li>
+        <li class="skill-tag">Mobile &amp; Web</li>
+        <li class="skill-tag">Компоненты</li>
+        <li class="skill-tag">Дизайн-системы</li>
+        <li class="skill-tag">Figma</li>
+        <li class="skill-tag">Claude Code</li>
+        <li class="skill-tag">AI-инструменты</li>
+        <li class="skill-tag">Внимателен к деталям</li>
+      </ul>
+    </section>
+    <section class="page-section" id="experience">
+      <h2 class="section-heading">Опыт</h2>
+      <ol class="exp-list">
+        <li class="exp-item">
+          <img class="exp-logo" src="images/uprock.jpg" alt="UPROCK School" width="40" height="40">
+          <div class="exp-body">
+            <h3 class="exp-role">UPROCK School. С 0 до Middle+</h3>
+            <p class="exp-meta">март 2025 — май 2026 · 1 г 3 м</p>
+            <ul class="exp-points">
+              <li>Провёл конкурентный анализ и глубинные интервью с ЦА</li>
+              <li>Разработал интерактивный Lo-Fi прототип</li>
+              <li>Определился с концепцией и спроектировал дизайн приложения</li>
+              <li>Разработал дизайн-систему, обеспечив единство стиля</li>
+              <li>Подготовил прототип с переходами между экранами</li>
+            </ul>
+          </div>
+        </li>
+        <li class="exp-item">
+          <img class="exp-logo" src="images/studykvo.jpg" alt="Study Kvo" width="40" height="40">
+          <div class="exp-body">
+            <h3 class="exp-role">Study Kvo · Дизайнер интерфейсов</h3>
+            <p class="exp-meta">апрель — июль 2024 · 4 мес</p>
+            <ul class="exp-points">
+              <li>Спроектировал информационную архитектуру и сократил число шагов до целевого действия</li>
+              <li>Создал портреты двух прото-персон и адаптировал интерфейс под их потребности</li>
+              <li>Подготовил компоненты для дизайн-системы</li>
+              <li>Определился с концепцией и спроектировал MVE приложения</li>
+              <li>Внедрил систему цветовых токенов для тёмной темы</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
     </section>
   </div>
   <script src="script.js"></script>

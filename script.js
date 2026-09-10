@@ -58,6 +58,52 @@ themeToggles.forEach(toggle => {
   });
 });
 
+// Бургер-меню телефона. Панель показывается классом, поэтому на десктопе,
+// где она не нужна, скрипт ничего не делает — правило @media держит её
+// скрытой независимо от классов.
+const navBurger = document.getElementById("nav-burger");
+const navLinks = document.getElementById("nav-links");
+
+if (navBurger && navLinks) {
+  const closeMenu = () => {
+    navBurger.classList.remove("open");
+    navLinks.classList.remove("open");
+    navBurger.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  };
+
+  navBurger.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("open");
+    navBurger.classList.toggle("open", isOpen);
+    navBurger.setAttribute("aria-expanded", String(isOpen));
+    // Меню занимает весь экран — страница под ним прокручиваться не должна.
+    document.body.style.overflow = isOpen ? "hidden" : "";
+  });
+
+  // Переход по пункту закрывает панель: якорь ведёт на этой же странице,
+  // и открытое меню перекрывало бы то, к чему только что перешли.
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  // Клик мимо панели закрывает её.
+  document.addEventListener("click", (e) => {
+    if (!navLinks.classList.contains("open")) return;
+    if (navBurger.contains(e.target) || navLinks.contains(e.target)) return;
+    closeMenu();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
+  });
+
+  // При переходе на широкий экран панель прячется правилом, но классы
+  // остались бы, и бургер вернулся бы уже раскрытым.
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) closeMenu();
+  });
+}
+
 // Click / hover sounds (real audio files, kept quiet and non-blocking)
 const clickAudio = new Audio('sounds/click.wav');
 const hoverAudio = new Audio('sounds/hover.wav');
@@ -86,69 +132,13 @@ document.addEventListener('click', (e) => {
 
 document.addEventListener('mouseover', (e) => {
   const target = e.target.closest('a, button');
-  if (target && !target.contains(e.relatedTarget)) playHoverSound();
+  if (!target || target.contains(e.relatedTarget)) return;
+  // Карточка кейса занимает пол-экрана, и курсор задевает её по пути к чему
+  // угодно: звук на такой площади срабатывает случайно, а не в ответ на жест.
+  if (target.matches('.proj-item')) return;
+  playHoverSound();
 });
 
-
-// Местное время в строке статуса. Считается по часовому поясу Ульяновска,
-// а не по поясу посетителя: смысл строки в том, сколько времени у меня.
-const localTime = document.getElementById('local-time');
-if (localTime) {
-  const formatter = new Intl.DateTimeFormat('ru-RU', {
-    timeZone: 'Europe/Ulyanovsk',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false
-  });
-
-  const updateLocalTime = () => {
-    const now = new Date();
-    localTime.textContent = formatter.format(now);
-    localTime.setAttribute('datetime', now.toISOString());
-  };
-
-  updateLocalTime();
-  // Раз в 15 секунд: минуты не отстают заметно, а таймер почти ничего не стоит.
-  setInterval(updateLocalTime, 15000);
-}
-
-// Текст «Обо мне» проявляется по мере прокрутки: слова идут от 0.3 к 1,
-// как будто набираются. Разбивку на слова делает JS — селектором слово
-// не выбрать; сам эффект считает браузер по scroll-driven таймлайну.
-const aboutTexts = document.querySelectorAll('#about .section-text');
-const supportsScrollTimeline = CSS.supports('animation-timeline', 'view()');
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-if (aboutTexts.length && supportsScrollTimeline && !prefersReducedMotion) {
-  let index = 0;
-  const words = [];
-
-  aboutTexts.forEach(paragraph => {
-    // split с захватом пробелов, чтобы не потерять межсловные интервалы
-    const parts = paragraph.textContent.split(/(\s+)/);
-    paragraph.textContent = '';
-    parts.forEach(part => {
-      if (!part) return;
-      if (/^\s+$/.test(part)) {
-        paragraph.append(part);
-        return;
-      }
-      const span = document.createElement('span');
-      span.className = 'reveal-word';
-      span.textContent = part;
-      span.style.setProperty('--i', index++);
-      paragraph.append(span);
-      words.push(span);
-    });
-  });
-  // Шаг подбирается под длину текста: последнее слово должно успеть
-  // проявиться, пока блок ещё в кадре. Окно разгорания — полтора шага:
-  // слова идут по одному, но переход не выглядит рубленым.
-  const step = 70 / Math.max(words.length, 1);
-  const body = document.querySelector("#about .section-body");
-  body.style.setProperty("--reveal-step", step.toFixed(3) + "%");
-  body.style.setProperty("--reveal-span", (step * 1.5).toFixed(3) + "%");
-}
 
 // Просмотр макетов кейса. Клик открывает изображение поверх страницы,
 // колесо и двойной клик меняют масштаб, перетаскивание двигает картинку.
