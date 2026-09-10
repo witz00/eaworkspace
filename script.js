@@ -33,101 +33,36 @@ if (heroTyped && !window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   setTimeout(revealNext, START_DELAY);
 }
 
-const navBar = document.querySelector('.nav-bar');
-if (navBar) {
-  // Два разных порога: островок собирается на 32px и разбирается только на 8px.
-  // При одном пороге дрожание трекпада вокруг него гоняло анимацию туда-обратно.
-  const COLLAPSE_AT = 32;
-  const EXPAND_AT = 8;
-  let isScrolled = false;
-  let ticking = false;
-
-  const updateNavBarScrolled = () => {
-    ticking = false;
-    const y = window.scrollY;
-    const next = isScrolled ? y > EXPAND_AT : y > COLLAPSE_AT;
-    if (next === isScrolled) return;
-    isScrolled = next;
-    navBar.classList.toggle('nav-bar--scrolled', next);
-  };
-
-  // Состояние считается раз в кадр, а не на каждое событие скролла.
-  const requestNavBarUpdate = () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(updateNavBarScrolled);
-  };
-
-  updateNavBarScrolled();
-  window.addEventListener('scroll', requestNavBarUpdate, { passive: true });
-}
-
-const themeToggles = document.querySelectorAll('#theme-toggle, #theme-toggle-footer');
+const themeToggles = document.querySelectorAll('#theme-toggle');
 
 const themeColorMeta = document.getElementById('theme-color-meta');
 
-function applyTheme(isLight) {
-  document.documentElement.classList.toggle('light-theme', isLight);
+/* Основная тема светлая, переключатель включает тёмную. */
+function applyTheme(isDark) {
+  document.documentElement.classList.toggle("theme-dark", isDark);
   themeToggles.forEach(t => {
-    t.classList.toggle('on', isLight);
-    t.setAttribute('aria-pressed', String(isLight));
+    t.setAttribute("aria-checked", String(isDark));
   });
   if (themeColorMeta) {
-    themeColorMeta.setAttribute('content', isLight ? '#FFFFFF' : '#000000');
+    themeColorMeta.setAttribute("content", isDark ? "#0F0F0F" : "#FFFFFF");
   }
 }
 
-applyTheme(localStorage.getItem('theme') === 'light');
+applyTheme(localStorage.getItem("theme") === "dark");
 
 themeToggles.forEach(toggle => {
-  toggle.addEventListener('click', () => {
-    const isLight = !document.documentElement.classList.contains('light-theme');
-    applyTheme(isLight);
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  toggle.addEventListener("click", () => {
+    const isDark = !document.documentElement.classList.contains("theme-dark");
+    applyTheme(isDark);
+    localStorage.setItem("theme", isDark ? "dark" : "light");
   });
 });
-
-const navBurger = document.getElementById('nav-burger');
-const navLinks = document.querySelector('.nav-links');
-
-if (navBurger && navLinks) {
-  const navLinksPlaceholder = document.createComment('nav-links-anchor');
-  navLinks.after(navLinksPlaceholder);
-
-  const closeMenu = () => {
-    navBurger.classList.remove('open');
-    navLinks.classList.remove('open');
-    navBurger.setAttribute('aria-expanded', 'false');
-    navLinksPlaceholder.after(navLinks);
-  };
-
-  navBurger.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('open');
-    navBurger.classList.toggle('open', isOpen);
-    navBurger.setAttribute('aria-expanded', String(isOpen));
-    if (isOpen) {
-      document.body.appendChild(navLinks);
-    } else {
-      navLinksPlaceholder.after(navLinks);
-    }
-  });
-
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
-
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-      closeMenu();
-    }
-  });
-}
 
 // Click / hover sounds (real audio files, kept quiet and non-blocking)
 const clickAudio = new Audio('sounds/click.wav');
 const hoverAudio = new Audio('sounds/hover.wav');
-clickAudio.volume = 0.4;
-hoverAudio.volume = 0.25;
+clickAudio.volume = 0.3;
+hoverAudio.volume = 0.3;
 
 function playClickSound() {
   clickAudio.currentTime = 0;
@@ -154,3 +89,251 @@ document.addEventListener('mouseover', (e) => {
   if (target && !target.contains(e.relatedTarget)) playHoverSound();
 });
 
+
+// Местное время в строке статуса. Считается по часовому поясу Ульяновска,
+// а не по поясу посетителя: смысл строки в том, сколько времени у меня.
+const localTime = document.getElementById('local-time');
+if (localTime) {
+  const formatter = new Intl.DateTimeFormat('ru-RU', {
+    timeZone: 'Europe/Ulyanovsk',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  });
+
+  const updateLocalTime = () => {
+    const now = new Date();
+    localTime.textContent = formatter.format(now);
+    localTime.setAttribute('datetime', now.toISOString());
+  };
+
+  updateLocalTime();
+  // Раз в 15 секунд: минуты не отстают заметно, а таймер почти ничего не стоит.
+  setInterval(updateLocalTime, 15000);
+}
+
+// Текст «Обо мне» проявляется по мере прокрутки: слова идут от 0.3 к 1,
+// как будто набираются. Разбивку на слова делает JS — селектором слово
+// не выбрать; сам эффект считает браузер по scroll-driven таймлайну.
+const aboutTexts = document.querySelectorAll('#about .section-text');
+const supportsScrollTimeline = CSS.supports('animation-timeline', 'view()');
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (aboutTexts.length && supportsScrollTimeline && !prefersReducedMotion) {
+  let index = 0;
+  const words = [];
+
+  aboutTexts.forEach(paragraph => {
+    // split с захватом пробелов, чтобы не потерять межсловные интервалы
+    const parts = paragraph.textContent.split(/(\s+)/);
+    paragraph.textContent = '';
+    parts.forEach(part => {
+      if (!part) return;
+      if (/^\s+$/.test(part)) {
+        paragraph.append(part);
+        return;
+      }
+      const span = document.createElement('span');
+      span.className = 'reveal-word';
+      span.textContent = part;
+      span.style.setProperty('--i', index++);
+      paragraph.append(span);
+      words.push(span);
+    });
+  });
+  // Шаг подбирается под длину текста: последнее слово должно успеть
+  // проявиться, пока блок ещё в кадре. Окно разгорания — полтора шага:
+  // слова идут по одному, но переход не выглядит рубленым.
+  const step = 70 / Math.max(words.length, 1);
+  const body = document.querySelector("#about .section-body");
+  body.style.setProperty("--reveal-step", step.toFixed(3) + "%");
+  body.style.setProperty("--reveal-span", (step * 1.5).toFixed(3) + "%");
+}
+
+// Просмотр макетов кейса. Клик открывает изображение поверх страницы,
+// колесо и двойной клик меняют масштаб, перетаскивание двигает картинку.
+// Слой один на страницу и создаётся только там, где есть что открывать.
+const caseImages = document.querySelectorAll('.case-image-static-img');
+
+if (caseImages.length) {
+  const MAX_SCALE = 5;
+  const MIN_SCALE = 1;
+  const ZOOM_STEP = 1.6;
+
+  const lightbox = document.createElement('div');
+  lightbox.className = 'lightbox';
+  lightbox.setAttribute('role', 'dialog');
+  lightbox.setAttribute('aria-modal', 'true');
+  lightbox.setAttribute('aria-label', 'Просмотр изображения');
+  lightbox.innerHTML =
+    '<button class="lightbox-close" type="button" aria-label="Закрыть просмотр">' +
+      '<svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16"/></svg>' +
+    '</button>' +
+    '<div class="lightbox-stage"><img class="lightbox-img" alt=""></div>' +
+    '<p class="lightbox-hint">Колесо или двойной клик — масштаб, перетаскивание — сдвиг</p>';
+  document.body.appendChild(lightbox);
+
+  const stage = lightbox.querySelector('.lightbox-stage');
+  const view = lightbox.querySelector('.lightbox-img');
+  const closeBtn = lightbox.querySelector('.lightbox-close');
+
+  let scale = 1;
+  let x = 0;
+  let y = 0;
+  let opener = null;
+  // Пальцы и курсор ведём одним кодом: pointer-события покрывают и то и другое.
+  const pointers = new Map();
+  let pinchStart = 0;
+  let scaleStart = 1;
+  let panFrom = null;
+
+  const draw = () => {
+    view.style.transform = 'translate(' + x + 'px, ' + y + 'px) scale(' + scale + ')';
+    lightbox.classList.toggle('is-zoomed', scale > 1.01);
+  };
+
+  // Сдвиг ограничен размером картинки: иначе её можно утащить за край экрана
+  // и потерять из виду.
+  const clamp = () => {
+    if (scale <= 1) {
+      x = 0;
+      y = 0;
+      return;
+    }
+    const limitX = Math.max(0, (view.offsetWidth * scale - window.innerWidth) / 2);
+    const limitY = Math.max(0, (view.offsetHeight * scale - window.innerHeight) / 2);
+    x = Math.min(limitX, Math.max(-limitX, x));
+    y = Math.min(limitY, Math.max(-limitY, y));
+  };
+
+  // Масштаб растёт вокруг точки под курсором, а не вокруг центра: иначе
+  // приближение уводит от места, на которое смотришь.
+  const zoomAt = (nextScale, clientX, clientY) => {
+    const next = Math.min(MAX_SCALE, Math.max(MIN_SCALE, nextScale));
+    const rect = view.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const ratio = next / scale;
+    x = clientX - ratio * (clientX - cx) - (cx - x);
+    y = clientY - ratio * (clientY - cy) - (cy - y);
+    scale = next;
+    clamp();
+    draw();
+  };
+
+  const reset = () => {
+    scale = 1;
+    x = 0;
+    y = 0;
+    draw();
+  };
+
+  const open = (img) => {
+    opener = img;
+    view.src = img.currentSrc || img.src;
+    view.alt = img.alt;
+    reset();
+    lightbox.classList.add('is-open');
+    // Фон не должен прокручиваться под открытым слоем.
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  };
+
+  const close = () => {
+    lightbox.classList.remove('is-open');
+    document.body.style.overflow = '';
+    pointers.clear();
+    if (opener) {
+      opener.focus({ preventScroll: true });
+      opener = null;
+    }
+  };
+
+  caseImages.forEach(img => {
+    img.tabIndex = 0;
+    img.setAttribute('role', 'button');
+    img.setAttribute('aria-label', 'Открыть изображение: ' + img.alt);
+    img.addEventListener('click', () => open(img));
+    img.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        open(img);
+      }
+    });
+  });
+
+  closeBtn.addEventListener('click', close);
+
+  // Клик мимо картинки закрывает, по самой картинке — переключает масштаб.
+  stage.addEventListener('click', (e) => {
+    if (e.target !== view) close();
+  });
+
+  view.addEventListener('dblclick', (e) => {
+    e.preventDefault();
+    if (scale > 1.01) reset();
+    else zoomAt(2.5, e.clientX, e.clientY);
+  });
+
+  stage.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    zoomAt(scale * (e.deltaY < 0 ? ZOOM_STEP : 1 / ZOOM_STEP), e.clientX, e.clientY);
+  }, { passive: false });
+
+  stage.addEventListener('pointerdown', (e) => {
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      pinchStart = Math.hypot(a.x - b.x, a.y - b.y);
+      scaleStart = scale;
+    } else if (scale > 1.01 && e.target === view) {
+      panFrom = { x: e.clientX - x, y: e.clientY - y };
+      lightbox.classList.add('is-panning');
+      stage.setPointerCapture(e.pointerId);
+    }
+  });
+
+  stage.addEventListener('pointermove', (e) => {
+    if (!pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    if (pointers.size === 2 && pinchStart) {
+      const [a, b] = [...pointers.values()];
+      const dist = Math.hypot(a.x - b.x, a.y - b.y);
+      zoomAt(scaleStart * (dist / pinchStart), (a.x + b.x) / 2, (a.y + b.y) / 2);
+      return;
+    }
+
+    if (panFrom) {
+      x = e.clientX - panFrom.x;
+      y = e.clientY - panFrom.y;
+      clamp();
+      draw();
+    }
+  });
+
+  const endPointer = (e) => {
+    pointers.delete(e.pointerId);
+    if (pointers.size < 2) pinchStart = 0;
+    if (!pointers.size) {
+      panFrom = null;
+      lightbox.classList.remove('is-panning');
+    }
+  };
+
+  stage.addEventListener('pointerup', endPointer);
+  stage.addEventListener('pointercancel', endPointer);
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('is-open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === '+' || e.key === '=') zoomAt(scale * ZOOM_STEP, innerWidth / 2, innerHeight / 2);
+    if (e.key === '-') zoomAt(scale / ZOOM_STEP, innerWidth / 2, innerHeight / 2);
+    if (e.key === '0') reset();
+  });
+
+  window.addEventListener('resize', () => {
+    clamp();
+    draw();
+  });
+}

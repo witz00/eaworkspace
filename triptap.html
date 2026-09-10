@@ -3,17 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#000000" id="theme-color-meta">
-  <title>TripTap — Emil A.</title>
+  <meta name="theme-color" content="#FFFFFF" id="theme-color-meta">
+  <title>TripTap — кейс Эмиля Ахтямкина</title>
+  <meta name="description" content="Приложение для поиска билетов: информационная архитектура, пользовательские потоки и дизайн-система.">
+  <link rel="canonical" href="https://eakh.ru/triptap.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Эмиль Ахтямкин — продуктовый дизайнер">
+  <meta property="og:title" content="TripTap — кейс продуктового дизайнера">
+  <meta property="og:description" content="Приложение для поиска билетов: информационная архитектура, пользовательские потоки и дизайн-система.">
+  <meta property="og:url" content="https://eakh.ru/triptap.html">
+  <meta property="og:image" content="https://eakh.ru/images/triptap-preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TripTap — кейс продуктового дизайнера">
+  <meta name="twitter:description" content="Приложение для поиска билетов: информационная архитектура, пользовательские потоки и дизайн-система.">
+  <meta name="twitter:image" content="https://eakh.ru/images/triptap-preview.jpg">
   <link rel="icon" href="favicon.webp" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=44">
+  <link rel="stylesheet" href="styles.css">
   <script>
-    if (localStorage.getItem('theme') === 'light') {
-      document.documentElement.classList.add('light-theme');
-      document.getElementById('theme-color-meta').setAttribute('content', '#FFFFFF');
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('theme-dark');
+      document.getElementById('theme-color-meta').setAttribute('content', '#0F0F0F');
     }
     // ?draft=1 раскрывает незаполненные блоки с подписями; без него страница чистая
     if (new URLSearchParams(location.search).get('draft') === '1') {
@@ -23,17 +36,16 @@
 </head>
 <body id="home">
   <div class="nav-bar">
-    <a class="nav-item nav-logo" href="index.html">eaworkspace</a>
-    <button class="nav-burger" id="nav-burger" aria-label="Меню" aria-expanded="false" type="button">
-      <span></span><span></span>
-    </button>
+    <a class="nav-item nav-logo" href="index.html">eakh</a>
     <div class="nav-links">
       <div class="nav-links-center">
-        <a class="nav-item touch-link" href="index.html#projects">Кейсы<svg class="nav-icon nav-icon--layers" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5 14 6 8 9.5 2 6z"/><path d="m2.6 9.4 5.4 3.1 5.4-3.1"/></svg></a>
-        <a class="nav-item touch-link" href="https://drive.google.com/file/d/1V42wGXplnsbLmSjrF9bqFQjtB52T-D4P/view?usp=sharing" target="_blank" rel="noopener">Резюме<svg class="nav-icon" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8m0 0L4.5 6.5M8 10l3.5-3.5"/><path d="M2.5 12.5v1h11v-1"/></svg></a>
+        <a class="nav-item touch-link" href="index.html#projects">Кейсы</a>
+        <a class="nav-item touch-link" href="index.html#about">Обо мне</a>
+        <a class="nav-item touch-link" href="index.html#skills">Навыки</a>
+        <a class="nav-item touch-link" href="https://drive.google.com/file/d/1V42wGXplnsbLmSjrF9bqFQjtB52T-D4P/view?usp=sharing" target="_blank" rel="noopener">Резюме</a>
       </div>
-      <button class="theme-switch" id="theme-toggle" aria-label="Переключить светлую тему" aria-pressed="false" type="button">
-        <span class="theme-switch-thumb"></span>
+      <button class="theme-switch" id="theme-toggle" role="switch" aria-label="Тёмная тема" aria-checked="false" type="button">
+        <span class="theme-switch-knob" aria-hidden="true"></span>
       </button>
     </div>
   </div>  <div class="container">
@@ -77,7 +89,7 @@
         <p class="case-section-text">Я разработал концепцию мобильного приложения, которое объединяет весь процесс организации перелёта в одном месте. Пользователи могут искать и бронировать авиабилеты, выбирать места, хранить электронные билеты и получать актуальную информацию о предстоящих рейсах через простой и интуитивно понятный интерфейс.</p>
       </div>
       <div class="case-image case-image--auto">
-        <img class="case-image-static-img" src="images/idea.png?v=2" alt="TripTap — экраны поиска билетов, горячих предложений и календаря">
+        <img class="case-image-static-img" src="images/idea.png" alt="TripTap — экраны поиска билетов, горячих предложений и календаря">
       </div>
     </div>
     <div class="case-block case-audience">
@@ -103,7 +115,7 @@
         <p class="case-section-text">На основе всех предыдущих этапов я разработал информационную архитектуру приложения, которая четко определила структуру и взаимосвязь между разделами и функциональностью. Это стало основой для создания интерфейса и навигации по приложению.</p>
       </div>
       <div class="case-image case-image--auto">
-        <img class="case-image-static-img" src="images/inform-arch.png?v=4" alt="Информационная архитектура TripTap: структура разделов и связи между ними">
+        <img class="case-image-static-img" src="images/inform-arch.png" alt="Информационная архитектура TripTap: структура разделов и связи между ними">
       </div>
     </div>
     <div class="case-block case-visual">
@@ -123,14 +135,14 @@
       </div>
       <div class="case-mosaic">
         <div class="case-image case-mosaic-main">
-          <img class="case-image-static-img" src="images/420x500.png?v=4" alt="Компоненты дизайн-системы TripTap">
+          <img class="case-image-static-img" src="images/420x500.png" alt="Компоненты дизайн-системы TripTap">
         </div>
         <div class="case-mosaic-col">
           <div class="case-image">
-            <img class="case-image-static-img" src="images/588x235.png?v=3" alt="Компоненты дизайн-системы TripTap">
+            <img class="case-image-static-img" src="images/588x235.png" alt="Компоненты дизайн-системы TripTap">
           </div>
           <div class="case-image">
-            <img class="case-image-static-img" src="images/588x249.png?v=4" alt="Компоненты дизайн-системы TripTap">
+            <img class="case-image-static-img" src="images/588x249.png" alt="Компоненты дизайн-системы TripTap">
           </div>
         </div>
       </div>
@@ -158,6 +170,6 @@
       </div>
     </div>
   </div>
-  <script src="script.js?v=9"></script>
+  <script src="script.js"></script>
 </body>
 </html>

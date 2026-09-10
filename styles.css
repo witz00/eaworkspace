@@ -8,7 +8,6 @@ html {
   scrollbar-color: var(--muted-soft) transparent;
 }
 
-
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -19,7 +18,7 @@ html {
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--muted-soft);
-  border-radius: 12px;
+  border-radius: 0;
   border: 3px solid var(--bg);
   background-clip: padding-box;
 }
@@ -29,52 +28,47 @@ html {
 }
 
 :root {
-  /* Dark theme (default): тональная шкала, а не инверсия светлой темы.
-     Почти-чёрный фон вместо #000 и почти-белый текст вместо #FFF убирают
-     галацию (ореол вокруг букв) на OLED-экранах при сохранении AAA. */
-  --bg: #0F0F0F;
-  --bg-rgb: 15, 15, 15;
-  /* text: AAA (17.1:1) on --bg */
-  --text: #F2F2F2;
-  --text-rgb: 242, 242, 242;
-  /* text-body: AA (6.8:1) — приглушённый тон основного текста */
-  --text-body: #9A9A9A;
-  /* muted: AAA (7.6:1) on --bg, for secondary content that must stay readable */
-  --muted: #A3A3A3;
-  --muted-rgb: 163, 163, 163;
-  /* muted-soft: AA (4.7:1) on --bg, for de-emphasized marks (separators, rests) */
-  --muted-soft: #7D7D7D;
-  --accent: #34C759;
-  /* curtain: приподнятая поверхность — светлее фона, а не темнее */
-  --curtain: #1C1C1C;
-  /* Стекло шапки: заливка на тон светлее фона + едва заметная кромка.
-     Токенами, потому что значения парные и меняются вместе с темой. */
-  --header-glass-fill: rgba(28, 28, 28, 0.72);
-  /* Воздух над приветствием: 144px от верха страницы дают ровно 96px от
-     базовой линии шапки до верха первой строки. Отступ перед «Кейсами»
-     считается от этого же токена — половина. */
-  --hero-top: 144px;
-  /* Расстояние между блоками страницы: от содержимого одного до заголовка
-     следующего. Задаётся один раз, отсюда весь вертикальный ритм. */
-  --block-gap: 120px;
-}
-
-html.light-theme {
-  /* Light theme: pure white bg, pure black text, 21:1 AAA */
+  /* Светлая тема по умолчанию: чистый белый фон, чистый чёрный текст. */
   --bg: #FFFFFF;
   --bg-rgb: 255, 255, 255;
+  /* text: AAA (21:1) on --bg */
   --text: #000000;
   --text-rgb: 0, 0, 0;
-  /* text-body: AA (5.7:1) — парная ступень к тёмной теме */
+  /* text-body: AA (5.7:1) — приглушённый тон основного текста */
   --text-body: #666666;
   /* muted: AAA (7:1) on --bg */
   --muted: #595959;
   --muted-rgb: 89, 89, 89;
   /* muted-soft: AA (4.5:1) on --bg */
   --muted-soft: #767676;
-  --accent: #34C759;
+  /* accent: на белом фоне iOS-зелёный даёт 2.2:1 и теряется, поэтому здесь
+     насыщеннее — 3.3:1, чего хватает точке статуса и рамке фокуса. */
+  --accent: #16A34A;
+  /* curtain: приподнятая поверхность — на белом темнее фона */
   --curtain: #F2F2F2;
-  --header-glass-fill: rgba(255, 255, 255, 0.72);
+  /* Вертикальные поля секции. На стыке двух секций складываются,
+     поэтому между блоками получается вдвое больше. */
+  --block-gap: 144px;
+}
+
+/* Тёмная тема — инверсия. Почти-чёрный фон вместо #000 и почти-белый текст
+   вместо #FFF убирают галацию (ореол вокруг букв) на OLED при сохранении AAA. */
+html.theme-dark {
+  --bg: #0F0F0F;
+  --bg-rgb: 15, 15, 15;
+  /* text: AAA (17.1:1) on --bg */
+  --text: #F2F2F2;
+  --text-rgb: 242, 242, 242;
+  /* text-body: AA (6.8:1) */
+  --text-body: #9A9A9A;
+  /* muted: AAA (7.6:1) on --bg */
+  --muted: #A3A3A3;
+  --muted-rgb: 163, 163, 163;
+  /* muted-soft: AA (4.7:1) on --bg */
+  --muted-soft: #7D7D7D;
+  --accent: #34C759;
+  /* curtain: приподнятая поверхность — на тёмном светлее фона */
+  --curtain: #1C1C1C;
 }
 
 *,
@@ -108,7 +102,7 @@ body {
   z-index: 2;
   box-sizing: border-box;
   width: 100%;
-  max-width: 1152px;
+  max-width: 960px;
   margin: 0 auto;
   padding-top: 80px;
   padding-bottom: 160px;
@@ -133,65 +127,31 @@ body {
   display: flex;
   box-sizing: border-box;
   width: 100%;
-  /* Высота строки: 16px. Подложка растёт не за счёт шапки, а за счёт своего
-     слоя, поэтому строка никуда не едет при скролле. */
+  /* Высота равна строке содержимого. */
   height: 16px;
   /* Шапка живёт в том же контейнере, что герой и кейсы: логотип встаёт
      ровно на его левую границу. */
-  max-width: 1152px;
-  /* 28 = 8px воздуха над островком + его собственные 20px сверху. */
+  max-width: 960px;
+  /* Шапка стоит на месте и не меняется при скролле: ни подложки, ни сжатия. */
   margin: 28px auto 0;
   padding: 0;
   align-items: center;
   justify-content: space-between;
-  transition: max-width 0.25s ease, padding 0.25s ease;
 }
 
-/* Островок — отдельный слой позади содержимого. Он проявляется по месту,
-   ничего не сдвигая: строка навигации остаётся на той же высоте. */
+/* Фон шапки. Она ограничена контейнером, поэтому полоса рисуется отдельным
+   слоем во всю ширину окна: от верхнего края до 28px под строкой — контент
+   уезжает под неё, не просвечивая ни сверху, ни снизу. */
 .nav-bar::before {
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
-  /* 20px со всех сторон: островок 16 + 20 + 20 = 56px. */
-  inset: -20px;
-  border-radius: 20px;
-  /* Стекло: заливка + размытие с лёгким подъёмом насыщенности — цвет контента
-     под шапкой не сереет от блюра. */
-  background-color: var(--header-glass-fill);
-  backdrop-filter: blur(20px) saturate(115%);
-  -webkit-backdrop-filter: blur(20px) saturate(115%);
-  /* Появление: подложка не только проявляется, но и чуть подрастает —
-     0.98 → 1 читается как всплытие слоя, а не как включение фона. */
-  opacity: 0;
-  transform: scale(0.98);
-  pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.25s ease;
-}
-
-/* Только на главной: там шапка зафиксирована. На страницах кейсов она стоит
-   в потоке и подложка ехала бы вместе с контентом. */
-#home .nav-bar--scrolled::before {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* При скролле строка сжимается ровно на два внутренних отступа островка
-   (1112 + 20 + 20 = 1152), поэтому островок по длине равен контейнеру. */
-#home .nav-bar--scrolled {
-  max-width: 1112px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .nav-bar {
-    transition: none;
-  }
-
-  /* Без анимации подложка сразу в конечном состоянии — без всплытия. */
-  .nav-bar::before {
-    transform: none;
-    transition: none;
-  }
+  top: -28px;
+  bottom: -28px;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--bg);
 }
 
 .nav-bar > * {
@@ -239,120 +199,111 @@ body {
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  /* Чипы соприкасаются: расстояние между надписями (32px) целиком задают
-     их собственные отступы 16 + 16, поэтому подсветки смыкаются без зазора. */
-  gap: 0;
+  /* Расстояние между надписями — 16px, вдвое меньше прежних 32px. Теперь
+     его задаёт gap: горизонтальных отступов у пунктов больше нет. */
+  gap: 16px;
 }
 
 .touch-link {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
   cursor: pointer;
 }
 
-/* Иконка загрузки отделяет «Резюме» от внутренних ссылок: она сообщает,
-   что переход уводит к файлу, а не к разделу сайта. */
-.nav-icon {
-  flex-shrink: 0;
-  /* Оптический сдвиг: штрих иконки визуально выше базовой линии строки. */
-  margin-top: 1px;
-}
-
+/* Тумблер в габаритах iOS: дорожка 44×26, шайба 22, ход 18px. Единственное
+   место на сайте со скруглением — форма и есть смысл контрола: прямоугольный
+   тумблер не читается как тумблер. Включённое состояние = тёмная тема. */
 .theme-switch {
   position: relative;
-  width: 34px;
-  height: 20px;
-  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 44px;
+  height: 26px;
+  padding: 2px;
   border: none;
-  border-radius: 10px;
-  background: var(--muted-soft);
+  border-radius: 999px;
+  background: rgba(var(--text-rgb), 0.16);
   cursor: pointer;
   flex-shrink: 0;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
-.theme-switch-thumb {
+/* Зона нажатия дотягивается до 44px, не раздувая саму дорожку. */
+.theme-switch::after {
+  content: "";
   position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 16px;
-  height: 16px;
-  border-radius: 12px;
-  background: #FFF;
-  transition: transform 0.2s ease;
+  inset: -9px -6px;
 }
 
-.theme-switch.on {
+html.theme-dark .theme-switch {
   background: var(--accent);
 }
 
-.theme-switch.on .theme-switch-thumb {
-  transform: translateX(14px);
+@media (hover: hover) and (pointer: fine) {
+  .theme-switch:hover {
+    background: rgba(var(--text-rgb), 0.24);
+  }
+
+  html.theme-dark .theme-switch:hover {
+    background: var(--accent);
+  }
 }
 
-.nav-burger {
-  display: none;
-  position: relative;
-  z-index: 101;
-  width: 24px;
-  height: 20px;
-  padding: 0;
-  border: none;
-  background: none;
-  cursor: pointer;
-  flex-shrink: 0;
+.theme-switch-knob {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  /* Двойная тень как у Apple: широкая даёт объём, узкая — контур на светлом. */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), 0 1px 1px rgba(0, 0, 0, 0.16);
+  /* Кривая Apple: быстрый старт, мягкая остановка — без отскока. */
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-.nav-burger span {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: var(--text);
-  border-radius: 1px;
-  transition: transform 0.25s ease, opacity 0.25s ease, top 0.25s ease;
+html.theme-dark .theme-switch-knob {
+  transform: translateX(18px);
 }
 
-.nav-burger span:nth-child(1) { top: 6px; }
-.nav-burger span:nth-child(2) { top: 14px; }
-
-.nav-burger.open span:nth-child(1) {
-  top: 10px;
-  transform: rotate(45deg);
+@media (prefers-reduced-motion: reduce) {
+  .theme-switch-knob {
+    transition: none;
+  }
 }
 
-.nav-burger.open span:nth-child(2) {
-  top: 10px;
-  transform: rotate(-45deg);
-}
-/* Наведение подсвечивает пункт подложкой, а не линией: подложка строится
-   отступами самого пункта (auto layout), поэтому растёт вместе с текстом
-   и не требует отдельного слоя под ним. */
+/* Состояние держит прозрачность, а не подложка. Вертикальные отступы
+   остаются: они дают строке 44px высоты нажатия при 20px текста. */
 .touch-link {
-  padding: 12px 16px;
-  border-radius: 12px;
-  background: transparent;
-  transition: background-color 0.2s ease, color 0.3s ease;
+  padding: 12px 0;
+  opacity: 0.6;
+  transition: opacity 0.2s ease, color 0.3s ease;
 }
 
 /* Подсветка только там, где есть настоящий курсор: на тач-устройствах :hover
    залипает после тапа и пункт остаётся подсвеченным. */
 @media (hover: hover) and (pointer: fine) {
   .touch-link:hover {
-    background: rgba(var(--text-rgb), 0.08);
+    opacity: 1;
   }
 }
 
 .touch-link:focus-visible {
-  background: rgba(var(--text-rgb), 0.08);
+  opacity: 1;
 }
 
-/* Пункты меню того же тона, что логотип: разницу состояний держит подложка
-   при наведении, а не приглушение цвета. */
 .nav-links-center .nav-item {
   color: var(--text);
+}
+
+/* Секции идут обычным потоком, друг за другом. */
+.page-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  background: var(--bg);
 }
 
 .about-description {
@@ -360,7 +311,7 @@ body {
   font-family: "Inter", sans-serif;
   /* Приветствие набрано одним абзацем и переносится само, поэтому кегль
      тянется от ширины окна без риска обрезки. */
-  font-size: clamp(26px, 3.2vw, 44px);
+  font-size: clamp(26px, 3.2vw, 41px);
   font-style: normal;
   font-weight: 500;
   line-height: 108%;
@@ -399,33 +350,90 @@ body {
   opacity: 1;
 }
 
-/* Все секции страницы устроены одинаково: колонка во всю ширину контейнера.
-   Отличаются только вертикальными отступами. */
-.page-section {
+.about-text {
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-sizing: border-box;
   width: 100%;
-  background: var(--bg);
 }
 
-/* Воздух под приветствием задаёт уже секция кейсов — ровно половину
-   от верхнего отступа героя. */
+/* Приветствие занимает столько, сколько нужно тексту: верхний отступ уводит
+   его из-под шапки, дальше работает общий ритм в 144px. */
 .page-section--hero {
-  justify-content: center;
-  padding-top: var(--hero-top);
+  padding-top: 200px;
   text-align: center;
 }
+
+/* Строка статуса: три факта, которые нужны нанимающему в первую минуту —
+   доступность, часовой пояс и текущее время у меня. Набрана мелкой ступенью
+   и приглушённым тоном, чтобы не спорить с приветствием. */
+.hero-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 32px 0 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--text-body);
+}
+
+/* Индикатор «в сети»: точка и расходящееся от неё кольцо — приём знаком
+   по мессенджерам, поэтому читается сразу. Сама точка не мигает: мигание
+   выглядит как тревога, а нужно ощущение живого статуса. */
+.hero-status-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.hero-status-dot::after {
+  content: ;
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: status-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes status-ping {
+  0%        { transform: scale(1);   opacity: 0.55; }
+  70%, 100% { transform: scale(2.6); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-status-dot::after {
+    animation: none;
+    display: none;
+  }
+}
+
+.hero-status-sep {
+  color: var(--muted-soft);
+  user-select: none;
+}
+
+/* Моноширинные цифры: время меняется, а строка не дёргается. */
+.hero-status-time {
+  font-variant-numeric: tabular-nums;
+}
+
 
 .hero-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: 24px;
-  padding: 16px 20px;
+  margin-top: 32px;
+  padding: 15px 20px;
+  border-radius: 0;
   box-sizing: border-box;
-  background: #FFFFFF;
+  background: #000000;
   font-family: "Inter", sans-serif;
   font-weight: 500;
   font-size: 14px;
@@ -433,13 +441,13 @@ body {
   /* Капслок требует более широкого трекинга, иначе буквы слипаются. */
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #000000;
+  color: #FFFFFF;
   text-decoration: none;
   transition: background-color 0.25s ease, transform 0.25s ease;
 }
 
 .hero-cta:hover {
-  background: #E5E5E5;
+  background: #1C1C1C;
 }
 
 /* Нажатие отзывается смещением на пиксель — кнопка ощущается физически. */
@@ -447,13 +455,13 @@ body {
   transform: translateY(1px);
 }
 
-html.light-theme .hero-cta {
-  background: #000000;
-  color: #FFFFFF;
+html.theme-dark .hero-cta {
+  background: #FFFFFF;
+  color: #000000;
 }
 
-html.light-theme .hero-cta:hover {
-  background: #1C1C1C;
+html.theme-dark .hero-cta:hover {
+  background: #E5E5E5;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -462,59 +470,120 @@ html.light-theme .hero-cta:hover {
   }
 }
 
-/* Кегль и начертание те же, что у приветствия: заголовок раздела —
-   ровня герою, а не служебная подпись. Выключка левая, по краю сетки. */
+/* Ступенью ниже приветствия (41px): заголовок раздела не спорит с именем,
+   но остаётся крупной вехой, а не служебной подписью. Выключка левая. */
 .section-heading {
   width: 100%;
   margin: 0 0 32px;
   font-family: "Inter", sans-serif;
-  font-size: clamp(26px, 3.2vw, 44px);
+  font-size: clamp(24px, 2.6vw, 32px);
   font-weight: 500;
   line-height: 108%;
   letter-spacing: -0.02em;
   color: var(--text);
 }
 
-/* Воздух под каждой секцией — половина верхнего отступа героя, как у «Кейсов».
-   Задан отдельным свойством, а не шорткатом: шорткат сбрасывал padding-top,
-   которым живёт секция приветствия. */
-.page-section {
+/* Отступ только сверху: на стыке секций он не удваивается, поэтому значение
+   токена и есть расстояние, которое видно на экране. */
+.page-section + .page-section {
+  padding-top: var(--block-gap);
+}
+
+/* Последняя секция закрывает страницу тем же полем. */
+.page-section:last-of-type {
   padding-bottom: var(--block-gap);
 }
 
 .section-body {
   width: 100%;
 }
-
 .section-text {
-  margin: 0 0 16px;
+  margin: 0 0 20px;
   font-family: "Inter", sans-serif;
   font-weight: 500;
-  font-size: 18px;
-  line-height: 150%;
-  color: var(--text-body);
+  font-size: 22px;
+  line-height: 140%;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  /* Выключка по формату во всю ширину контейнера. Переносы включены
+     намеренно: без них justify рвёт строки большими дырами между словами. */
+  text-align: justify;
+  hyphens: auto;
 }
 
 .section-text:last-child {
   margin-bottom: 0;
 }
 
-.skills-grid {
+/* ── Навыки как диаграмма процесса ──────────────────────────────
+   Три группы — не категории, а последовательность этапов работы:
+   исследую → проектирую → рисую интерфейс. Поэтому они соединены
+   линией с узлами, а нумерация здесь честная: порядок несёт смысл.
+   ─────────────────────────────────────────────────────────────── */
+.skills-flow {
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 32px;
   width: 100%;
+  padding-top: 28px;
 }
 
-/* Метка группы набрана как подписи кейсов — тот же капслок 16px. */
-.skill-label {
-  margin: 0 0 12px;
+/* Линия процесса. Идёт от центра первого узла до центра последнего,
+   поэтому не торчит за крайние этапы. */
+.skills-flow::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: calc(100% / 6);
+  right: calc(100% / 6);
+  height: 1px;
+  background: var(--curtain);
+}
+
+.skill-stage {
+  position: relative;
+}
+
+/* Узел этапа: точка на линии над колонкой. */
+.skill-stage::before {
+  content: "";
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  width: 11px;
+  height: 11px;
+  margin-left: -5.5px;
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--muted-soft);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Наведение заливает узел акцентом — видно, какой этап читаешь. */
+.skill-stage:hover::before {
+  background: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.skill-step {
+  margin: 0 0 8px;
   font-family: "Inter", sans-serif;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 130%;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  color: var(--muted-soft);
+}
+
+.skill-stage-title {
+  margin: 0 0 16px;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 130%;
+  letter-spacing: -0.01em;
   color: var(--text);
 }
 
@@ -529,38 +598,108 @@ html.light-theme .hero-cta:hover {
   color: var(--text-body);
 }
 
+/* Инструменты вынесены из линии: это не этап процесса, а то, чем он делается.
+   Отделены чертой во всю ширину — так видно, что ряд закончился. */
+.skills-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 24px;
+  width: 100%;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--curtain);
+}
+
+.skills-tools .skill-step {
+  margin: 0;
+}
+
+.skills-tools-list {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 150%;
+  color: var(--text-body);
+}
+
+/* ── Кейсы ──────────────────────────────────────────────────────
+   Карточка горизонтальная: слева теги, название и приглашение открыть,
+   справа превью. Так виден и предмет проекта, и что внутри, ещё до клика.
+   ─────────────────────────────────────────────────────────────── */
 .proj-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  /* По горизонтали промежуток узкий (кейсы читаются как пара), по вертикали
-     шире — он отделяет ряды друг от друга. */
-  gap: 64px 32px;
+  grid-template-columns: 1fr;
+  gap: 80px;
   width: 100%;
   box-sizing: border-box;
 }
 
+/* Ссылкой остаётся вся карточка целиком, включая превью и подписи. */
 .proj-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 48px;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: inherit;
+}
+
+.proj-info {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+}
+
+.proj-title {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 120%;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.proj-desc {
+  margin-top: 8px;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 140%;
+  color: var(--text-body);
+}
+
+/* Параметры один в один с .hero-cta: две кнопки сайта должны читаться
+   как одна сущность, а не как два разных элемента. */
+.proj-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+  padding: 15px 20px;
+  background: var(--text);
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--bg);
 }
 
 .proj-card {
   display: block;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
   box-sizing: border-box;
-  background: var(--curtain);
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-}
-
-.proj-card:hover {
-  background: #262626;
+  background: var(--bg);
 }
 
 .proj-card--triptap,
 .proj-card--dentacare {
   position: relative;
-  overflow: hidden;
 }
 
 /* Одно превью на кейс, общее для обеих тем. */
@@ -569,24 +708,8 @@ html.light-theme .hero-cta:hover {
   content: "";
   position: absolute;
   inset: 0;
-  /* Карточка и превью квадратные — cover заполняет её без обрезки. */
   background-size: cover;
-  background-position: center;
-  transition: transform 0.3s ease;
-}
-
-/* Наведение приближает превью, а не размывает его: жест «хочу разглядеть»
-   не должен ухудшать читаемость. */
-.proj-card--triptap:hover::before,
-.proj-card--dentacare:hover::before {
-  transform: scale(1.02);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .proj-card--triptap:hover::before,
-  .proj-card--dentacare:hover::before {
-    transform: none;
-  }
+  background-position: center top;
 }
 
 .proj-card--triptap::before {
@@ -597,31 +720,7 @@ html.light-theme .hero-cta:hover {
   background-image: url("images/dentalcare-preview.jpg");
 }
 
-.proj-card--triptap:hover,
-.proj-card--dentacare:hover {
-  background-color: transparent;
-}
 
-.proj-title {
-  color: var(--text);
-}
-
-.proj-pitch {
-  font-family: "Inter", sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 130%;
-  text-transform: uppercase;
-  color: var(--text-body);
-  margin: 16px 0 0;
-}
-
-.about-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
 
 /* Case page template */
 
@@ -667,20 +766,21 @@ html.light-theme .hero-cta:hover {
   transition: opacity .3s;
 }
 
+/* По умолчанию тема светлая — показываем светлую версию превью. */
 .case-image-themed-img--dark {
-  opacity: 1;
+  opacity: 0;
 }
 
 .case-image-themed-img--light {
-  opacity: 0;
-}
-
-html.light-theme .case-image-themed-img--dark {
-  opacity: 0;
-}
-
-html.light-theme .case-image-themed-img--light {
   opacity: 1;
+}
+
+html.theme-dark .case-image-themed-img--dark {
+  opacity: 1;
+}
+
+html.theme-dark .case-image-themed-img--light {
+  opacity: 0;
 }
 
 .case-hero-title {
@@ -697,7 +797,6 @@ html.light-theme .case-image-themed-img--light {
   margin: 0 auto;
   padding: 0;
 }
-
 
 .case-block {
   display: flex;
@@ -732,7 +831,6 @@ html.light-theme .case-image-themed-img--light {
   gap: 16px;
   width: 100%;
 }
-
 
 .case-meta {
   display: flex;
@@ -951,7 +1049,7 @@ html:not(.draft-mode) .is-draft {
 .case-image:empty {
   aspect-ratio: 1;
   background: #BBBBBB;
-  border-radius: 36px;
+  border-radius: 0;
 }
 
 /* Плейсхолдеры прижаты к своему описанию тем же интервалом, что и абзацы
@@ -1050,8 +1148,13 @@ html:not(.draft-mode) .is-draft {
    ───────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   :root {
-    --hero-top: 96px;
     --block-gap: 64px;
+  }
+
+  /* На телефоне кегль ниже: строка всего 358px. */
+  .section-text {
+    font-size: 19px;
+    margin-bottom: 16px;
   }
 
   .container {
@@ -1059,87 +1162,242 @@ html:not(.draft-mode) .is-draft {
     padding-right: 16px;
   }
 
-  /* Шапка во всю ширину экрана минус поля; островок сжимается вместе с ней. */
+  /* На узком экране строка статуса переносится — разделители лишние. */
+  .hero-status {
+    gap: 6px 10px;
+    font-size: 13px;
+  }
+
+  .hero-status-sep {
+    display: none;
+  }
+
+  .hero-cta {
+    margin-top: 32px;
+  }
+
+  /* Шапка во всю ширину экрана минус поля. */
   .nav-bar {
-    /* Островок 44px: строка 16 + по 14 сверху и снизу — палец попадает. */
-    margin: 26px auto 0;
+    margin: 20px auto 0;
     max-width: calc(100% - 32px);
-  }
-
-  #home .nav-bar--scrolled {
-    max-width: calc(100% - 32px);
-  }
-
-  .nav-bar::before {
-    inset: -14px;
-    border-radius: 16px;
   }
 
   .nav-logo {
     font-size: 16px;
   }
 
-  /* Пункты остаются иконками: подпись схлопывается нулевым кеглем,
-     иконка живёт своими атрибутами width/height и не зависит от него. */
+  /* Иконок больше нет — пункты остаются подписями и просто уплотняются. */
   .nav-links-center {
     position: static;
     transform: none;
-    gap: 4px;
+    gap: 12px;
   }
 
-  /* Чип 44×44: иконка крупнее (20px) плюс по 12px отступа — квадратная
-     зона нажатия вместо узкой полоски. */
-  .touch-link {
-    font-size: 0;
-    gap: 0;
-    padding: 12px;
-    border-radius: 12px;
+  .nav-links-center .nav-item {
+    font-size: 14px;
   }
 
-  .nav-icon {
-    width: 20px;
-    height: 20px;
-    margin-top: 0;
-  }
-
-  .nav-burger {
-    display: none;
-  }
-
-  /* Переключатель темы мельче: 28×16 вместо 34×20. */
-  .theme-switch {
-    width: 28px;
-    height: 16px;
-    border-radius: 8px;
-  }
-
-  .theme-switch-thumb {
-    width: 12px;
-    height: 12px;
-    border-radius: 6px;
-  }
-
-  .theme-switch.on .theme-switch-thumb {
-    transform: translateX(12px);
-  }
-
-  /* Кейсы и навыки — в одну колонку: две колонки на 360px нечитаемы. */
+  /* На телефоне карточка складывается в колонку: превью сверху, текст под ним. */
   .proj-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 48px;
   }
 
-  /* minmax(0, 1fr) не даёт длинным словам распирать колонку за экран. */
-  .skills-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px 24px;
+  .proj-item {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .proj-title {
+    font-size: 26px;
+  }
+
+  .proj-desc {
+    font-size: 16px;
+  }
+
+  .proj-more {
+    margin-top: 24px;
+  }
+
+  /* Этапы идут колонкой; линия процесса становится вертикальной,
+     узлы выстраиваются вдоль левого края. */
+  .skills-flow {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-top: 0;
+    padding-left: 24px;
+  }
+
+  .skills-flow::before {
+    top: 6px;
+    bottom: 6px;
+    left: 5px;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+
+  .skill-stage::before {
+    top: 6px;
+    left: -24px;
+    margin-left: 0;
   }
 
   .skill-list {
     overflow-wrap: break-word;
   }
 
-  .hero-cta {
-    margin-top: 24px;
+}
+
+/* ── Проявление текста «Обо мне» при прокрутке ──────────────────
+   Слова уходят от 0.3 к 1 по очереди: каждое получает свой участок
+   таймлайна, сдвинутый на --reveal-step относительно предыдущего.
+   Разбивку на слова делает скрипт; без него и без поддержки
+   scroll-driven анимаций текст просто виден целиком.
+   ─────────────────────────────────────────────────────────────── */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    #about .section-body {
+      view-timeline-name: --about-reveal;
+    }
+
+    .reveal-word {
+      /* Окно разгорания равно шагу между словами с небольшим перекрытием:
+         пока горит одно слово, следующее ещё не начало. При окне шире шага
+         вспыхивала бы сразу группа. */
+      opacity: 0.12;
+      animation: word-reveal linear both;
+      animation-range: cover calc(var(--i) * var(--reveal-step, 0.5%))
+                       cover calc(var(--i) * var(--reveal-step, 0.5%) + var(--reveal-span, 1%));
+    }
+
+    /* После шортката animation — иначе он сбросил бы таймлайн в auto. */
+    .reveal-word {
+      animation-timeline: --about-reveal;
+    }
+
+    @keyframes word-reveal {
+      to { opacity: 1; }
+    }
+  }
+}
+
+/* ── Просмотр изображений кейса ────────────────────────────────
+   Клик по макету открывает его поверх страницы, где его можно
+   приблизить. Слой лежит в body, а не внутри секции: у карточек
+   кейса есть overflow: hidden, и внутри они бы обрезались.
+   ─────────────────────────────────────────────────────────────── */
+.case-image-static-img {
+  cursor: zoom-in;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Затемнение одинаково в обеих темах: под ним лежит макет, а не сайт.
+     Размытие добавлено к затемнению: одна лишь прозрачность оставляла
+     крупный текст страницы читаемым, и он спорил с макетом. */
+  background: rgba(0, 0, 0, 0.92);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  overscroll-behavior: contain;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Холст перехватывает жесты: колесо и перетаскивание работают по всей
+   площади, а не только по самой картинке. */
+.lightbox-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.lightbox-img {
+  max-width: 92vw;
+  max-height: 90vh;
+  object-fit: contain;
+  cursor: zoom-in;
+  transform-origin: center center;
+  will-change: transform;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.lightbox.is-zoomed .lightbox-img {
+  cursor: grab;
+}
+
+.lightbox.is-panning .lightbox-img {
+  cursor: grabbing;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.22);
+  }
+}
+
+/* Подсказка исчезает, как только масштаб изменили: дальше она не нужна. */
+.lightbox-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.55);
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.lightbox.is-zoomed .lightbox-hint {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox,
+  .lightbox-img {
+    transition: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .lightbox-hint {
+    display: none;
   }
 }
