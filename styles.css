@@ -689,34 +689,25 @@ html.theme-dark .hero-cta:hover {
   color: var(--bg);
 }
 
+/* Превью лежит фоном на самой карточке. Отдельный слой под ним был нужен,
+   пока при наведении картинка приближалась: transform псевдоэлемента не
+   задевал сетку. Наведения нет — нет и слоя. */
 .proj-card {
   display: block;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   box-sizing: border-box;
-  background: var(--bg);
-}
-
-.proj-card--triptap,
-.proj-card--dentacare {
-  position: relative;
-}
-
-/* Одно превью на кейс, общее для обеих тем. */
-.proj-card--triptap::before,
-.proj-card--dentacare::before {
-  content: "";
-  position: absolute;
-  inset: 0;
+  background-color: var(--bg);
   background-size: cover;
   background-position: center top;
 }
 
-.proj-card--triptap::before {
+/* Одно превью на кейс, общее для обеих тем. */
+.proj-card--triptap {
   background-image: url("images/triptap-preview.jpg");
 }
 
-.proj-card--dentacare::before {
+.proj-card--dentacare {
   background-image: url("images/dentalcare-preview.jpg");
 }
 
