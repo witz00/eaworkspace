@@ -7,28 +7,45 @@ if (heroTyped && !window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   const START_DELAY = 500;
   // Каждый символ — отдельный span: текст занимает финальную ширину сразу,
   // поэтому переносы не пересчитываются и каретка не дёргает строку.
-  // Готовые элементы внутри (эмодзи) проявляются как один символ.
+  // Обход рекурсивный: внутри строки есть обёртки вроде выделенной фразы,
+  // и их содержимое должно набираться посимвольно, а не появляться разом.
   const chars = [];
-  [...heroTyped.childNodes].forEach(node => {
-    if (node.nodeType === Node.TEXT_NODE) {
-      [...node.textContent].forEach(char => {
-        const span = document.createElement('span');
-        span.className = 'hero-char';
-        span.textContent = char;
-        chars.push(span);
-      });
-    } else {
-      node.classList.add('hero-char');
-      chars.push(node);
-    }
-  });
-  heroTyped.textContent = '';
-  chars.forEach(span => heroTyped.appendChild(span));
+
+  const splitChars = (parent) => {
+    [...parent.childNodes].forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const fragment = document.createDocumentFragment();
+        [...node.textContent].forEach(char => {
+          const span = document.createElement('span');
+          span.className = 'hero-char';
+          span.textContent = char;
+          fragment.appendChild(span);
+          chars.push(span);
+        });
+        // Заменяем текст на месте, чтобы не потерять обёртки вокруг него.
+        parent.replaceChild(fragment, node);
+      } else {
+        splitChars(node);
+      }
+    });
+  };
+
+  splitChars(heroTyped);
+
+  // Выделение фразы появляется только после набора: пока текста нет,
+  // подсвечивать нечего — подложка и ручки висели бы в пустоте.
+  const mark = heroTyped.querySelector('.hero-mark');
 
   let shown = 0;
   const revealNext = () => {
     chars[shown++].classList.add('hero-char--on');
-    if (shown < chars.length) setTimeout(revealNext, CHAR_DELAY);
+    if (shown < chars.length) {
+      setTimeout(revealNext, CHAR_DELAY);
+    } else if (mark) {
+      // Пауза после последней буквы: выделение читается как отдельный жест,
+      // а не как продолжение набора.
+      setTimeout(() => mark.classList.add('is-selected'), 350);
+    }
   };
   setTimeout(revealNext, START_DELAY);
 }
@@ -104,20 +121,57 @@ if (navBurger && navLinks) {
   });
 }
 
-// Click / hover sounds (real audio files, kept quiet and non-blocking)
-const clickAudio = new Audio('sounds/click.wav');
-const hoverAudio = new Audio('sounds/hover.wav');
-clickAudio.volume = 0.3;
-hoverAudio.volume = 0.3;
+// Звуки интерфейса синтезируются на месте, файлов больше нет: щелчок — это
+// всплеск шума длиной несколько миллисекунд, пропущенный через полосовой
+// фильтр. Так звук весит ноль байт, не требует загрузки и звучит сухо и
+// коротко, без «мультяшного» хвоста, который слышен у готовых сэмплов.
+let audioCtx = null;
+
+function playNoiseBurst({ freq, duration = 0.004, decay = 20, q = 8, gain = 1 }) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  try {
+    audioCtx ||= new (window.AudioContext || window.webkitAudioContext)();
+    // Контекст засыпает, если вкладка была неактивной.
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+
+    const length = Math.round(audioCtx.sampleRate * duration);
+    const buffer = audioCtx.createBuffer(1, length, audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+    // Белый шум, гаснущий по экспоненте: чем больше decay, тем резче обрыв.
+    for (let i = 0; i < length; i += 1) {
+      data[i] = (Math.random() * 2 - 1) * Math.exp(-i / decay);
+    }
+
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'bandpass';
+    // Частоту слегка разбрасываем: одинаковые щелчки подряд звучат машинно.
+    filter.frequency.value = freq * (1 + (Math.random() - 0.5) * 0.1);
+    filter.Q.value = q;
+
+    const volume = audioCtx.createGain();
+    volume.gain.value = gain;
+
+    const source = audioCtx.createBufferSource();
+    source.buffer = buffer;
+    source.connect(filter).connect(volume).connect(audioCtx.destination);
+    source.start();
+    // Узлы живут только на время щелчка, иначе они копятся в графе.
+    source.onended = () => {
+      source.disconnect();
+      filter.disconnect();
+      volume.disconnect();
+    };
+  } catch {
+    // Аудио может быть недоступно — звук не критичен, молча пропускаем.
+  }
+}
 
 function playClickSound() {
-  clickAudio.currentTime = 0;
-  clickAudio.play().catch(() => {});
+  playNoiseBurst({ freq: 4000, decay: 25, gain: 3.2 });
 }
 
 function playHoverSound() {
-  hoverAudio.currentTime = 0;
-  hoverAudio.play().catch(() => {});
+  playNoiseBurst({ freq: 2000, duration: 0.003, decay: 15, q: 4, gain: 0.42 });
 }
 
 // Delegated so links and buttons added later are covered too
@@ -326,4 +380,40 @@ if (caseImages.length) {
     clamp();
     draw();
   });
+}
+
+// Оглавление кейса: подсвечивает раздел, который сейчас на экране.
+// Наблюдатель дешевле обработчика прокрутки — браузер сам сообщает,
+// когда карточка пересекает полосу чуть ниже шапки.
+const caseToc = document.querySelector('.case-toc');
+
+if (caseToc) {
+  const links = [...caseToc.querySelectorAll('.case-toc-link')];
+  const sections = links
+    .map(link => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+
+  const setActive = (id) => {
+    links.forEach(link => {
+      link.classList.toggle('is-active', link.getAttribute('href') === '#' + id);
+    });
+  };
+
+  if (sections.length) {
+    setActive(sections[0].id);
+
+    const observer = new IntersectionObserver((entries) => {
+      // Видимых карточек может быть несколько — берём верхнюю из них.
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setActive(visible[0].target.id);
+    }, {
+      // Полоса внимания: от 100px под шапкой до нижней трети экрана.
+      rootMargin: '-100px 0px -60% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(section => observer.observe(section));
+  }
 }

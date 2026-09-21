@@ -13,15 +13,15 @@
   <meta property="og:title" content="TripTap — кейс продуктового дизайнера">
   <meta property="og:description" content="Приложение для поиска билетов: информационная архитектура, пользовательские потоки и дизайн-система.">
   <meta property="og:url" content="https://eakh.vercel.app/triptap.html">
-  <meta property="og:image" content="https://eakh.vercel.app/images/triptap-preview.jpg">
+  <meta property="og:image" content="https://eakh.vercel.app/images/triptap-preview.webp">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="TripTap — кейс продуктового дизайнера">
   <meta name="twitter:description" content="Приложение для поиска билетов: информационная архитектура, пользовательские потоки и дизайн-система.">
-  <meta name="twitter:image" content="https://eakh.vercel.app/images/triptap-preview.jpg">
+  <meta name="twitter:image" content="https://eakh.vercel.app/images/triptap-preview.webp">
   <link rel="icon" href="favicon.webp" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script>
     if (localStorage.getItem('theme') === 'dark') {
@@ -34,7 +34,7 @@
     }
   </script>
 </head>
-<body id="home">
+<body id="home" class="case-page">
   <div class="nav-bar">
     <a class="nav-item nav-logo" href="index.html">eakh</a>
       <div class="nav-actions">
@@ -53,126 +53,97 @@
           <a class="nav-item touch-link" href="https://drive.google.com/file/d/1CMZQ_u5sPO5xod8xt8lw0VNC90fhfG8S/view?usp=sharing" target="_blank" rel="noopener">Резюме</a>
         </div>
       </nav>
-    </div>  <div class="container">
-    <header class="case-hero-screen case-hero-screen--compact">
-      <div class="case-intro">
-        <a class="case-back" href="index.html#projects">← все проекты</a>
-        <h1 class="case-hero-title">TripTap</h1>
-        <p class="case-lede">Собирает поиск, покупку и хранение авиабилетов в один сценарий.</p>
-      </div>
-    </header>
-    <!-- ЗАПОЛНИТЬ: срок проекта. Остальные значения проверьте под себя. -->
-    <div class="case-meta">
-      <div class="case-meta-col">
-        <span class="case-meta-label">Роль</span>
-        <span class="case-meta-value">Продуктовый дизайнер</span>
-      </div>
-      <div class="case-meta-col">
-        <span class="case-meta-label">Срок</span>
-        <span class="case-meta-value">—</span>
-      </div>
-      <div class="case-meta-col">
-        <span class="case-meta-label">Инструменты</span>
-        <span class="case-meta-value">Figma</span>
-      </div>
-      <div class="case-meta-col">
-        <span class="case-meta-label">Тип</span>
-        <span class="case-meta-value">Учебный проект</span>
-      </div>
-    </div>
-    <div class="case-block case-about">
-      <div class="case-about-content">
-        <div class="case-about-text">
-          <h2 class="case-section-title">Понимание проблемы</h2>
-          <p class="case-section-text">Пассажирам приходится выполнять несколько действий на разных сервисах: искать рейсы, сравнивать варианты, оформлять билеты, выбирать места и отслеживать информацию о предстоящих перелётах.</p>
+    </div>  <div class="container container--case">
+    <div class="case-layout">
+      <aside class="case-side">
+        <div class="case-side-inner">
+          <nav class="case-toc" aria-label="Разделы кейса">
+            <a class="case-toc-link" href="#about">Контекст и задача</a>
+            <a class="case-toc-link" href="#idea">Идея</a>
+            <a class="case-toc-link" href="#competitors">Анализ конкурентов</a>
+            <a class="case-toc-link" href="#hypotheses">Гипотезы</a>
+            <a class="case-toc-link" href="#architecture">Информационная архитектура</a>
+            <a class="case-toc-link" href="#visual">Визуальная концепция</a>
+            <a class="case-toc-link" href="#system">Дизайн-система</a>
+            <a class="case-toc-link" href="#results">Итоги</a>
+          </nav>
         </div>
-      </div>
-    </div>
-    <div class="case-block case-idea">
-      <div class="case-section">
-        <h2 class="case-section-title">Идея</h2>
-        <p class="case-section-text">Я разработал концепцию мобильного приложения, которое объединяет весь процесс организации перелёта в одном месте. Пользователи могут искать и бронировать авиабилеты, выбирать места, хранить электронные билеты и получать актуальную информацию о предстоящих рейсах через простой и интуитивно понятный интерфейс.</p>
-      </div>
-      <div class="case-image case-image--auto">
-        <img class="case-image-static-img" src="images/idea.png" alt="TripTap — экраны поиска билетов, горячих предложений и календаря">
-      </div>
-    </div>
-    <div class="case-block case-audience">
-      <div class="case-section">
-        <h2 class="case-section-title">Анализ конкурентов</h2>
-        <p class="case-section-text">Сначала я провёл анализ конкурентов, чтобы понять, какие решения уже существуют на рынке и где остаются точки роста.</p>
-        <p class="case-section-text"><strong>Aviasales:</strong> Интерфейс выглядит аккуратным и компактным. Приятный синий цвет вызывает доверие и уют. Однако сценарий бронирования слишком затянут, а главному экрану не хватает воздуха.</p>
-        <p class="case-section-text"><strong>КупиБилет:</strong> Слабая визуальная иерархия карточек и избыточная текстовая нагрузка на компоненты.</p>
-        <p class="case-section-text"><strong>Яндекс Путешествия:</strong> Интересный паттерн, визуально привлекательный интерфейс. Крючком удержания аудитории является применение баллов Яндекс Плюса, позволяющая экономить и выгодно бронировать билеты.</p>
-      </div>
-    </div>
-    <div class="case-block case-competitors">
-      <div class="case-section">
-        <h2 class="case-section-title">Формулировка гипотез</h2>
-        <p class="case-section-text">1. Если мы объединим параметры фильтра в один шаг, то время первого поиска сократится условно на 20%, потому что пользователи реже будут отваливаться.</p>
-        <p class="case-section-text">2. Если мы объединим параметры фильтра в один шаг, то время первого поиска сократится условно на 20%, потому что пользователи реже будут отваливаться.</p>
-        <p class="case-section-text">3. Если мы объединим параметры фильтра в один шаг, то время первого поиска сократится условно на 20%, потому что пользователи реже будут отваливаться.</p>
-      </div>
-    </div>
-    <div class="case-block case-inform-arch">
-      <div class="case-section">
-        <h2 class="case-section-title">Информационная архитектура</h2>
-        <p class="case-section-text">На основе всех предыдущих этапов я разработал информационную архитектуру приложения, которая четко определила структуру и взаимосвязь между разделами и функциональностью. Это стало основой для создания интерфейса и навигации по приложению.</p>
-      </div>
-      <div class="case-image case-image--auto">
-        <img class="case-image-static-img" src="images/inform-arch.png" alt="Информационная архитектура TripTap: структура разделов и связи между ними">
-      </div>
-    </div>
-    <div class="case-block case-visual">
-      <div class="case-section">
-        <h2 class="case-section-title">Визуальная концепция</h2>
-        <p class="case-section-text">Проектирование началось со сбора визуальных и функциональных референсов. Я проанализировал лучшие практики для ключевых компонентов: карточек билетов, лид-форм, модулей поиска и экранов регистрации. На основе собранных рефов были составлены интерфейсные френки для каждого пользовательского сценария.</p>
-      </div>
-      <div class="case-image-row is-draft">
-        <div class="case-image" data-draft-label="Мудборд: референсы карточек билетов и лид-форм"></div>
-        <div class="case-image" data-draft-label="Вайрфреймы: поиск → выдача → оплата"></div>
-      </div>
-    </div>
-    <div class="case-block case-design-system">
-      <div class="case-section">
-        <h2 class="case-section-title">Дизайн-система</h2>
-        <p class="case-section-text">После визуальной концепции я начал собирать компоненты для своего проекта. Всего было спроектировано порядка 150 шт. Начал с базовых элементов: иконок, кнопок, полей ввода и ячеек списка, а из них собрал составные: карточки билетов, модальные окна, календарь и таб-бар. Также были использованы токены для унификации таких элементов, как цвета, шрифты. Это позволило добиться согласованности в дизайне и быстро адаптировать элементы.</p>
-      </div>
-      <div class="case-mosaic">
-        <div class="case-image case-mosaic-main">
-          <img class="case-image-static-img" src="images/420x500.png" alt="Компоненты дизайн-системы TripTap">
-        </div>
-        <div class="case-mosaic-col">
-          <div class="case-image">
-            <img class="case-image-static-img" src="images/588x235.png" alt="Компоненты дизайн-системы TripTap">
+      </aside>
+      <main class="case-main">
+        <article class="case-card" id="about">
+          <h1 class="case-card-title">Контекст и задача</h1>
+          <p class="case-card-text">TripTap — мой учебный проект приложения для поиска и бронирования авиабилетов. Я сделал его, чтобы потренироваться проектировать не отдельный экран, а большой продукт с несколькими связанными сценариями и состояниями.</p>
+        </article>
+        <article class="case-card" id="idea">
+          <p class="case-eyebrow">Концепция</p>
+          <h2 class="case-card-title">Весь перелёт в одном приложении</h2>
+          <p class="case-card-text">Я разработал концепцию мобильного приложения, которое объединяет весь процесс организации перелёта в одном месте. Пользователи могут искать и бронировать авиабилеты, выбирать места, хранить электронные билеты и получать актуальную информацию о предстоящих рейсах через простой и интуитивно понятный интерфейс.</p>
+          <figure class="case-figure">
+            <img class="case-image-static-img" src="images/idea.webp" alt="TripTap — экраны поиска билетов, горячих предложений и календаря" loading="lazy">
+          </figure>
+        </article>
+        <article class="case-card" id="competitors">
+          <p class="case-eyebrow">Исследование</p>
+          <h2 class="case-card-title">Что уже есть на рынке</h2>
+          <p class="case-card-text">Сначала я провёл анализ конкурентов, чтобы понять, какие решения уже существуют на рынке и где остаются точки роста.</p>
+          <ul class="case-list">
+            <li><strong>Aviasales.</strong> Интерфейс аккуратный и компактный, синий цвет вызывает доверие. Но сценарий бронирования затянут, а главному экрану не хватает воздуха.</li>
+            <li><strong>КупиБилет.</strong> Слабая визуальная иерархия карточек и избыточная текстовая нагрузка на компоненты.</li>
+            <li><strong>Яндекс Путешествия.</strong> Визуально привлекательный интерфейс, удержание строится на баллах Яндекс Плюса — они позволяют экономить на бронировании.</li>
+          </ul>
+        </article>
+        <article class="case-card" id="hypotheses">
+          <p class="case-eyebrow">Гипотезы</p>
+          <h2 class="case-card-title">Что проверяем</h2>
+          <ul class="case-list">
+            <li>Если объединить параметры фильтра в один шаг, время первого поиска сократится примерно на 20% — пользователи реже будут отваливаться.</li>
+            <li>Если показывать цену сразу в выдаче, доля переходов в карточку вырастет: человек отсеивает неподходящие варианты раньше.</li>
+            <li>Если хранить билеты внутри приложения, повторные заходы участятся — билет нужен в аэропорту, а не только при покупке.</li>
+          </ul>
+        </article>
+        <article class="case-card" id="architecture">
+          <p class="case-eyebrow">Структура</p>
+          <h2 class="case-card-title">Информационная архитектура</h2>
+          <p class="case-card-text">На основе предыдущих этапов я разработал информационную архитектуру приложения: она определила структуру разделов и связи между ними. Это стало основой для навигации и интерфейса.</p>
+          <figure class="case-figure">
+            <img class="case-image-static-img" src="images/inform-arch.webp" alt="Информационная архитектура TripTap: структура разделов и связи между ними" loading="lazy">
+          </figure>
+        </article>
+        <article class="case-card" id="visual">
+          <p class="case-eyebrow">Визуальная концепция</p>
+          <h2 class="case-card-title">От референсов к экранам</h2>
+          <p class="case-card-text">Проектирование началось со сбора визуальных и функциональных референсов. Я проанализировал практики для ключевых компонентов: карточек билетов, лид-форм, модулей поиска и экранов регистрации. На основе собранного сделал интерфейсные каркасы для каждого сценария.</p>
+        </article>
+        <article class="case-card" id="system">
+          <p class="case-eyebrow">Дизайн-система</p>
+          <h2 class="case-card-title">150 компонентов на токенах</h2>
+          <p class="case-card-text">Начал с базовых элементов: иконок, кнопок, полей ввода и ячеек списка, а из них собрал составные — карточки билетов, модальные окна, календарь и таб-бар. Цвета и шрифты вынес в токены: это дало согласованность и позволило быстро адаптировать элементы.</p>
+          <div class="case-mosaic">
+            <div class="case-image case-mosaic-main">
+              <img class="case-image-static-img" src="images/420x500.webp" alt="Компоненты дизайн-системы TripTap" loading="lazy">
+            </div>
+            <div class="case-mosaic-col">
+              <div class="case-image">
+                <img class="case-image-static-img" src="images/588x235.webp" alt="Компоненты дизайн-системы TripTap" loading="lazy">
+              </div>
+              <div class="case-image">
+                <img class="case-image-static-img" src="images/588x249.webp" alt="Компоненты дизайн-системы TripTap" loading="lazy">
+              </div>
+            </div>
           </div>
-          <div class="case-image">
-            <img class="case-image-static-img" src="images/588x249.png" alt="Компоненты дизайн-системы TripTap">
-          </div>
-        </div>
-      </div>
-      <div class="case-section">
-        <p class="case-section-text"><strong>Кнопки:</strong> Используются различные типы кнопок для действий, с различными состояниями (активные, неактивные).</p>
-        <p class="case-section-text"><strong>Формы и поля ввода:</strong> Все формы были стилизованы так, чтобы быть максимально простыми в использовании, с понятными метками и подсказками.</p>
-        <p class="case-section-text"><strong>Карточки:</strong> Важные элементы приложения, такие как карточки для билетов или интересных мест имеют свой визуальный стиль для легкого восприятия.</p>
-      </div>
-    </div>
-    <div class="case-block case-results">
-      <div class="case-section">
-        <h2 class="case-section-title">Итоги</h2>
-        <p class="case-section-text">Этот проект стал важным этапом в моем профессиональном развитии. Я прошел полный цикл создания продукта: от исследования и формирования концепции до проектирования интерфейса и тестирования. В процессе я улучшил навыки системного подхода, а также убедился, что дизайн — это процесс бесконечных изменений и улучшений до идеала.</p>
-      </div>
-      <div class="case-image-trio is-draft">
-        <div class="case-image" data-draft-label="Финальный экран: поиск"></div>
-        <div class="case-image" data-draft-label="Финальный экран: выдача рейсов"></div>
-        <div class="case-image" data-draft-label="Финальный экран: билет"></div>
-      </div>
-    </div>
-    <div class="case-block case-prototype is-draft">
-      <div class="case-section">
-        <h2 class="case-section-title">Прототипирование</h2>
-        <p class="case-section-text">ЗАПОЛНИТЬ: что прототипировали, какой сценарий проверяли, что выяснили.</p>
-      </div>
+          <ul class="case-list">
+            <li><strong>Кнопки.</strong> Несколько типов под разные действия, с состояниями — активным и неактивным.</li>
+            <li><strong>Формы и поля ввода.</strong> Максимально простые, с понятными метками и подсказками.</li>
+            <li><strong>Карточки.</strong> Билеты и интересные места получили собственный визуальный стиль для лёгкого восприятия.</li>
+          </ul>
+        </article>
+        <article class="case-card" id="results">
+          <p class="case-eyebrow">Итоги</p>
+          <h2 class="case-card-title">Что дал проект</h2>
+          <p class="case-card-text">Я прошёл полный цикл создания продукта: от исследования и формирования концепции до проектирования интерфейса и тестирования. Улучшил навыки системного подхода и убедился, что дизайн — процесс бесконечных улучшений.</p>
+          <a class="case-next-link" href="dental-care.html">Следующий кейс — DentaCare</a>
+        </article>
+      </main>
     </div>
   </div>
   <script src="script.js"></script>

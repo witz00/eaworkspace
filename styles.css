@@ -49,6 +49,13 @@ html {
   /* Вертикальные поля секции. На стыке двух секций складываются,
      поэтому между блоками получается вдвое больше. */
   --block-gap: 96px;
+  /* Поверхности страницы кейса: подложка и карточка на ней. Карточка
+     всегда на ступень ближе к зрителю, чем фон. */
+  --case-bg: #F2F2F2;
+  --case-card: #FFFFFF;
+  /* Выделение текста: синий системного выделения, а не акцент сайта. */
+  --select-bg: #B4D3FE;
+  --select-caret: #1A73E8;
 }
 
 /* Тёмная тема — инверсия. Почти-чёрный фон вместо #000 и почти-белый текст
@@ -69,6 +76,12 @@ html.theme-dark {
   --accent: #34C759;
   /* curtain: приподнятая поверхность — на тёмном светлее фона */
   --curtain: #1C1C1C;
+  /* В тёмной теме порядок обратный: фон почти чёрный, карточка светлее. */
+  --case-bg: #0F0F0F;
+  --case-card: #1C1C1C;
+  /* Выделение на тёмном берут глубже, иначе подложка слепит. */
+  --select-bg: #2C5082;
+  --select-caret: #5B9DFF;
 }
 
 *,
@@ -159,7 +172,7 @@ body {
 }
 
 .nav-item {
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 500;
   line-height: 110%;
   font-size: 18px;
@@ -355,10 +368,10 @@ html.theme-dark .theme-switch-knob {
 
 .about-description {
   position: relative;
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   /* Приветствие набрано одним абзацем и переносится само, поэтому кегль
      тянется от ширины окна без риска обрезки. */
-  font-size: clamp(26px, 3.2vw, 41px);
+  font-size: clamp(24px, 2.8vw, 36px);
   font-style: normal;
   font-weight: 500;
   line-height: 108%;
@@ -423,7 +436,7 @@ html.theme-dark .theme-switch-knob {
   justify-content: center;
   gap: 8px;
   margin: 20px 0 0;
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1;
@@ -471,15 +484,15 @@ html.theme-dark .theme-switch-knob {
   margin-top: 20px;
   /* Таблетка фиксированной высоты: центрирование держит flex, поэтому
      вертикальных отступов нет — строка всегда стоит ровно посередине. */
-  height: 52px;
-  padding: 0 32px;
+  height: 44px;
+  padding: 0 24px;
   /* Обводка есть всегда, просто прозрачная: при наведении она лишь меняет
      цвет, поэтому кнопка не прыгает на пиксель и текст не съезжает. */
   border: 1px solid transparent;
-  border-radius: 1000px;
+  border-radius: 12px;
   box-sizing: border-box;
   background: var(--text);
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.2;
@@ -515,7 +528,7 @@ html.theme-dark .theme-switch-knob {
 .section-heading {
   width: 100%;
   margin: 0 0 32px;
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-size: clamp(26px, 3.2vw, 41px);
   font-weight: 500;
   line-height: 108%;
@@ -539,7 +552,7 @@ html.theme-dark .theme-switch-knob {
 }
 .section-text {
   margin: 0 0 20px;
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 500;
   font-size: 22px;
   line-height: 140%;
@@ -578,7 +591,7 @@ html.theme-dark .theme-switch-knob {
   padding: 0 20px;
   border: 1px solid var(--curtain);
   border-radius: 1000px;
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 400;
   /* Кегль тот же, что у перечня в «Опыте»: один размер для второстепенного
      текста по всему сайту. */
@@ -621,7 +634,7 @@ html.theme-dark .theme-switch-knob {
 }
 
 .proj-title {
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 500;
   font-size: 32px;
   line-height: 120%;
@@ -633,7 +646,7 @@ html.theme-dark .theme-switch-knob {
    один, независимо от того, в каком разделе он стоит. */
 .proj-desc {
   margin-top: 8px;
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 500;
   font-size: 22px;
   line-height: 140%;
@@ -648,13 +661,13 @@ html.theme-dark .theme-switch-knob {
   align-items: center;
   justify-content: center;
   margin-top: 20px;
-  height: 52px;
-  padding: 0 32px;
+  height: 44px;
+  padding: 0 24px;
   border: 1px solid transparent;
-  border-radius: 1000px;
+  border-radius: 12px;
   box-sizing: border-box;
   background: var(--text);
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.2;
@@ -688,11 +701,11 @@ html.theme-dark .theme-switch-knob {
 
 /* Одно превью на кейс, общее для обеих тем. */
 .proj-card--triptap {
-  background-image: url("images/triptap-preview.jpg");
+  background-image: url("images/triptap-preview.webp");
 }
 
 .proj-card--dentacare {
-  background-image: url("images/dentalcare-preview.jpg");
+  background-image: url("images/dentalcare-preview.webp");
 }
 
 
@@ -759,7 +772,7 @@ html.theme-dark .case-image-themed-img--light {
 }
 
 .case-hero-title {
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-size: 3.6rem;
   font-style: normal;
   font-weight: 500;
@@ -822,14 +835,14 @@ html.theme-dark .case-image-themed-img--light {
 }
 
 .case-meta-label {
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 500;
   font-size: 13px;
   color: var(--muted);
 }
 
 .case-meta-value {
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 500;
   font-size: 16px;
   color: var(--text);
@@ -857,7 +870,7 @@ html.theme-dark .case-image-themed-img--light {
   border-radius: 1000px;
   box-sizing: border-box;
   background: transparent;
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.2;
@@ -877,7 +890,7 @@ html.theme-dark .case-image-themed-img--light {
 }
 
 .case-lede {
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 400;
   font-size: 18px;
   line-height: 150%;
@@ -904,7 +917,7 @@ html:not(.draft-mode) .is-draft {
 
 .draft-mode .case-image[data-draft-label]::after {
   content: attr(data-draft-label);
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-size: 14px;
   line-height: 150%;
   text-align: center;
@@ -919,7 +932,7 @@ html:not(.draft-mode) .is-draft {
 }
 
 .case-section-title {
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 600;
   font-size: 32px;
   line-height: 110%;
@@ -929,7 +942,7 @@ html:not(.draft-mode) .is-draft {
 }
 
 .case-section-text {
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-size: 21px;
   font-style: normal;
   font-weight: 400;
@@ -974,14 +987,14 @@ html:not(.draft-mode) .is-draft {
 }
 
 .case-persona-table th {
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 600;
   font-size: 1rem;
   color: var(--text);
 }
 
 .case-persona-table td:first-child {
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 600;
   font-size: 0.875rem;
   color: var(--muted-soft);
@@ -989,7 +1002,7 @@ html:not(.draft-mode) .is-draft {
 }
 
 .case-persona-table td {
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 460;
   font-size: 1rem;
   line-height: 130%;
@@ -1013,7 +1026,7 @@ html:not(.draft-mode) .is-draft {
 }
 
 .case-list-index {
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 600;
   font-size: 13px;
   color: var(--muted-soft);
@@ -1022,7 +1035,7 @@ html:not(.draft-mode) .is-draft {
 }
 
 .case-list-text {
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 130%;
@@ -1380,7 +1393,7 @@ html:not(.draft-mode) .is-draft {
   bottom: 20px;
   transform: translateX(-50%);
   margin: 0;
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-size: 13px;
   line-height: 1;
   color: rgba(255, 255, 255, 0.55);
@@ -1493,7 +1506,7 @@ div.exp-logo {
 
 .exp-role {
   margin: 0 0 2px;
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 500;
   font-size: 24px;
   line-height: 140%;
@@ -1503,7 +1516,7 @@ div.exp-logo {
 
 .exp-meta {
   margin: 0 0 12px;
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 400;
   font-size: 20px;
   line-height: 140%;
@@ -1512,7 +1525,7 @@ div.exp-logo {
 
 .exp-text {
   margin: 0;
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 400;
   font-size: 22px;
   line-height: 150%;
@@ -1524,7 +1537,7 @@ div.exp-logo {
   margin: 0;
   padding: 0;
   list-style: none;
-  font-family: "Inter", sans-serif;
+  font-family: "Golos Text", sans-serif;
   font-weight: 400;
   font-size: 22px;
   line-height: 150%;
@@ -1570,4 +1583,353 @@ div.exp-logo {
   .exp-points {
     font-size: 14px;
   }
+}
+
+
+/* ── Страница кейса: колонка навигации + лента карточек ─────────
+   Слева закреплённая панель с оглавлением, справа содержимое,
+   разбитое на карточки. Подложка страницы приглушена, карточки —
+   чистого фонового цвета: так лента читается как набор блоков,
+   а не как сплошной текст.
+   ─────────────────────────────────────────────────────────────── */
+/* 72px занимает полоса шапки, ещё 24 — тот же зазор, что между карточками:
+   сверху столько же воздуха, сколько между блоками. Селектор с id нужен,
+   чтобы перебить #home .container, где отступы обнулены ради героя. */
+.container--case,
+#home .container--case {
+  max-width: 1200px;
+  padding-top: 96px;
+  padding-bottom: 24px;
+}
+
+body.case-page {
+  background: var(--case-bg);
+}
+
+/* Шапка тянется по ширине контента кейса, иначе логотип не совпал бы
+   с левым краем панели. */
+.case-page .nav-bar,
+.case-page .nav-bar::before {
+  max-width: 1200px;
+}
+
+.case-page .nav-bar::before {
+  background: var(--case-bg);
+  width: 100vw;
+  max-width: none;
+}
+
+.case-layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  width: 100%;
+}
+
+/* Панель едет вместе с прокруткой и останавливается под шапкой. */
+.case-side {
+  position: sticky;
+  top: 96px;
+}
+
+.case-side-inner {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border-radius: 20px;
+  background: var(--case-card);
+}
+
+/* Между строками 20px: 4px промежутка плюс по 8px полей у соседних пунктов.
+   Поля оставлены на пунктах, а не отданы gap, — они держат зону нажатия. */
+.case-toc {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Активный раздел отличается только цветом: полосы и подчёркивания нет,
+   поэтому пункты стоят на одной вертикали с остальным содержимым панели. */
+.case-toc-link {
+  position: relative;
+  padding: 8px 0;
+  font-family: "Golos Text", sans-serif;
+  font-weight: 500;
+  /* Кегль тот же, что у пунктов меню в шапке: навигация на сайте одна.
+     Интерлиньяж плотнее (120%): пункт — короткая подпись, а не абзац,
+     и при переносе на две строки его строки должны держаться вместе. */
+  font-size: 18px;
+  line-height: 120%;
+  color: var(--muted-soft);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.case-toc-link.is-active {
+  color: var(--text);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .case-toc-link:hover {
+    color: var(--text);
+  }
+}
+
+.case-main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.case-card {
+  /* 32px: на ступень меньше прежних 40 — содержимое подтягивается к краю
+     карточки и к шапке, не теряя запаса вокруг текста. */
+  padding: 32px;
+  border-radius: 20px;
+  background: var(--case-card);
+  /* Якорь останавливается ниже шапки, а не под ней. */
+  scroll-margin-top: 96px;
+}
+
+.case-eyebrow {
+  margin: 0 0 8px;
+  font-family: "Golos Text", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 140%;
+  color: var(--muted-soft);
+}
+
+.case-card-title {
+  margin: 0 0 24px;
+  font-family: "Golos Text", sans-serif;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 125%;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.case-card-text {
+  margin: 0 0 20px;
+  font-family: "Golos Text", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 155%;
+  color: var(--text-body);
+}
+
+.case-card-text:last-child {
+  margin-bottom: 0;
+}
+
+.case-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: "Golos Text", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 155%;
+  color: var(--text-body);
+}
+
+.case-list li {
+  padding-left: 18px;
+  text-indent: -18px;
+}
+
+.case-list li + li {
+  margin-top: 12px;
+}
+
+.case-list li::before {
+  content: "— ";
+  color: var(--muted-soft);
+}
+
+.case-list strong {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.case-figure {
+  margin: 24px 0 0;
+}
+
+.case-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.case-next-link {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  margin-top: 8px;
+  padding: 0 24px;
+  border: 1px solid var(--text);
+  border-radius: 12px;
+  box-sizing: border-box;
+  font-family: "Golos Text", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  color: var(--text);
+  text-decoration: none;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .case-next-link:hover {
+    background: var(--text);
+    color: var(--bg);
+  }
+}
+
+@media (max-width: 1024px) {
+  /* Панель перестаёт быть колонкой: оглавление уезжает наверх и идёт
+     строкой с горизонтальной прокруткой. */
+  .case-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .case-side {
+    position: static;
+  }
+
+  .case-side-inner {
+    padding: 20px;
+  }
+
+  .case-toc {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .case-toc::-webkit-scrollbar {
+    display: none;
+  }
+
+  .case-toc-link {
+    white-space: nowrap;
+  }
+
+  .case-card {
+    padding: 24px;
+  }
+
+  .case-card-title {
+    font-size: 22px;
+  }
+
+  .case-card-text,
+  .case-list {
+    font-size: 16px;
+  }
+}
+
+/* ── Выделенная фраза в приветствии ─────────────────────────────
+   Приём цитирует выделение текста мышью: подсветка плюс каретка у
+   левого края. Цвет — синий системного выделения, а не зелёный акцент
+   сайта: узнаваемость приёма держится именно на привычном цвете.
+   Каретка не мигает: выделение — это состояние, а не набор текста.
+   ─────────────────────────────────────────────────────────────── */
+.hero-mark {
+  position: relative;
+  /* Подложка шире букв только по вертикали. Боковых полей нет намеренно:
+     ручки стоят у первой и последней буквы, и любое поле сдвинуло бы их
+     внутрь подложки — линии перестали бы совпадать с её краями. */
+  padding: 0.04em 0;
+  background: var(--select-bg);
+}
+
+/* В печатающемся слое выделение прячется до конца набора: класс is-selected
+   вешает скрипт, когда напечатана последняя буква. Слой-призрак держит
+   ширину строки и всегда невидим, поэтому его это правило не касается. */
+.hero-typed .hero-mark {
+  background: transparent;
+}
+
+.hero-typed .hero-mark .hero-handle {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.hero-typed .hero-mark.is-selected {
+  background: var(--select-bg);
+}
+
+.hero-typed .hero-mark.is-selected .hero-handle {
+  opacity: 1;
+}
+
+/* Ручки выделения: тонкая полоска с кружком, как в мобильном выделении
+   текста. У левой кружок снизу, у правой сверху.
+
+   Ручки — не абсолютные псевдоэлементы подложки, а пустые строчные узлы
+   внутри неё: при переносе фразы на две строки абсолютный слой растянулся
+   бы через обе, а строчный узел остаётся приклеенным к своему краю текста.
+   Ширина нулевая, поэтому на вёрстку они не влияют. */
+/* display: inline, а не inline-block: граница строчного блока — это место,
+   где строка может разорваться, и правая ручка уезжала на следующую строку,
+   когда предыдущая была заполнена. У обычного строчного узла такого разрыва
+   не возникает, а якорем для полоски и кружка он работает так же. */
+.hero-handle {
+  display: inline;
+  position: relative;
+}
+
+/* Полоска и кружок стоят на одной оси: обе фигуры выровнены по точке
+   left: 0 и сдвинуты влево на половину своей ширины. Так их центры
+   совпадают при любой толщине и не зависят от дробных пикселей. */
+/* Высота полоски считается от строчного бокса ручки — того же, из которого
+   растёт подложка выделения. Плюс вертикальные поля подложки (0.04em сверху
+   и снизу): так линия точно совпадает с её краями, а не висит выше. */
+.hero-handle::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -0.04em;
+  width: 2px;
+  height: calc(100% + 0.08em);
+  transform: translateX(-50%);
+  background: var(--select-caret);
+}
+
+/* Кружок на конце полоски. */
+.hero-handle::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: var(--select-caret);
+}
+
+/* Кружок сидит ровно на конце полоски: его центр совпадает с её краем.
+   Половина диаметра — 4px, на неё и смещаем. */
+.hero-handle--start::after {
+  top: calc(100% + 0.04em - 4px);
+}
+
+.hero-handle--end::after {
+  top: calc(-0.04em - 4px);
+}
+
+/* Волосок воздуха после выделения: без него правая ручка упирается в точку,
+   и линия с точкой сливаются в грязное пятно. */
+.hero-mark {
+  margin-right: 0.06em;
 }
