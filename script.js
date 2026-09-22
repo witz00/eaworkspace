@@ -32,20 +32,10 @@ if (heroTyped && !window.matchMedia('(prefers-reduced-motion: reduce)').matches)
 
   splitChars(heroTyped);
 
-  // Выделение фразы появляется только после набора: пока текста нет,
-  // подсвечивать нечего — подложка и ручки висели бы в пустоте.
-  const mark = heroTyped.querySelector('.hero-mark');
-
   let shown = 0;
   const revealNext = () => {
     chars[shown++].classList.add('hero-char--on');
-    if (shown < chars.length) {
-      setTimeout(revealNext, CHAR_DELAY);
-    } else if (mark) {
-      // Пауза после последней буквы: выделение читается как отдельный жест,
-      // а не как продолжение набора.
-      setTimeout(() => mark.classList.add('is-selected'), 350);
-    }
+    if (shown < chars.length) setTimeout(revealNext, CHAR_DELAY);
   };
   setTimeout(revealNext, START_DELAY);
 }
@@ -61,17 +51,38 @@ function applyTheme(isDark) {
     t.setAttribute("aria-checked", String(isDark));
   });
   if (themeColorMeta) {
-    themeColorMeta.setAttribute("content", isDark ? "#0F0F0F" : "#FFFFFF");
+    themeColorMeta.setAttribute("content", isDark ? "#0F0F0F" : "#FAFBF8");
   }
 }
 
 applyTheme(localStorage.getItem("theme") === "dark");
 
+/* Смена темы. Раньше каждый элемент перекрашивался своим переходом, и у
+   части из них (карточки, теги, пункты меню) переход цвета фона был
+   перебит собственным transition — они меняли цвет мгновенно, пока фон
+   страницы ещё плыл, отсюда вспышка. Теперь переходы на момент смены
+   выключены, а плавность даёт одно общее растворение всей страницы. */
+const root = document.documentElement;
+
+function switchTheme(isDark) {
+  root.classList.add("theme-switching");
+  applyTheme(isDark);
+  // Принудительный пересчёт стилей: новые цвета встают без переходов,
+  // и только после этого переходы возвращаются.
+  void root.offsetWidth;
+  requestAnimationFrame(() => root.classList.remove("theme-switching"));
+}
+
 themeToggles.forEach(toggle => {
   toggle.addEventListener("click", () => {
-    const isDark = !document.documentElement.classList.contains("theme-dark");
-    applyTheme(isDark);
+    const isDark = !root.classList.contains("theme-dark");
     localStorage.setItem("theme", isDark ? "dark" : "light");
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (document.startViewTransition && !calm) {
+      document.startViewTransition(() => switchTheme(isDark));
+    } else {
+      switchTheme(isDark);
+    }
   });
 });
 
@@ -119,6 +130,20 @@ if (navBurger && navLinks) {
   window.addEventListener("resize", () => {
     if (window.innerWidth > 768) closeMenu();
   });
+
+  // На телефоне переключатель темы живёт в меню, прямо под «Резюме»;
+  // на широком экране возвращается в шапку рядом с бургером.
+  const themeSwitch = document.getElementById("theme-toggle");
+  const menuList = navLinks.querySelector(".nav-links-center");
+  const navActions = document.querySelector(".nav-actions");
+  const phone = window.matchMedia("(max-width: 768px)");
+  const placeSwitch = () => {
+    if (!themeSwitch || !menuList || !navActions) return;
+    if (phone.matches) menuList.appendChild(themeSwitch);
+    else navActions.prepend(themeSwitch);
+  };
+  placeSwitch();
+  phone.addEventListener("change", placeSwitch);
 }
 
 // Звуки интерфейса синтезируются на месте, файлов больше нет: щелчок — это
@@ -393,21 +418,91 @@ if (caseToc) {
     .map(link => document.querySelector(link.getAttribute('href')))
     .filter(Boolean);
 
+  // Раскрывающиеся группы подпунктов. Клик по заголовку группы открывает
+  // и закрывает её; при прокрутке группа открывается сама, когда активным
+  // становится один из её подпунктов, — иначе подсветка пряталась бы
+  // внутри свёрнутого списка.
+  const groups = [...caseToc.querySelectorAll('.case-toc-group')];
+
+  const setOpen = (group, open) => {
+    const panel = document.getElementById(group.getAttribute('aria-controls'));
+    if (!panel) return;
+    group.setAttribute('aria-expanded', String(open));
+    panel.classList.toggle('is-open', open);
+  };
+
+  groups.forEach(group => {
+    group.addEventListener('click', () => {
+      setOpen(group, group.getAttribute('aria-expanded') !== 'true');
+    });
+  });
+
   const setActive = (id) => {
+    let activeLink = null;
     links.forEach(link => {
-      link.classList.toggle('is-active', link.getAttribute('href') === '#' + id);
+      const hit = link.getAttribute('href') === '#' + id;
+      link.classList.toggle('is-active', hit);
+      if (hit) activeLink = link;
+    });
+
+    // Подсветка группы и её раскрытие — по тому, где лежит активный пункт:
+    // вошли в раздел группы — она раскрывается, ушли из него (например,
+    // вернулись к «Задаче») — сворачивается.
+    groups.forEach(group => {
+      const panel = document.getElementById(group.getAttribute('aria-controls'));
+      const inside = !!(panel && activeLink && panel.contains(activeLink));
+      group.classList.toggle('is-active', inside);
+      setOpen(group, inside);
     });
   };
+
+  // Бургер оглавления на планшете и телефоне. Список раскрывается внутри
+  // прилипшего островка; переход по пункту, клик мимо или Esc закрывают его.
+  const caseSide = caseToc.closest('.case-side');
+  const caseBurger = document.getElementById('case-burger');
+
+  if (caseSide && caseBurger) {
+    const setMenu = (open) => {
+      caseSide.classList.toggle('is-open', open);
+      caseBurger.classList.toggle('open', open);
+      caseBurger.setAttribute('aria-expanded', String(open));
+    };
+
+    caseBurger.addEventListener('click', () => {
+      setMenu(!caseSide.classList.contains('is-open'));
+    });
+
+    links.forEach(link => link.addEventListener('click', () => setMenu(false)));
+
+    document.addEventListener('click', (e) => {
+      if (caseSide.classList.contains('is-open') && !caseSide.contains(e.target)) setMenu(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setMenu(false);
+    });
+
+    // На десктопе оглавление видно всегда — раскрытое состояние сбрасываем,
+    // чтобы бургер не вернулся крестиком при сужении окна.
+    window.matchMedia('(max-width: 1024px)').addEventListener('change', () => setMenu(false));
+  }
 
   if (sections.length) {
     setActive(sections[0].id);
 
+    // Наблюдатель сообщает только об изменившихся карточках, поэтому
+    // видимые копятся здесь: иначе при быстрой прокрутке активной
+    // оставалась карточка, которая уже ушла из полосы.
+    const inBand = new Set();
+
     const observer = new IntersectionObserver((entries) => {
-      // Видимых карточек может быть несколько — берём верхнюю из них.
-      const visible = entries
-        .filter(e => e.isIntersecting)
-        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-      if (visible.length) setActive(visible[0].target.id);
+      entries.forEach(e => {
+        if (e.isIntersecting) inBand.add(e.target);
+        else inBand.delete(e.target);
+      });
+      // Видимых карточек может быть несколько — берём верхнюю по порядку.
+      const top = sections.find(section => inBand.has(section));
+      if (top) setActive(top.id);
     }, {
       // Полоса внимания: от 100px под шапкой до нижней трети экрана.
       rootMargin: '-100px 0px -60% 0px',
@@ -416,4 +511,120 @@ if (caseToc) {
 
     sections.forEach(section => observer.observe(section));
   }
+}
+
+// Переключатель состояний экрана на странице кейса. Имя картинки
+// собирается из экрана, состояния и темы: images/states/results-error-dark.webp.
+// Тема берётся у сайта: переключил сайт в тёмную — экран тоже тёмный.
+// Если файла ещё нет, вместо картинки показывается его ожидаемое имя —
+// так видно, что положить в папку, не заглядывая в код.
+const stateDemos = document.querySelectorAll('.state-demo');
+
+stateDemos.forEach(demo => {
+  const img = demo.querySelector('.state-demo-img');
+  const missing = demo.querySelector('.state-demo-missing');
+  const tabs = [...demo.querySelectorAll('.state-tab')];
+
+  const render = () => {
+    const { screen, state } = demo.dataset;
+    const theme = document.documentElement.classList.contains('theme-dark') ? 'dark' : 'light';
+    const file = 'images/states/' + screen + '-' + state + '-' + theme + '.webp';
+    img.hidden = true;
+    missing.textContent = '';
+    img.onload = () => { img.hidden = false; missing.textContent = ''; };
+    img.onerror = () => { img.hidden = true; missing.textContent = 'Нет файла: ' + file; };
+    img.src = file;
+  };
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      demo.dataset.state = tab.dataset.state;
+      tabs.forEach(t => {
+        const on = t === tab;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', String(on));
+      });
+      render();
+    });
+  });
+
+  // Переключатель темы сайта уже обработан выше; здесь только перерисовка.
+  themeToggles.forEach(toggle => toggle.addEventListener('click', render));
+
+  render();
+});
+
+// Стрелка «от руки» от приветствия к кнопке «написать мне». Слова
+// переносятся по-разному на каждой ширине экрана, поэтому кривая строится
+// по их реальному положению и перестраивается при изменении размера окна.
+// Начало — под «продукты», если слово стоит в последней строке (планшет,
+// десктоп); иначе под «на основе», которое там стоит всегда.
+const scribble = document.querySelector('.hero-scribble');
+const scribbleAnchor = document.querySelector('.hero-anchor');
+const scribbleAnchorWide = document.querySelector('.hero-anchor-wide');
+const scribbleTarget = document.querySelector('.hero-cta');
+const scribbleStatus = document.querySelector('.hero-status');
+
+if (scribble && scribbleAnchor && scribbleTarget) {
+  const line = scribble.querySelector('.hero-scribble-line');
+  const head = scribble.querySelector('.hero-scribble-head');
+  const section = scribble.parentElement;
+  const GAP = 3;          // видимый зазор от острия до кнопки
+  const CAP = 1;          // скругление штриха выступает за точку на 1px
+  const EDGE = 16;        // ближе к краю экрана кривая не подходит
+
+  const drawScribble = () => {
+    const base = section.getBoundingClientRect();
+    // После посимвольного набора каждая буква — отдельный блок, поэтому
+    // собираем их по строкам и берём нижнюю строку слова.
+    const lastRow = (el) => {
+      const pieces = el ? [...el.getClientRects()].filter(r => r.width > 0) : [];
+      if (!pieces.length) return null;
+      const bottom = Math.max(...pieces.map(r => r.bottom));
+      const row = pieces.filter(r => Math.abs(r.bottom - bottom) < 4);
+      return { left: Math.min(...row.map(r => r.left)), bottom };
+    };
+    const near = lastRow(scribbleAnchor);
+    if (!near) return;
+    const wide = lastRow(scribbleAnchorWide);
+    // «продукты» годится, только если стоит в той же, последней строке.
+    const word = wide && Math.abs(wide.bottom - near.bottom) < 4 ? wide : near;
+    const btn = scribbleTarget.getBoundingClientRect();
+    const status = scribbleStatus ? scribbleStatus.getBoundingClientRect() : null;
+
+    // Острие: середина кнопки по высоте, 3px видимого зазора слева.
+    const tx = btn.left - base.left - GAP - CAP;
+    const ty = btn.top + btn.height / 2 - base.top;
+
+    // Начало: под первой буквой фразы, чуть ниже строки.
+    const sx = word.left - base.left + 6;
+    const sy = word.bottom - base.top + 5;
+
+    // Сначала дуга идёт влево почти горизонтально — по просвету между
+    // приветствием и строкой статуса, не перечёркивая «Открыт к
+    // предложениям», — затем опускается и горизонтально входит в кнопку.
+    // Ширина изгиба растёт с высотой, но не ближе EDGE к краю экрана.
+    const minX = EDGE - base.left;
+    const leftOf = status ? Math.min(status.left - base.left, tx) : tx;
+    const bulge = Math.max(36, Math.min(64, ty - sy));
+    const c1x = Math.max(minX, Math.min(sx, leftOf) - bulge);
+    const c1y = sy + 2;
+    const c2x = Math.max(minX, Math.min(sx, leftOf) - bulge * 0.6);
+    const c2y = ty;
+
+    // Конец линии чуть не доходит до острия: его накрывает наконечник.
+    line.setAttribute('d', `M${sx} ${sy}C${c1x} ${c1y} ${c2x} ${c2y} ${tx - 1.5} ${ty}`);
+    // Наконечник постоянного размера: линия у острия горизонтальна.
+    head.setAttribute('d', `M${tx - 10} ${ty - 6.5}c3.5 2.2 6.7 4.3 10 6.5-3.3 2.1-6.5 4.3-9.6 7`);
+  };
+
+  drawScribble();
+  // Шрифт догружается позже и меняет переносы — перерисовываем после него.
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawScribble);
+
+  let scribbleFrame = 0;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(scribbleFrame);
+    scribbleFrame = requestAnimationFrame(drawScribble);
+  });
 }

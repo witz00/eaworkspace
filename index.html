@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#FFFFFF" id="theme-color-meta">
+  <meta name="theme-color" content="#FAFBF8" id="theme-color-meta">
   <title>Эмиль Ахтямкин — продуктовый дизайнер</title>
   <meta name="description" content="Портфолио продуктового дизайнера: два кейса, доведённых от исследования и разбора конкурентов до прототипов и дизайн-системы. Ульяновск, открыт к предложениям.">
   <link rel="canonical" href="https://eakh.vercel.app/">
@@ -52,35 +52,56 @@
     <section class="page-section page-section--hero" id="hero">
       <div class="about-text">
         <h1 class="about-description">
-          <span class="ghost-text" aria-hidden="true">Привет, я Эмиль, <span class="hero-mark"><i class="hero-handle hero-handle--start" aria-hidden="true"></i>продуктовый дизайнер<i class="hero-handle hero-handle--end" aria-hidden="true"></i></span>. Создаю продукты на основе исследований.</span>
-          <span class="hero-layer"><span class="hero-typed">Привет, я Эмиль, <span class="hero-mark"><i class="hero-handle hero-handle--start" aria-hidden="true"></i>продуктовый дизайнер<i class="hero-handle hero-handle--end" aria-hidden="true"></i></span>. Создаю продукты на основе исследований.</span></span>
+          <!-- «на основе исследований.» склеено неразрывными пробелами: фраза
+               всегда стоит целиком в последней строке. Стрелка к кнопке идёт
+               от «продукты», если слово тоже в последней строке (планшет,
+               десктоп), иначе от «на основе» — так она не перечёркивает текст. -->
+          <span class="ghost-text" aria-hidden="true">Привет, я Эмиль, продуктовый дизайнер. Создаю продукты на&nbsp;основе&nbsp;исследований.</span>
+          <span class="hero-layer"><span class="hero-typed">Привет, я Эмиль, продуктовый дизайнер. Создаю <span class="hero-anchor-wide">продукты</span> <span class="hero-anchor">на&nbsp;основе</span>&nbsp;исследований.</span></span>
         </h1>
       </div>
       <p class="hero-status">
         <span class="hero-status-dot" aria-hidden="true"></span>
         <span>Открыт к предложениям</span>
       </p>
-      <a class="hero-cta" href="https://t.me/witz00" target="_blank" rel="noopener">
-        <span class="hero-cta-label">написать мне</span>
-      </a>
+      <div class="hero-cta-wrap">
+        <a class="hero-cta" href="https://t.me/witz00" target="_blank" rel="noopener">
+          написать мне
+        </a>
+      </div>
+      <!-- Стрелка «от руки» от слов «на основе» к кнопке. Кривую рисует
+           script.js по реальному положению слов и кнопки: при переносах
+           строк на разных экранах форма дуги своя. -->
+      <svg class="hero-scribble" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path class="hero-scribble-line" pathLength="1"/>
+        <path class="hero-scribble-head" pathLength="1"/>
+      </svg>
     </section>
-    <section class="page-section page-section--projects" id="projects">
+    <section class="page-section" id="projects">
       <h2 class="section-heading">Кейсы</h2>
       <div class="proj-grid">
         <a class="proj-item" href="dental-care.html">
           <span class="proj-card proj-card--dentacare"></span>
           <span class="proj-info">
-            <span class="proj-title">DentaCare</span>
-            <span class="proj-desc">Разобрал конкурентов, собрал персоны и сократил путь до записи к врачу.</span>
-            <span class="proj-more">подробнее</span>
+            <span class="proj-title">DentaCare — приложение стоматологической клиники</span>
+            <span class="proj-desc">Разобрал конкурентов, собрал персоны и сократил путь до записи.</span>
+            <span class="proj-tags">
+              <span class="proj-tag proj-tag--blue">Mobile</span>
+              <span class="proj-tag proj-tag--green">Запись к врачу</span>
+              <span class="proj-tag proj-tag--amber">Исследование</span>
+            </span>
           </span>
         </a>
         <a class="proj-item" href="triptap.html">
           <span class="proj-card proj-card--triptap"></span>
           <span class="proj-info">
-            <span class="proj-title">TripTap</span>
-            <span class="proj-desc">Выстроил информационную архитектуру и собрал дизайн-систему для поиска билетов.</span>
-            <span class="proj-more">подробнее</span>
+            <span class="proj-title">TripTap — приложение для покупки авиабилетов</span>
+            <span class="proj-desc">Выстроил информационную архитектуру и собрал дизайн-систему.</span>
+            <span class="proj-tags">
+              <span class="proj-tag proj-tag--blue">Mobile</span>
+              <span class="proj-tag proj-tag--lilac">Поиск билетов</span>
+              <span class="proj-tag proj-tag--rose">Дизайн-система</span>
+            </span>
           </span>
         </a>
       </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#FFFFFF" id="theme-color-meta">
+  <meta name="theme-color" content="#FAFBF8" id="theme-color-meta">
   <title>TripTap — кейс Эмиля Ахтямкина</title>
   <meta name="description" content="Приложение для поиска билетов: информационная архитектура, пользовательские потоки и дизайн-система.">
   <link rel="canonical" href="https://eakh.vercel.app/triptap.html">
@@ -28,120 +28,188 @@
       document.documentElement.classList.add('theme-dark');
       document.getElementById('theme-color-meta').setAttribute('content', '#0F0F0F');
     }
-    // ?draft=1 раскрывает незаполненные блоки с подписями; без него страница чистая
-    if (new URLSearchParams(location.search).get('draft') === '1') {
-      document.documentElement.classList.add('draft-mode');
-    }
   </script>
 </head>
 <body id="home" class="case-page">
-  <div class="nav-bar">
-    <a class="nav-item nav-logo" href="index.html">eakh</a>
-      <div class="nav-actions">
-        <button class="theme-switch" id="theme-toggle" role="switch" aria-label="Тёмная тема" aria-checked="false" type="button">
-        <span class="theme-switch-knob" aria-hidden="true"></span>
-      </button>
-        <button class="nav-burger" id="nav-burger" aria-label="Меню" aria-expanded="false" aria-controls="nav-links" type="button">
-          <span></span><span></span>
-        </button>
-      </div>
-      <nav class="nav-links" id="nav-links">
-        <div class="nav-links-center">
-          <a class="nav-item touch-link" href="index.html#projects">Кейсы</a>
-          <a class="nav-item touch-link" href="index.html#about">Обо мне</a>
-          <a class="nav-item touch-link" href="index.html#skills">Навыки</a>
-          <a class="nav-item touch-link" href="https://drive.google.com/file/d/1CMZQ_u5sPO5xod8xt8lw0VNC90fhfG8S/view?usp=sharing" target="_blank" rel="noopener">Резюме</a>
-        </div>
-      </nav>
-    </div>  <div class="container container--case">
+  <div class="container container--case container--bare">
     <div class="case-layout">
       <aside class="case-side">
         <div class="case-side-inner">
-          <nav class="case-toc" aria-label="Разделы кейса">
-            <a class="case-toc-link" href="#about">Контекст и задача</a>
-            <a class="case-toc-link" href="#idea">Идея</a>
-            <a class="case-toc-link" href="#competitors">Анализ конкурентов</a>
-            <a class="case-toc-link" href="#hypotheses">Гипотезы</a>
-            <a class="case-toc-link" href="#architecture">Информационная архитектура</a>
-            <a class="case-toc-link" href="#visual">Визуальная концепция</a>
-            <a class="case-toc-link" href="#system">Дизайн-система</a>
+          <!-- Шапки на странице нет: путь назад и тема живут в панели. -->
+          <div class="case-side-top">
+            <a class="case-back" href="index.html#projects">
+              <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>
+              Назад
+            </a>
+            <div class="case-side-actions">
+              <button class="theme-switch" id="theme-toggle" role="switch" aria-label="Тёмная тема" aria-checked="false" type="button">
+                <span class="theme-switch-knob" aria-hidden="true"></span>
+              </button>
+              <button class="nav-burger case-burger" id="case-burger" aria-label="Разделы кейса" aria-expanded="false" aria-controls="case-toc" type="button">
+                <span></span><span></span>
+              </button>
+            </div>
+          </div>
+          <nav class="case-toc" id="case-toc" aria-label="Разделы кейса">
+            <a class="case-toc-link" href="#about">О проекте</a>
+            <a class="case-toc-link" href="#task">Задача</a>
+            <button class="case-toc-group" type="button" aria-expanded="false" aria-controls="toc-process">
+              Процесс
+              <svg class="case-toc-chevron" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+            </button>
+            <div class="case-toc-sub" id="toc-process">
+              <div class="case-toc-sub-inner">
+                <a class="case-toc-link case-toc-link--sub" href="#architecture">Архитектура</a>
+                <a class="case-toc-link case-toc-link--sub" href="#decision">Ключевое решение</a>
+                <a class="case-toc-link case-toc-link--sub" href="#wireframes">Каркасы</a>
+              </div>
+            </div>
+            <a class="case-toc-link" href="#interface">Интерфейс</a>
             <a class="case-toc-link" href="#results">Итоги</a>
           </nav>
         </div>
       </aside>
       <main class="case-main">
         <article class="case-card" id="about">
-          <h1 class="case-card-title">Контекст и задача</h1>
-          <p class="case-card-text">TripTap — мой учебный проект приложения для поиска и бронирования авиабилетов. Я сделал его, чтобы потренироваться проектировать не отдельный экран, а большой продукт с несколькими связанными сценариями и состояниями.</p>
-        </article>
-        <article class="case-card" id="idea">
-          <p class="case-eyebrow">Концепция</p>
-          <h2 class="case-card-title">Весь перелёт в одном приложении</h2>
-          <p class="case-card-text">Я разработал концепцию мобильного приложения, которое объединяет весь процесс организации перелёта в одном месте. Пользователи могут искать и бронировать авиабилеты, выбирать места, хранить электронные билеты и получать актуальную информацию о предстоящих рейсах через простой и интуитивно понятный интерфейс.</p>
+          <p class="case-eyebrow">О проекте</p>
+          <h1 class="case-card-title">Приложение для поиска и покупки авиабилетов</h1>
+          <p class="case-card-text">TripTap — учебный проект, на котором я тренировался проектировать не экран, а продукт: несколько связанных сценариев, десятки состояний, одна система компонентов.</p>
+          <ul class="case-list">
+            <li><strong>Срок.</strong> Январь — май 2026, курс UPROCK.</li>
+            <li><strong>Роль.</strong> Один за всё: исследование, архитектура, интерфейс, компоненты.</li>
+            <li><strong>Платформа.</strong> iOS.</li>
+          </ul>
           <figure class="case-figure">
             <img class="case-image-static-img" src="images/idea.webp" alt="TripTap — экраны поиска билетов, горячих предложений и календаря" loading="lazy">
           </figure>
         </article>
-        <article class="case-card" id="competitors">
-          <p class="case-eyebrow">Исследование</p>
-          <h2 class="case-card-title">Что уже есть на рынке</h2>
-          <p class="case-card-text">Сначала я провёл анализ конкурентов, чтобы понять, какие решения уже существуют на рынке и где остаются точки роста.</p>
+        <article class="case-card" id="task">
+          <p class="case-eyebrow">Задача</p>
+          <h2 class="case-card-title">Шесть шагов, которые должны ощущаться как один</h2>
+          <p class="case-card-text">Покупка билета — цепочка: направление → даты → сравнение рейсов → пассажиры → бронирование → билет. Задача — связать шаги так, чтобы переход между ними не требовал усилий, и проработать состояния каждого экрана.</p>
+          <!-- Вставить реальную цитату из интервью (данные в таблице).
+               Нужна одна фраза респондента про то, что раздражает при
+               покупке билетов, — своими словами, без редактуры. -->
+          <blockquote class="case-quote">
+            <p class="case-quote-text">«…»</p>
+            <cite class="case-quote-cite">Из интервью с пользователем, который покупает билеты сам</cite>
+          </blockquote>
+          <p class="case-card-text">Что видно у конкурентов:</p>
           <ul class="case-list">
-            <li><strong>Aviasales.</strong> Интерфейс аккуратный и компактный, синий цвет вызывает доверие. Но сценарий бронирования затянут, а главному экрану не хватает воздуха.</li>
-            <li><strong>КупиБилет.</strong> Слабая визуальная иерархия карточек и избыточная текстовая нагрузка на компоненты.</li>
-            <li><strong>Яндекс Путешествия.</strong> Визуально привлекательный интерфейс, удержание строится на баллах Яндекс Плюса — они позволяют экономить на бронировании.</li>
+            <li><strong>Aviasales</strong> — затянутое бронирование между выбором рейса и оплатой.</li>
+            <li><strong>КупиБилет</strong> — слабая иерархия в карточках: цену и время ищешь глазами.</li>
+            <li><strong>Яндекс Путешествия</strong> — планка по качеству, на которую ориентировался.</li>
           </ul>
-        </article>
-        <article class="case-card" id="hypotheses">
-          <p class="case-eyebrow">Гипотезы</p>
-          <h2 class="case-card-title">Что проверяем</h2>
-          <ul class="case-list">
-            <li>Если объединить параметры фильтра в один шаг, время первого поиска сократится примерно на 20% — пользователи реже будут отваливаться.</li>
-            <li>Если показывать цену сразу в выдаче, доля переходов в карточку вырастет: человек отсеивает неподходящие варианты раньше.</li>
-            <li>Если хранить билеты внутри приложения, повторные заходы участятся — билет нужен в аэропорту, а не только при покупке.</li>
-          </ul>
+          <!--
+            ПЛЕЙСХОЛДЕР — заменить на изображение.
+            Скриншоты трёх конкурентов рядом, с пометками, где именно
+            теряется пользователь (стрелка + короткая подпись).
+            Экспорт из Figma: PNG шириной 1800px.
+          -->
+          <div class="case-placeholder" aria-hidden="true">
+            <span class="case-placeholder-label">Разбор конкурентов</span>
+            <span class="case-placeholder-hint">Три скриншота рядом — Aviasales, КупиБилет, Яндекс Путешествия — с пометками, где теряется пользователь.</span>
+          </div>
         </article>
         <article class="case-card" id="architecture">
-          <p class="case-eyebrow">Структура</p>
-          <h2 class="case-card-title">Информационная архитектура</h2>
-          <p class="case-card-text">На основе предыдущих этапов я разработал информационную архитектуру приложения: она определила структуру разделов и связи между ними. Это стало основой для навигации и интерфейса.</p>
+          <p class="case-eyebrow">Процесс · 01</p>
+          <h2 class="case-card-title">Архитектура</h2>
+          <p class="case-card-text">Начал с карты приложения: какие разделы существуют и как связаны. Она зафиксировала два решения ещё до первого экрана.</p>
+          <ul class="case-list">
+            <li><strong>Билеты — раздел верхнего уровня,</strong> с делением на активные и архивные, а не вкладка в профиле. В аэропорту билет нужен в один тап.</li>
+            <li><strong>Бронирование линейное:</strong> страница билета, затем оплата, без ответвлений — чтобы не терять человека перед самым важным шагом.</li>
+          </ul>
           <figure class="case-figure">
             <img class="case-image-static-img" src="images/inform-arch.webp" alt="Информационная архитектура TripTap: структура разделов и связи между ними" loading="lazy">
           </figure>
         </article>
-        <article class="case-card" id="visual">
-          <p class="case-eyebrow">Визуальная концепция</p>
-          <h2 class="case-card-title">От референсов к экранам</h2>
-          <p class="case-card-text">Проектирование началось со сбора визуальных и функциональных референсов. Я проанализировал практики для ключевых компонентов: карточек билетов, лид-форм, модулей поиска и экранов регистрации. На основе собранного сделал интерфейсные каркасы для каждого сценария.</p>
+        <article class="case-card" id="decision">
+          <p class="case-eyebrow">Процесс · 02</p>
+          <h2 class="case-card-title">Ключевое решение</h2>
+          <p class="case-card-text">Параметры поиска — откуда, куда, даты, пассажиры, класс — собраны на одном экране, а не разведены по шагам, как у части конкурентов.</p>
+          <p class="case-card-text"><strong>Гипотеза:</strong> чем меньше переходов до первой выдачи, тем реже человек бросает поиск. Заложена в структуру экрана.</p>
+          <!--
+            ПЛЕЙСХОЛДЕР — заменить на изображение.
+            Экран поиска TripTap крупно, рядом — тот же шаг у конкурента,
+            разбитый на несколько экранов. Наглядно: «у них 3 шага, у меня 1».
+            Экспорт из Figma: PNG шириной 1800px.
+          -->
+          <div class="case-placeholder" aria-hidden="true">
+            <span class="case-placeholder-label">Экран поиска: все параметры на одном экране</span>
+            <span class="case-placeholder-hint">Слева — TripTap, справа — тот же шаг у конкурента, разведённый по экранам.</span>
+          </div>
         </article>
-        <article class="case-card" id="system">
-          <p class="case-eyebrow">Дизайн-система</p>
-          <h2 class="case-card-title">150 компонентов на токенах</h2>
-          <p class="case-card-text">Начал с базовых элементов: иконок, кнопок, полей ввода и ячеек списка, а из них собрал составные — карточки билетов, модальные окна, календарь и таб-бар. Цвета и шрифты вынес в токены: это дало согласованность и позволило быстро адаптировать элементы.</p>
-          <div class="case-mosaic">
-            <div class="case-image case-mosaic-main">
-              <img class="case-image-static-img" src="images/420x500.webp" alt="Компоненты дизайн-системы TripTap" loading="lazy">
+        <article class="case-card" id="wireframes">
+          <p class="case-eyebrow">Процесс · 03</p>
+          <h2 class="case-card-title">Референсы и каркасы</h2>
+          <p class="case-card-text">Собрал референсы для ключевых компонентов — карточек рейсов, форм, модулей поиска, экранов входа. По ним сделал каркасы каждого сценария и только потом перешёл к визуальному слою.</p>
+          <!--
+            ПЛЕЙСХОЛДЕР — заменить на изображение.
+            Lo-Fi каркасы или ранние версии экранов основного сценария
+            (поиск → выдача → рейс), 2–4 кадра в ряд. Лучше всего
+            «было / стало»: ранний каркас рядом с финальным экраном.
+            Экспорт из Figma: PNG шириной 1800px, я переведу в WebP.
+            Когда картинка появится, удалить этот div и вставить
+            <figure class="case-figure"><img ...></figure>, как выше.
+          -->
+          <div class="case-placeholder" aria-hidden="true">
+            <span class="case-placeholder-label">Lo-Fi каркасы и ранние версии экранов</span>
+            <span class="case-placeholder-hint">2–4 кадра основного сценария: поиск → выдача → рейс. В идеале «было / стало» рядом.</span>
+          </div>
+        </article>
+        <article class="case-card" id="interface">
+          <p class="case-eyebrow">Интерфейс</p>
+          <h2 class="case-card-title">Сквозной сценарий и система компонентов</h2>
+          <p class="case-card-text">Основной путь — поиск → выдача → рейс → пассажиры → бронирование → билет. Вокруг него: горячие предложения, календарь цен, «Мои билеты», профиль.</p>
+          <p class="case-card-text">Дизайн-система: около 75 компонентов, каждый в светлой и тёмной теме — 150 вариантов. Цвета и шрифты вынесены в токены: смена темы — переключение набора, а не перерисовка экранов.</p>
+          <p class="case-card-text">Один экран — выдача рейсов — во всех состояниях. Тема экрана следует теме сайта.</p>
+          <!--
+            ИНТЕРАКТИВНЫЙ БЛОК — картинки подставляются скриптом.
+            Положить в images/states/ восемь файлов по шаблону
+              results-<состояние>-<тема>.webp
+            где состояние: loading | empty | error | filled,
+            тема: light | dark (берётся из темы сайта). Итого:
+              results-loading-light.webp   results-loading-dark.webp
+              results-empty-light.webp     results-empty-dark.webp
+              results-error-light.webp     results-error-dark.webp
+              results-filled-light.webp    results-filled-dark.webp
+            Экспорт из Figma: PNG шириной 1800px, одинаковый размер у всех
+            восьми, я переведу в WebP. Пока файла нет, блок показывает
+            имя ожидаемого файла вместо картинки.
+          -->
+          <div class="state-demo" data-screen="results" data-state="filled">
+            <div class="state-demo-controls">
+              <div class="state-tabs" role="tablist" aria-label="Состояние экрана">
+                <button class="state-tab" type="button" role="tab" data-state="loading" aria-selected="false">Загрузка</button>
+                <button class="state-tab" type="button" role="tab" data-state="empty" aria-selected="false">Пусто</button>
+                <button class="state-tab" type="button" role="tab" data-state="error" aria-selected="false">Ошибка</button>
+                <button class="state-tab is-active" type="button" role="tab" data-state="filled" aria-selected="true">Заполнено</button>
+              </div>
             </div>
-            <div class="case-mosaic-col">
-              <div class="case-image">
-                <img class="case-image-static-img" src="images/588x235.webp" alt="Компоненты дизайн-системы TripTap" loading="lazy">
-              </div>
-              <div class="case-image">
-                <img class="case-image-static-img" src="images/588x249.webp" alt="Компоненты дизайн-системы TripTap" loading="lazy">
-              </div>
+            <div class="state-demo-screen">
+              <img class="state-demo-img" alt="Экран выдачи рейсов TripTap" hidden>
+              <span class="state-demo-missing" aria-hidden="true"></span>
             </div>
           </div>
-          <ul class="case-list">
-            <li><strong>Кнопки.</strong> Несколько типов под разные действия, с состояниями — активным и неактивным.</li>
-            <li><strong>Формы и поля ввода.</strong> Максимально простые, с понятными метками и подсказками.</li>
-            <li><strong>Карточки.</strong> Билеты и интересные места получили собственный визуальный стиль для лёгкого восприятия.</li>
-          </ul>
         </article>
         <article class="case-card" id="results">
           <p class="case-eyebrow">Итоги</p>
-          <h2 class="case-card-title">Что дал проект</h2>
-          <p class="case-card-text">Я прошёл полный цикл создания продукта: от исследования и формирования концепции до проектирования интерфейса и тестирования. Улучшил навыки системного подхода и убедился, что дизайн — процесс бесконечных улучшений.</p>
-          <a class="case-next-link" href="dental-care.html">Следующий кейс — DentaCare</a>
+          <h2 class="case-card-title">Что получилось</h2>
+          <!--
+            ПЛЕЙСХОЛДЕР — заменить на изображение.
+            Финальные экраны основного сценария в ряд: поиск → выдача →
+            рейс → пассажиры → бронирование → билет. Это главная картинка
+            кейса — ради неё его открывают. Экспорт из Figma: PNG 1800px.
+          -->
+          <div class="case-placeholder case-placeholder--first" aria-hidden="true">
+            <span class="case-placeholder-label">Финальные экраны сценария</span>
+            <span class="case-placeholder-hint">Поиск → выдача → рейс → пассажиры → бронирование → билет, в ряд.</span>
+          </div>
+          <ul class="case-list">
+            <li><strong>Сделано.</strong> Архитектура, сквозной сценарий от поиска до билета, дизайн-система на токенах в двух темах, прототип с переходами.</li>
+            <li><strong>Следующий шаг.</strong> Usability-тест сценария «поиск и покупка» на пяти-шести респондентах — и итерация по итогам.</li>
+            <li><strong>Чему научился.</strong> Держать продукт целиком, а не экран за экраном: когда экранов десятки, сначала договариваешься с собой о структуре и компонентах, потом рисуешь.</li>
+          </ul>
         </article>
       </main>
     </div>
